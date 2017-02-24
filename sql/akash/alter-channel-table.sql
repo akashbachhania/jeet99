@@ -1,0 +1,1 @@
+ALTER TABLE `channel` ADD `group_type` VARCHAR(255) NOT NULL AFTER `image`, ADD `group_id` INT(11) NOT NULL AFTER `group_type`;

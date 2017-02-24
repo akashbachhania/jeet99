@@ -1,0 +1,1 @@
+ALTER TABLE `customize_epk` ADD `epk_blog` VARCHAR(255) NOT NULL , ADD `epk_press` VARCHAR(255) NOT NULL ;

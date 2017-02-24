@@ -1,0 +1,1 @@
+ALTER TABLE `customize_epk` ADD `epk_bio` TEXT NOT NULL , ADD `epk_photo` VARCHAR(100) NOT NULL , ADD `epk_video` VARCHAR(100) NOT NULL , ADD `epk_shows` VARCHAR(100) NOT NULL ;

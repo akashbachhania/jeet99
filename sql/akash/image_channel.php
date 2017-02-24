@@ -1,0 +1,1 @@
+ALTER TABLE `channel` ADD `image` VARCHAR(255) NOT NULL AFTER `is_admin`;

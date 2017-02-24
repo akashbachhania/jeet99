@@ -1,0 +1,1 @@
+ALTER TABLE `channel` ADD `level` VARCHAR(100) NOT NULL AFTER `group_id`;

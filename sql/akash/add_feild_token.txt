@@ -1,0 +1,2 @@
+Also add a feild called token in users table
+ token varchar(500);

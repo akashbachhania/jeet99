@@ -1,0 +1,1 @@
+ALTER TABLE `location` ADD `email` VARCHAR(100) NULL ;

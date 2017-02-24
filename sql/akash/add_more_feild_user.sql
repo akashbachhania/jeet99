@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `fav_artist` INT NOT NULL AFTER `token`, ADD `fav_place` VARCHAR(100) NOT NULL AFTER `fav_artist`, ADD `best_friend_name` VARCHAR(255) NOT NULL AFTER `fav_place`, ADD `occupation` VARCHAR(255) NOT NULL AFTER `best_friend_name`, ADD `age_range` VARCHAR(255) NOT NULL AFTER `occupation`;

@@ -1,0 +1,1 @@
+ALTER TABLE `customize_epk` ADD `epk_display_info` VARCHAR(255) NOT NULL ;

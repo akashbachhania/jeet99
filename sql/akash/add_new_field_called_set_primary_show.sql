@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `set_primary_show` VARCHAR(100) NOT NULL ;

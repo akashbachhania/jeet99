@@ -1,0 +1,1 @@
+ALTER TABLE `customize_epk` ADD `epk_song` VARCHAR(100) NOT NULL ;
