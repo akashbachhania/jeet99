@@ -35,24 +35,6 @@
 .slider.slider-horizontal{
 	width: 100%;
 }
-.modal {
-  text-align: center;
-  padding: 0!important;
-}
-
-.modal:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-  margin-right: -4px;
-}
-
-.modal-dialog {
-  display: inline-block;
-  text-align: left;
-  vertical-align: middle;
-}
 </style>
 <div  style=" min-height: 100vh;padding-top:10px">
 	<div class="row">
@@ -150,7 +132,7 @@ $(document).ready(function(){
 	$("#jquery_jplayer_<?php echo $row['id'];?>").jPlayer({
 		ready: function (event) {
 			$(this).jPlayer("setMedia", {
-				title: "Song Title: <?php echo $row['song_name'].$row['song_name_auth'];?>",
+				title: "<?php echo $row['song_name']."-".$data_playlist['name'];?>",
 				<?php echo $file_format; ?>: "<?php echo $file_url;?>",
 				
 			});
@@ -206,14 +188,13 @@ $(document).ready(function(){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       
-        <button type="button" class="close" id="closeaudio<?php echo $row['id'];?>" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         
     
       <div class="modal-body">
           
           <div id="jquery_jplayer_<?php echo $row['id'];?>" class="jp-jplayer" style="height:360px !important; "></div>
 <div id="jp_container_<?php echo $row['id'];?>" class="jp-audio" role="application" aria-label="media player">
-	<?php echo "Playlist Name:"." ". $data_playlist['name'];?>
 	<div class="jp-type-single">
 		<div class="jp-gui jp-interface">
 			<div class="jp-volume-controls">
@@ -256,12 +237,7 @@ $(document).ready(function(){
   </div>
 </div>
                                                                                       
-<script>
-    $("#closeaudio<?php echo $row['id'];?>").click( function() {
                                                                                     
-        $("#jquery_jplayer_<?php echo $row['id'];?>").jPlayer("stop");
-    });
-    </script>                                                                               
                                                                                     
                                                                                     
                                                                                     
@@ -279,10 +255,10 @@ $(document).ready(function(){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       
-        <button type="button" class="close" id="closevideo<?php echo $row['id'];?>" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         
       <div class="modal-body">
-          <iframe id="video<?php echo $row['id'];?>" style="border-width:0px;" width="500" height="440" src="<?php echo base_url();?>artist/audio/get_video_song_by_id/<?php echo $row['id'];?>/<?php echo $row['album_id'];?>"></iframe>
+          <iframe style="border-width:0px;" width="495" height="382" src="<?php echo base_url();?>artist/audio/get_video_song_by_id/<?php echo $row['id'];?>/<?php echo $row['album_id'];?>"></iframe>
       </div>
       
     </div>
@@ -291,15 +267,7 @@ $(document).ready(function(){
                                                                                    
                                                                              
                                                                                     
-     <script>
                                                                                   
-        $("#closevideo<?php echo $row['id'];?>").click( function() {
-        
-         
-        $('#video<?php echo $row['id'];?>').attr('src', '<?php echo base_url();?>artist/audio/get_video_song_by_id/<?php echo $row['id'];?>/<?php echo $row['album_id'];?>');
-
-    });
-    </script>                                                                              
 </div>
                                                                              <?php } ?>
                                                                                 
@@ -319,7 +287,7 @@ $(document).ready(function(){
                                             } elseif ($avai == 5) {
                                                 echo '<span class="span-avai">99sound Stream</span>';
                                             } elseif ($avai == 6) {
-                                                echo '<span class="span-avai">Hidden</span>';
+                                                echo '<span class="span-avai">Hiden</span>';
                                             }
                                             if (end($array_avai) != $avai) {
                                                 echo '-';
@@ -685,3 +653,4 @@ $(document). on('change','.option-type',function (){
     
               
 </script>
+</script> 

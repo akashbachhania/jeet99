@@ -147,7 +147,7 @@
                             </div>
                         </div>
                         <div class="modal-footer searchform">
-                            <img src="<?php echo base_url() ?>assets/images/ajax-loading.gif" style="display:none" class='loading_img' />
+                            <img src="<?php echo base_url() ?>dist/images/ajax-loader.gif" style="display:none" class='loading_img' />
                             <input type="button" class="btn btn-success excel-go" id="submit_form" value="Submit" onclick="add_event(<?php echo $tour_id;?>, <?php echo $location_id;?>)" />
                             <input type="button" class="delete_data" value="Delete" onclick="delete_event(<?php echo $tour_id;?>, <?php echo $location_id;?>)"/>
                         </div>

@@ -22,21 +22,19 @@
     //     $('.name_contact').html(name);
     // });
 
-    $('.x_content').on('click','.load_iframe', function (){
+    $('.tab-content').on('click','.load_iframe', function (){
         var chirent = $(this).find('input[name=link_iframe]');
+        console.log(chirent.val());
         $("#frame").attr('src',chirent.val());
     });
-    
     $('#invite_contacts').on('click','.btn_accept', function (){
         var parent = $(this).parent().parent();
-        console.log(parent);
         var id = parent.find("input[name=invite]").val();
         $('#id_invite').val(id);
         $('#contact_form_accept').submit();
      });
     $('#invite_contacts').on('click','.btn_delete', function (){
         var parent = $(this).parent().parent();
-        console.log(parent);
         var id = parent.find("input[name=invite]").val();
         $('#contact_form_delete .id_invite').val(id);
         $('#contact_form_delete').submit();

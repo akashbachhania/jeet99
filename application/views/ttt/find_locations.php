@@ -5,7 +5,7 @@
                   <?php if ($this->session->flashdata('email_sent')) {
     ?>
                                 <div class="col-sm-6 col-sm-offset-3 alert alert-success alert-dismissible" role="alert" id="del_suc" >
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">ï¿½</span></button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     <strong>Success: </strong> <?php echo $this->session->flashdata('email_sent')?> ! @_@
                                 </div>
                     <?php
@@ -13,7 +13,7 @@
 } elseif ($this->session->flashdata('email_sent_err')) {
     ?>
                         <div class="col-sm-6 col-sm-offset-3 alert alert-danger alert-dismissible" role="alert" id="lock_suc" >
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">ï¿½</span></button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                             <strong>Error!</strong> <?php echo $this->session->flashdata('email_sent_err'); ?>
                         </div>
                         <?php
@@ -91,7 +91,7 @@
         </div>
         
         <div class="modal-footer searchform">
-          <img src="<?php echo base_url() ?>assets/images/ajax-loading.gif" style="display:none" class='loading_img' />
+          <img src="<?php echo base_url() ?>dist/images/ajax-loader.gif" style="display:none" class='loading_img' />
           
           <input type="submit" class="btn btn-success excel-go" id="submit_form_find" value="Submit" name="submit_form_find"/>
         </div>

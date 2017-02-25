@@ -3,6 +3,7 @@
 <link href="<?php echo base_url(); ?>assets/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>assets/css/style1.css" rel="stylesheet" />
 <link href="<?php echo base_url(); ?>assets/css/landing_page/landing_page12.css" rel="stylesheet" />
+<link href="<?php echo base_url();?>assets/css/landing_page/style06.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="<?php echo base_url()?>assets/css/dist/viewer.css" />
 <link rel="stylesheet" href="<?php echo base_url()?>assets/css/dist/css/main.css" />
 <script src="<?php echo base_url()?>assets/css/dist/viewer.js"></script>
@@ -10,7 +11,8 @@
 <link href="<?php echo base_url(); ?>assets/playermusic/css/jplayer.blue.monday.min.css" rel="stylesheet" />
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/playermusic/dist/jplayer/jquery.jplayer.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/playermusic/dist/add-on/jplayer.playlist.min.js"></script>
-
+<link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.mCustomScrollbar.css">
+<script src="<?php echo base_url()?>assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <div class="wrap bg-landing">
   <div class="row">
     <div class="tpl-cover view view-third" >
@@ -30,502 +32,186 @@
 		}; ?></p>
       </div>
     </div>
-    <div class="row remove_padding part_content">
-      <div class="col-md-6 remove_padding">
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href=""><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_bios.png" /> Bio</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding view_style_text">
-            <p>
-              <?php if (!empty($users[0]->bio)) {
-    echo $this->Member_model->short_Text_Bio($users[0]->bio);
-} ?>
-            </p>
-            <!--BTN SHARE-->
-            <div class="col-md-6 searchform">
-              <button class="btn btn-default col-xs-12">Share</button>
+      <div class="row cont_area">
+        <div class="col-md-7 col-md-offset-1 centered ">
+            <div class="row song_area">
+               <h4 class="sub-title">AMP</h4>
+               <hr/>
+              <?php echo $this->M_audio_song->get_shortcode_AMP($id)?>
             </div>
-            <!--BTN BECOME FAN-->
-            <div class="col-md-6 searchform">
-              <?php $home_page = $this->uri->segment(1);
-                                $results = $this->db->where('home_page', $home_page)
-                                            ->get('users')->result_array();
-                                foreach ($results as $result) {
-                                    $user_i = $result['id'];
-                                }
-                                $isset = $this->db->where('user_id', $user_i)->where('fan_id', $user_id)->get('fans')->num_rows();
-                            ?>
-              <a href="<?php if ($isset > 0) {
-    echo '#';
-} else {
-    echo base_url().'artist/comefan/'.$user_id.'/'.$home_page;
-} ?>" class="btn <?php if ($isset > 0) {
-    echo 'btn-default';
-} else {
-    echo 'btn-primary';
-} ?> col-xs-12" style=" <?php if ($isset > 0) {
-    echo 'cursor: no-drop;';
-} ?>">Be Come A Fan </a> </div>
-            <!-- BTN ADD CONTACT -->
-            <?php
-                        if ($users[0]->id != $user_data['id']) {
-                            ?>
-            <div class="col-md-12 searchform"> <a class="btn btn-default col-xs-12" href="#" style="margin-top: 20px;margin-bottom: 20px;padding: 15px;" data-toggle="modal" data-target="#invite-contact">Add Contact Chat</a> </div>
-            <?php
-
-                        }
+                  
+             <div class="row blog ">
+                <div class="Scroll6Style3">
+                 <?php foreach ($blogs as $row) {
                         ?>
-            <!-- BTN ADD CONTACT -->
-            <div class="wp_content_list_fix">
-              <?php /*?><p><a href="#" target="_blank" title="Twitter">
-                                <span class="relative inline" style="height:24px;width:24px">
-                                  <img alt="Icon_twitter" class="centerer--y" src="https://gp1.wac.edgecastcdn.net/802892/production_static/20151016092753/images/v4/standard_resources/social_icons/icon_twitter.png?1445003519" style="z-index:1">
-                                </span>
-                              </a>
-                              <a href="#" title="Instagram">
-                                <span class="relative inline" style="height:24px;width:24px">
-                                  <img alt="Icon_instagram" class="centerer--y" src="https://gp1.wac.edgecastcdn.net/802892/production_static/20151016092753/images/v4/standard_resources/social_icons/icon_instagram.png?1445003519" style="z-index:1">
-                                </span>
-                              </a>
-                              <a href="#" target="_blank" title="YouTube">
-                                <span class="relative inline" style="height:24px;width:24px">
-                                  <img alt="Icon_youtube" class="centerer--y" src="https://gp1.wac.edgecastcdn.net/802892/production_static/20151016092753/images/v4/standard_resources/social_icons/icon_youtube.png?1445003519" style="z-index:1">
-                                </span>
-                              </a>
-                              <a href="#" target="_blank" title="Facebook">
-                                <span class="relative inline" style="height:24px;width:24px">
-                                  <img alt="Icon_facebook" class="centerer--y" src="https://gp1.wac.edgecastcdn.net/802892/production_static/20151016092753/images/v4/standard_resources/social_icons/icon_facebook.png?1445003519" style="z-index:1">
-                                </span>
-                              </a>  </p><?php */?>
-              <div class="col-md-12">
-                <div class="ProfileSocial">
-                  <ul>
-                    <li><a href="<?php echo $users[0]->facebook_username; ?>" class="fa fb"><i class="fa fa-fw fa-facebook"></i></a></li>
-                    <li><a href="<?php echo $users[0]->twitter_username; ?>" class="fa tw"><i class="fa fa-fw fa-twitter"></i></a></li>
-                    <li><a href="<?php echo $users[0]->youtube_username; ?>" class="fa gp"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                    <li><a href="<?php echo $users[0]->instagram_username; ?>" class="fa in"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                  </ul>
+                 <div class="col-md-2 blog-date clearfix">
+                    <div class="day">16</div>
+                    <div class="month"> janubary</div>
+                    <div class="year">2017</div>
+                 </div>
+                 <div class="col-md-10 blog-title clearfix">
+                     <a href="<?php echo base_url('artist/blogs').'/'.$user_data['id']?>"><h2><?php echo $row['title']?></h2></a>
+                     <p>written by:<span><?php echo $this->M_user->get_name($row['user_id']);?></span></p>
+                 </div>
+                 <div class="col-md-12 blog-content">
+                    <img class="img-responsive" src="<?php echo base_url('uploads/'.$row['user_id'].'/photo/blogs/'.$row['image_rep']) ?>"  alt=""/>
+                 
+                    <p> <?php 
+                                        $text = strip_tags($row['introduction']);
+                                    $desLength = strlen($text);
+                                        //var_dump($desLength);exit;            
+                                        $stringMaxLength = 120;
+                                if ($desLength > $stringMaxLength) {
+                                    $des = substr($text, 0, $stringMaxLength);
+                                    $text = $des.'...';
+                                    echo $text;
+                                } else {
+                                    echo $row['introduction'];
+                                } ?>
+                        </p>
+                        <hr/>
+                 </div>
+                   <?php } ?>
                 </div>
-              </div>
-            </div>
-          </div>
+             </div>
         </div>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href="<?php echo base_url().$name; ?>/photos"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_photo.png" /> Photos</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding ImMar">
-            <ul class="docs-pictures clearfix">
-              <?php $count = count($photos);
-                             if ($count == 3) {
-                                 $i = 0;
-                                 foreach ($photos as $pt) {
-                                     ?>
-              <li class="col-md-2 col-xs-4">
-                <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive"/> </li>
-              <?php ++$i;
-                                 }
-                             } elseif ($count == 2) {
-                                 $i = 0;
-                                 foreach ($photos as $pt) {
-                                     ?>
-              <li class="col-md-2 col-xs-4">
-                <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>"class="img-responsive"/> </li>
-              <?php ++$i;
-                                 } ?>
-              <li class="col-md-2 col-xs-4">
-                <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/> </li>
-              <?php 
-                             } elseif ($count == 1) {
-                                 foreach ($photos as $pt) {
-                                     ?>
-              <li class="col-md-2 col-xs-4">
-                <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive"/> </li>
-              <?php 
-                                 } ?>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif"  class="img-responsive"/> </div>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif"class="img-responsive"/> </div>
-              <?php 
-                             } else {
-                                 ?>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/> </div>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/> </div>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/> </div>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/> </div>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/> </div>
-              <div class="col-md-2 col-xs-4"> <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/> </div>
-              <?php 
-                            } ?>
+        <div class="col-md-4 ">
+          <div class="photo-box">
+              <ul id = "myTab" class = "nav nav-tabs">
+               <li class = "active">
+                  <a class="sub-title" href = "#photo" data-toggle = "tab">
+                    PHOTO
+                  </a>
+               </li>
+               
+               <li><a class="sub-title" href = "#video" data-toggle = "tab"> VIDEOS</a></li>
+              
             </ul>
-          </div>
-        </div>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_amp.png" /> AMP</h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding"> <?php echo $this->M_audio_song->get_shortcode_AMP($id)?> </div>
-        </div>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_member.png" /> Member</h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding">
-              <?php foreach($members as $member){ 
-                            
-                            ?>
-                        
-                        <div class="carousel-info">
-                            <img alt="" src="<?php echo base_url(); ?>assets/images/2.jpg" class="pull-left">
-                            <div class="pull-left">
-                                <span class="testimonials-name"><a href="#"><?php echo $member['name_member']; ?></a></span>
-                                <span class="testimonials-post"><?php echo $member['contribution'];?></span>
-                            </div>
-                        </div>
-                        <?php } ?>
-            
-          </div>
-        </div>
-        <?php if (isset($blogs) && count($blogs) > 0) {
-    ?>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href="<?php echo base_url('artist/allblogs').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_blog.png" /> Recent Blogs</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding view_style_text">
-            <?php foreach ($blogs as $row) {
-    ?>
-            <div class="mb1">
-              <div class="mb1-blog-img"> <img class="img-responsive" width="150" src="<?php echo base_url('uploads/'.$row['user_id'].'/photo/blogs/'.$row['image_rep']) ?>" /> </div>
-              <div class="mb1-blog-content"> <strong> <a href="<?php echo base_url('artist/blogs').'/'.$user_data['id']?>" class="blog_entry_header ellipsis  h6-size"><?php echo $row['title']?></a> </strong>
-                <div class="" style="color: #000;"> <span style=" font-size: small;"><?php echo date('M d, Y', $row['time'])?></span> </div>
-                <div style="color: #000;">
-                  <?php 
-                                                $text = strip_tags($row['introduction']);
-    $desLength = strlen($text);
-                                                //var_dump($desLength);exit;            
-                                                $stringMaxLength = 120;
-    if ($desLength > $stringMaxLength) {
-        $des = substr($text, 0, $stringMaxLength);
-        $text = $des.'...';
-        echo $text;
-    } else {
-        echo $row['introduction'];
-    } ?>
-                </div>
-              </div>
-            </div>
-            <?php
-                                if (end($blogs) != $row) {
-                                    echo '<hr style="margin-bottom:0px;" />';
-                                }
-} ?>
-          </div>
-        </div>
-        <?php 
-} ?>
-      </div>
-      <div class="col-md-6 remove_padding">
-        <?php if (isset($album_songs) && count($album_songs) > 0) {
-    ?>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href="<?php echo base_url('artist/allsong').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_songs.png" /> Songs</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding">
-            <div class="panel-group" id="accordion">
-              <?php
-                            $i = 1;
-    foreach ($album_songs as $album_song) {
-        ?>
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i; ?>"> Album <?php echo $album_song['name']; ?> </a> </h4>
-                </div>
-                <div id="collapse<?php echo $i; ?>" class="panel-collapse collapse <?php if ($i == 1) {
-    echo 'in';
-} ?>">
-                  <div class="panel-body remove_padding">
-                    <?php $video_by_albums = $this->M_audio_song->get_songs_by_album($album_song['id']); ?>
-                    <?php $video_by_albums = $this->M_audio_song->get_songs_by_album($album_song['id']); ?>
-                    <script type="text/javascript">
-                                    $(document).ready(function(){
-                                    
-                                    	new jPlayerPlaylist({
-                                    		jPlayer: "#jquery_jplayer_<?php echo $album_song['id']; ?>",
-                                    		cssSelectorAncestor: "#jp_container_<?php echo $album_song['id']; ?>"
-                                    	}, [
-                                            <?php
-                                            foreach ($video_by_albums as $video_by_album) {
-                                                $array_avai = explode(',', $video_by_album['availability']); ?>
-                                    		   {
-                                                    title:"<?php echo $video_by_album['song_name'] ?>",
-                                                    mp3:"<?php echo 'http://d2c1n1yejcka7l.cloudfront.net/uploads/'.$id.'/audio/'.$video_by_album['audio_file'] ?>",
-                                                    poster: "<?php echo base_url().'uploads/'.$id.'/img_playlist/'.$album_song['image_file']; ?>",
-                                                    <?php
-                                                    if (in_array('2', $array_avai)) {
-                                                        ?>
-                                                        link_download: "<?=base_url('artist/downloadsong/'.$video_by_album['id'])?>",
-                                                        download: true
-                                                        <?php
 
-                                                    } ?>
-                                                },
-                                    		<?php 
-                                            } ?>
-                                    	], {
-                                    		swfPath: "<?php echo base_url('assets/playermusic/dist/jplayer') ?>",
-                                    		supplied: "webmv, ogv, m4v, oga, mp3",
-                                    		useStateClassSkin: true,
-                                    		autoBlur: false,
-                                    		smoothPlayBar: true,
-                                    		keyEnabled: true,
-                                    		audioFullScreen: true
-                                    	});
-                                    });
-                                </script>
-                    <div id="jp_container_<?php echo $album_song['id']; ?>" class="jp-video jp-video-270p" role="application" aria-label="media player">
-                      <div class="jp-type-playlist">
-                        <div id="jquery_jplayer_<?php echo $album_song['id']; ?>" class="jp-jplayer"></div>
-                        <div class="jp-gui">
-                          <div class="jp-video-play">
-                            <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
-                          </div>
-                          <div class="jp-interface">
-                            <div class="jp-progress">
-                              <div class="jp-seek-bar">
-                                <div class="jp-play-bar"></div>
-                              </div>
-                            </div>
-                            <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-                            <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-                            <div class="jp-controls-holder">
-                              <div class="jp-controls">
-                                <button class="jp-previous" role="button" tabindex="0">previous</button>
-                                <button class="jp-play" role="button" tabindex="0">play</button>
-                                <button class="jp-next" role="button" tabindex="0">next</button>
-                                <button class="jp-stop" role="button" tabindex="0">stop</button>
-                              </div>
-                              <div class="jp-volume-controls">
-                                <button class="jp-mute" role="button" tabindex="0">mute</button>
-                                <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-                                <div class="jp-volume-bar">
-                                  <div class="jp-volume-bar-value"></div>
-                                </div>
-                              </div>
-                              <div class="jp-toggles">
-                                <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-                                <button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
-                                <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-                              </div>
-                            </div>
-                            <div class="jp-details">
-                              <div class="jp-title" aria-label="title">&nbsp;</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="jp-playlist">
-                          <ul>
-                            <!-- The method Playlist.displayPlaylist() uses this unordered list -->
-                            <li>&nbsp;</li>
-                          </ul>
-                        </div>
-                        <div class="jp-no-solution"> <span>Update Required</span> To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>. </div>
+            <div id = "myTabContent" class = "tab-content phovodieo-box Scroll6Style1 ">
+
+               <div class = "tab-pane fade in active" id = "photo">
+                  <div class="row">
+                   <div class="col-xs-4">
+                       <img class="img-responsive" src="http://placehold.it/100x100" alt="">
+                   </div>
+                   <div class="col-xs-4">
+                       <img class="img-responsive" src="http://placehold.it/100x100" alt="">
+                   </div>
+                   <div class="col-xs-4">
+                       <img class="img-responsive" src="http://placehold.it/100x100" alt="">
+                   </div>
+                  </div> 
+               </div>
+               
+               <div class = "tab-pane fade" id = "video">
+                  <div class="row">
+                      <div class="col-xs-4">
+                           <img class="img-responsive" src="http://placehold.it/100x100" alt="">
                       </div>
-                    </div>
-                  </div>
+                      <div class="col-xs-8 details">
+                          <h4> this is heading for video</h4>
+                            <p>this video section</p>
+                      </div>
+                  </div> 
+                  <div class="row">
+                      <div class="col-xs-4">
+                           <img class="img-responsive" src="http://placehold.it/100x100" alt="">
+                      </div>
+                      <div class="col-xs-8 details">
+                          <h4> this is heading for video</h4>
+                            <p>this video section</p>
+                      </div>
+                  </div> 
+               </div> 
+            </div>
+          </div>
+          <div clss="landboxs">
+            <div class="qui-action-box">
+           <h4 class="sub-titles">quick action</h4>
+                <div class="row text-center">
+                      <ul class="list-inline list-unstyled">
+                            <li>
+                                <a class="quickcl href="#"><i class="fa fa-share"></i>Share</a>
+                            </li>
+                            <li>
+                                <?php $home_page = $this->uri->segment(1);
+                                if($home_page == 'amp')
+                                {
+                                    $home_page = $this->uri->segment(2);
+                                }
+                                $results = $this->db->where('home_page', $home_page)->get('users')->result_array();
+                                foreach ($results as $result) { $user_i = $result['id']; }
+                                $isset = $this->db->where('user_id', $user_i)->where('fan_id', $user_id)->get('fans')->num_rows();
+                                ?>
+                                <a href="<?php if ($isset > 0) { echo '#'; } else { echo base_url().'artist/comefan/'.$user_id.'/'.$home_page; } ?>" class="quickcl" style="<?php if ($isset > 0) {
+                                    echo 'cursor: no-drop;';
+                                } ?>"><i class="fa fa-user"></i> Become A Fan</a>
+                                </li>
+                                </ul>
+                                <?php
+                                if ($users[0]->id != $user_data['id']) {
+                                    ?>
+                                    <div class="text-center" >
+                                        <a class="btn btn-info clb5" data-toggle="modal" data-target="#invite-contact" style="color:#fff;">Add Contact Chat</a>
+                                    </div>
+                                    
+                                    <?php
+                                }
+                                ?>  
+                            </div> 
+                              
+                        </div>
+                      </div>
+          <div clss="landboxs">
+            <div class="stats-boxs">
+              <h4 class="sub-titles">STATS</h4>
+                <div class="row">
+                   <div class="stats_lstyle6 st_area">
+                        <ul>
+                        <li><a href="#"><i class="fa fa-music"></i> Song Plays<span>(<?php echo $num_songs;?>)</span></a></li>
+                        <li><a href="#"><i class="fa fa-file-video-o"></i> Video Plays<span>(<?php echo $num_videos;?>)</span></a></li>
+                        <li><a href="#"><i class="fa fa-users"></i> Total Fans<span>(<?php echo $num_fands; ?>)</span></a></li>
+                        <li><a href="#"><i class="fa fa-hand-rock-o"></i> Total Events<span>(<?php echo $num_events; ?>)</span></a></li>
+                        <li><a href="#"><i class="fa fa-bookmark"></i> Total Blogs<span>(<?php echo $num_blogs; ?>)</span></a></li>
+                        <li><a href="#"><i class="fa fa-comments"></i> Total Comments<span>(<?php echo $num_comments; ?>)</span></a></li>
+                       
+                        </ul>
+                    </div> 
                 </div>
               </div>
-              <?php
-                                ++$i;
-    } ?>
             </div>
-          </div>
-        </div>
-        <?php 
-} ?>
-        <?php if (isset($videos) && count($videos) > 0) {
-    ?>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href="<?php echo base_url('social_media'); ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_video.png" /> VIDEOS</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 view_style_text">
-            <?php 
-                        foreach ($videos as $video) {
-                            if ($video['type'] == 'file') {
-                                $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];
-                            } else {
-                                $link_video = $video['link_video'];
-                            } ?>
-            <div class="col-md-6 col-xs-6 remove_padding_new"> <a href="#" onclick="javascript:playvideo(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#videos">
-              <div class="image_fix_value_video" style="background: url('<?=$this->M_video->get_image_video($video['id'])?>');"></div>
-              <div class="play"><span class="button_play"></span></div>
-              </a> </div>
-            <?php 
-                        } ?>
-          </div>
-        </div>
-        <?php 
-} ?>
-        <div class="row header_new_style">
-          <h2 class="tt BoxHedding"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_comment.png" /> Comments</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding">
-         <div class="wp_content_list">
-                            <?php
-                            if (empty($comments)) {
-                                ?>
-                                <span class="col-md-12" style="font-size: 16px;">No Comment.</span>
-                                <?php
-
-                            }
-                            foreach ($comments as $comment) {
-                                ?>
-                                    <span class="col-md-12" style="font-size: 16px;">
-                                        <a href="<?=$this->M_user->get_home_page($comment['client'])?>">
-                                            <img width="60" style="min-height: 40px;margin-bottom: 5px;margin-right: 10px;" src="<?=$this->M_user->get_avata($comment['user_id'])?>" />
-                                        </a>
-                                        <a href="<?=$this->M_user->get_home_page($comment['client'])?>" class="posi_img" style="position:absolute;top:-7px;font-weight: bold;">
-                                            <?=$this->M_user->get_name($comment['client'])?>
-                                        </a>
-                                        <span style="font-size: 12px;"><?php echo ucfirst($comment['comment']); ?></span>
-                                        <?php if (end($comments) != $comment) {
-    echo '<hr class="hr-small" />';
-} ?>
-                                    </span>
-                                       
-                                <?php 
-                            }
-                            ?>
-                        </div>
           
-          </div>
-          <div class="text-center"> <a href="#" class="btn CommBtn" data-toggle="modal" data-target="#addComment">Comment</a> </div>
-        </div>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href="<?php echo base_url('social_media');?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_status.png" /> Stats</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 view_style_text">
-            <?php /*?> <div class="wp_content_list">
-                            <i class="fa fa-music"></i>
-                            <span class="full-w" style="font-size: 16px;margin-left: 15px;">Song Plays</span>
-                            <span class="full-w-tt" style="float: right;"><span style="color: #57ce57;font-size: 12px;margin-right: 20px;"></span><?php echo $num_songs;?></span>
-                        </div>
-                        <div class="wp_content_list">
-                            <i class="fa fa-file-video-o"></i>
-                            <span class="full-w" style="font-size: 16px;margin-left: 15px;">Video Plays</span>
-                            <span class="full-w-tt" style="float: right;"><span style="color: #57ce57;font-size: 12px;margin-right: 20px;"></span><?php echo $num_videos;?></span>
-                        </div>
-                        <div class="wp_content_list">
-                            <i class="fa fa-users"></i>
-                            <span class="full-w" style="font-size: 16px;margin-left: 15px;">Total Fans</span>
-                            <span class="full-w-tt" style="float: right;"><span style="color: #57ce57;font-size: 12px;margin-right: 20px;"></span><?php echo $num_fands; ?></span>
-                        </div>
-                        <div class="wp_content_list">
-                            <i class="fa fa-hand-rock-o"></i>
-                            <span class="full-w" style="font-size: 16px;margin-left: 15px;">Total Events</span>
-                            <span class="full-w-tt" style="float: right;"><span style="color: #57ce57;font-size: 12px;margin-right: 20px;"></span><?php echo $num_events; ?></span>
-                        </div>
-                        <div class="wp_content_list">
-                            <i class="fa fa-bookmark"></i>
-                            <span class="full-w" style="font-size: 16px;margin-left: 15px;">Total Blogs</span>
-                            <span class="full-w-tt" style="float: right;"><span style="color: #57ce57;font-size: 12px;margin-right: 20px;"></span><?php echo $num_blogs; ?></span>
-                        </div>
-                        <div class="wp_content_list">
-                            <i class="fa fa-comments"></i>
-                            <span class="full-w" style="font-size: 16px;margin-left: 15px;">Total Comments</span>
-                            <span class="full-w-tt" style="float: right;"><span style="color: #57ce57;font-size: 12px;margin-right: 20px;"></span><?php echo $num_comments; ?></span>
-                        </div><?php */?>
-            <div class="StarLink">
-              <ul>
-                <li><a href="#"><i class="fa fa-music"></i> Song Plays<span><?php echo $num_songs;?></span></a></li>
-                <li><a href="#"><i class="fa fa-file-video-o"></i> Video Plays<span><?php echo $num_videos;?></span></a></li>
-                <li><a href="#"><i class="fa fa-users"></i> Total Fans<span><?php echo $num_fands; ?></span></a></li>
-                <li><a href="#"><i class="fa fa-hand-rock-o"></i> Total Events<span><?php echo $num_events; ?></span></a></li>
-                <li><a href="#"><i class="fa fa-bookmark"></i> Total Blogs<span><?php echo $num_blogs; ?></span></a></li>
-                <li><a href="#"><i class="fa fa-comments"></i> Total Comments<span><?php echo $num_comments; ?></span></a></li>
-              </ul>
+          <div clss="landboxs">
+            <div class="comment-box">
+              <h4 class="sub-titles">comments</h4>
+              <div class="Scroll6Style2">
+               <?php  foreach ($comments as $comment) { ?>
+                                        <?php $role = $this->M_user->get_user_role($comment['client']);
+                                        ?>
+               
+                <div class="row">
+                   <div class="col-xs-4">
+                       
+                       <img class="img-responsive" src="<?php if($role == '1'){ echo $this->M_user->get_avata($comment['client']);} else {echo $this->M_user->get_avata_flp($comment['client']);}?>" alt="">
+                   </div>
+                   <div class="col-xs-8 details">
+                      <h4><a href="<?php echo $this->M_user->get_home_page($comment['client']);?>"><?php echo $this->M_user->get_name($comment['client']);?></a></h4>
+                      <?php echo ucfirst($comment['comment']); ?>
+                      <p><i class="fa fa-clock-o"></i> 10 janubary,2017</p>
+                   </div>
+                </div>
+                 <?php } ?> 
+                <div class="text-right" >
+                        <a class="btn clb6" style="color:#fff;">comments</a>
+                </div>
+                </div>  
             </div>
           </div>
         </div>
-       
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href="<?php echo base_url('artist/allfans').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_quickactions.png" /> Fans</a></h2>
-          <span class="liner_landing"></span>
-           <?php if (isset($fans) && count($fans) > 0) {
-    ?>
-          <div class="col-md-12 remove_padding">
-            <?php 
-                        $i = 0;
-    foreach ($fans as $fan) {
-        ?>                        
-                                <div class="col-md-3 col-xs-3" style="<?php if ($i == 0 || $i = 1 || $i == 2 || $i == 3) {
-    echo 'margin-bottom: 10px;';
-}
-        if ($i == 0 || $i == 4) {
-        } else {
-            echo 'margin-left:-5px';
-        } ?>"><a href="<?php echo base_url().$fan['home_page']; ?>"><img title="<?php echo $fan['artist_name']; ?>" style="min-height: 70px;max-height: 70px;" width="70" src="<?php if (!empty($fan['avata'])) {
-    echo base_url().'uploads/'.$fan['user_id'].'/photo/'.$fan['avata'];
-} else {
-    echo base_url().'assets/images/default-img.gif';
-}; ?>"/></a></div>
-                        <?php ++$i;
-    } ?>   
-            <div class="carousel-info"> <img alt="" src="<?php echo base_url(); ?>assets/images/2.jpg" class="pull-left">
-              <div class="pull-left"> <span class="testimonials-name"><a href="#">Lina Mars</a></span> <span class="testimonials-post">Commercial Director</span> </div>
-            </div>
-            <!--  carousel-info  -->
-            
-            <div class="carousel-info"> <img alt="" src="<?php echo base_url(); ?>assets/images/2.jpg" class="pull-left">
-              <div class="pull-left"> <span class="testimonials-name"><a href="#">Lina Mars</a></span> <span class="testimonials-post">Commercial Director</span> </div>
-            </div>
-            <!--  carousel-info  --> 
-          </div>
-            <?php 
-} ?>
-        </div>
-      
-        <?php if (isset($events) && count($events) > 0) {
-    ?>
-        <div class="row header_new_style">
-          <div class="remove_part"></div>
-          <h2 class="tt BoxHedding"><a href="#"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_quickactions.png" />Events</a></h2>
-          <span class="liner_landing"></span>
-          <div class="col-md-12 remove_padding">
-            <?php
-                        foreach ($events as $event) {
-                            ?>
-                        <div class="wp_content_list">
-                            <a href="#" class="show_ev item" data-event="<?=$event['event_id']; ?>" style="font-size: 16px;text-decoration: none;" data-toggle="modal" data-target="#showEvent">
-                                <figure class="effect-bubba" style="float: left; max-width: 150px;margin: 5px;">
-        							<img width="100%" src="<?php if (!empty($event['event_banner'])) {
-    echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner'];
-} ?>" />
-                                </figure>
-                                <strong><?php echo ucfirst($event['event_title']); ?></strong>
-                            </a><br />
-                           <div style="min-height: 135px;">
-                            <?php  custom_echo_html($event['event_desc'], 400); ?> <br />
-                            </div>
-                        </div>
-                        <?php 
-                        } ?> 
-          
-            <!--  carousel-info  --> 
-          </div>
-        </div>
-        <?php 
-} ?>
       </div>
     </div>
+  
   </div>
 </div>
 <script type="text/javascript">
@@ -632,3 +318,11 @@
   var url = "<?php echo base_url(); ?>";
 </script> 
 <script src="<?php echo base_url(); ?>assets/landing-page/js/landing-page-4.js"></script>
+<script type="text/javascript">
+(function($){
+        $(window).load(function(){
+            $(".Scroll6Style1,.Scroll6Style2,.Scroll6Style3").mCustomScrollbar({theme:"minimal-dark"});
+        });
+    })(jQuery);
+</script>
+<script src="<?php echo base_url()?>assets/js/jquery.mCustomScrollbar.concat.min.js"></script>

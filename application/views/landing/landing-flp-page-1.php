@@ -41,11 +41,14 @@
     .jp-volume-max {
         left: 60px;
     }
-</style>
 
+</style>
 <!--  End header  -->
 <header>
-        <div class="container" style="background:url(<?php if(!empty($users[0]->banner_image)){echo base_url().'uploads/'.$users[0]->id.'/photo/banner/'.$users[0]->banner_image; }else{ echo base_url().'assets/demotemp/images/profile-pic.jpg';} ?>) no-repeat center center; background-size:100% 100%;">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-12">
+        <div  style="background:url(<?php if(!empty($users[0]->banner_image)){echo base_url().'uploads/'.$users[0]->id.'/photo/banner/'.$users[0]->banner_image; }else{ echo base_url().'assets/demotemp/images/profile-pic.jpg';} ?>) no-repeat center center; background-size:100% 100%;">
             <div class="row">
                 <div class="col-sm-7 text-center">
                     <div class="header-content">
@@ -78,6 +81,9 @@
                 </div>
             </div>
         </div>
+        </div>
+        </div>
+        </div>
     </header>
     <section id="download" class="sc-wrapper">
         <div class="container">
@@ -86,7 +92,7 @@
                         <div class="page-content">
                             <div class="home-blog-box-list clearfix">
                                 <div class="row clearfix">
-                                    <div class="col-lg-6 col-sm-6 col-xs-12"  >
+                                    <div class="col-lg-5 col-sm-5 col-xs-12"  >
                                         <div class="home-blog-box-item">
                                             <div class="small-blog-list-cat-name">
                                                 <div class="ico-img panel-title text-center">
@@ -130,7 +136,7 @@
                                             </div>
                                         </div>     
                                     </div>
-                                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                                    <div class="col-lg-7 col-sm-7 col-xs-12">
                                         <div class="home-blog-box-item">
                                             <div class="small-blog-list-cat-name">
                                                 <div class="ico-img panel-title text-center">
@@ -140,13 +146,13 @@
                                                 </div>
                                                  <h2 class="panel-tp">AMP</h2> 
                                             </div>
-                                            <div class="video">
+                                            <div class="video" style="padding:2px;">
                                                 <?php echo $this->M_audio_song->get_shortcode_AMP($id)?>
                                             </div>
                                             
                                         </div>     
                                     </div>
-                                     <div class="col-lg-6 col-sm-6 col-xs-12">
+                                     <div class="col-lg-5 col-sm-5 col-xs-12">
                                         <div class="home-blog-box-item">
                                             <div class="small-blog-list-cat-name">
                                                 <div class="ico-img panel-title text-center">
@@ -155,10 +161,10 @@
                                                     </span>
                                                 </div>
                                                  <h2 class="panel-tp">STATS</h2>
-                                                 <div class="panel-body well well-sm text-center" >                        
-                                                <div class="Stats-area " >
+                                                 <div class="panel-body well well-sm text-center">                        
+                                                <div class="Stats-area ">
                                                     <ul>
-                                                        <li><a href="#"><i class="fa fa-music"></i> Song Plays<span class="pull-right"><?php echo $num_songs; ?></span></a></li>
+                                                        <li><a href="#"><i class="fa fa-music"></i> Song Plays<span class="pull-right"><?php echo $num_songs;?></span></a></li>
                                                         <li><a href="#"><i class="fa fa-file-video-o"></i> Video Plays<span class="pull-right"><?php echo $num_videos;?></span></a></li>
                                                         <li><a href="#"><i class="fa fa-users"></i> Total Fans<span class="pull-right"><?php echo $num_fands; ?></span></a></li>
                                                         <li><a href="#"><i class="fa fa-hand-rock-o"></i> Total Events<span class="pull-right"><?php echo $num_events; ?></span></a></li>
@@ -170,7 +176,7 @@
                                             </div>                        
                                         </div>     
                                     </div>
-                                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                                    <div class="col-lg-7 col-sm-7 col-xs-12">
                                         <div class="home-blog-box-item">
                                             <div class="small-blog-list-cat-name">
                                                 <div class="ico-img panel-title text-center">
@@ -271,7 +277,7 @@
                                 $results = $this->db->where('home_page', $home_page)->get('users')->result_array();
                                 if($results){
 
-
+                                    
                                 foreach ($results as $result) { $user_i = $result['id']; }
                                 $isset = $this->db->where('user_id', $user_i)->where('fan_id', $user_id)->get('fans')->num_rows();
                                 ?>
@@ -343,7 +349,7 @@
                                 <div class="about-widget">
                                     <div class="ico-img panel-title text-center">
                                         <span>
-                                            <i class="fa fa-comments-o fa-spin-hover" aria-hidden="true"></i>
+                                         <i class="fa fa-comments-o fa-spin-hover" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                     <h2 class="panel-tp">COMMENTS</h2>    

@@ -147,7 +147,7 @@ if (!empty($U_map['option_widget'])) {
         $Map('#color_track_front').val(color_scheme.color_track_front);
         $Map('#color_font').val(color_scheme.color_font);
     }
-    function set_playlist(selected){
+    function set_playlist(selected){ 
         array = selected.split(',');
         $(".input_album").each(function (i) {
             if(inArray($(this).val(), array)) {
@@ -212,10 +212,10 @@ if (!empty($U_map['option_widget'])) {
             ordertext =  $Map('#ordertext').val(),
             playlistAlbumIds =  $Map('#result_albums').val(),
             playlistUserId = <?=$Id_artist?>;
-        var affiliateId = '<?php echo $U_map['affiliate_id']?>';
-        load_data_options(playlistAlbumIds,playlistUserId,affiliateId,background_color,color_track_front,color_font,color_time_loaded,ordertext,affiliatetext);
+            var affiliateId = '<?php echo $U_map['affiliate_id']?>';
+            load_data_options(playlistAlbumIds,playlistUserId,affiliateId,background_color,color_track_front,color_font,color_time_loaded,ordertext,affiliatetext);
         
-        //AMP_Load_data(affiliateId);
+        // AMP_Load_data(affiliateId);
     }
     
     function Post_option(Json_option){
@@ -265,7 +265,6 @@ if (!empty($U_map['option_widget'])) {
         
         <?php }?>
         <span class="liner"></span>
-        
         <div class="row col-md-12 col-sm-12">
             <div class="col-md-5">
                                  <h2>Select Player Options</h2>

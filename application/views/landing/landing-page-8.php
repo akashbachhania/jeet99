@@ -164,7 +164,7 @@
                                                                     foreach ($video_by_albums as $video_by_album) {
                                                                     $array_avai = explode(',', $video_by_album['availability']); ?>
                                                                     {
-                                                                        title:"<?php if($video_by_album['option_type']=="1") { echo $video_by_album['song_name'].$video_by_album['song_name_auth']; } else { echo $video_by_album['video_name'].$video_by_album['video_name_auth']; }?>",
+                                                                        title:"<?php echo $video_by_album['song_name'] ?>",
                                                                         mp3:"<?php echo 'http://d2c1n1yejcka7l.cloudfront.net/uploads/'.$id.'/audio/'.$video_by_album['audio_file'] ?>",
                                                                         poster: "<?php echo base_url().'uploads/'.$id.'/img_playlist/'.$album_song['image_file']; ?>",
                                                                         <?php

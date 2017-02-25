@@ -11,12 +11,12 @@
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="<?php echo base_url()?>/assets/epk/global.css"/>
-	<link rel="stylesheet" href="<?php echo base_url()?>/assets/epk/template3/epk3.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>/assets/epk/template3/epk3.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/epk/template3/magnific-popup.css">
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-2.0.2.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <script src="<?=base_url('assets/jwplayer7/jwplayer.js')?>"></script>
 <script>jwplayer.key="<?=$this->M_setting->get_jwplayer_key()?>";</script>
 
@@ -26,39 +26,39 @@
     $data_json = json_decode($customize['data_customize']);
 ?>
 <script type="text/javascript">
-	$(document).ready(function(){
-	    $end = $("#section4 .tab-pane").last();
+    $(document).ready(function(){
+        $end = $("#section4 .tab-pane").last();
         $first = $("#section4 .tab-pane").last();
         if($end== $first){
-        	$(".video>.button-right").hide();
+            $(".video>.button-right").hide();
             $(".video>.button-left").hide();
         }
-		$(".video>.button-left").click(function(event){
+        $(".video>.button-left").click(function(event){
            
-			$("#section4 .tab-pane").each(function() { 
+            $("#section4 .tab-pane").each(function() { 
                 if($(this).hasClass("active")){
                     event.preventDefault();
-					$prev = $(this).prev();
+                    $prev = $(this).prev();
                     if($prev.hasClass("tab-pane")){
                         var children = $(this).children();
                         var src= children.attr('src');
                         children.attr('src',src);  
                         $(this).hide();
-						$prev.show();
-						$(this).removeClass("active");
-						$prev.addClass("active");
+                        $prev.show();
+                        $(this).removeClass("active");
+                        $prev.addClass("active");
                     }
-					//$(this).parent().next().$(".video-info1").addClass("none");
-					//$(".col-3>.video-info2")removeClass("none");
+                    //$(this).parent().next().$(".video-info1").addClass("none");
+                    //$(".col-3>.video-info2")removeClass("none");
                     return false;
-				}
+                }
             });
-		});// 
+        });// 
 
-		$(".video>.button-right").click(function (event) {
+        $(".video>.button-right").click(function (event) {
             $("#section4 .tab-pane").each(function() { 
                 if($(this).hasClass("active")){
-					event.preventDefault();
+                    event.preventDefault();
                     //$end = $("#video .tab-pane").last();
                     $next = $(this).next();
                     if($next.hasClass("tab-pane")){
@@ -66,18 +66,18 @@
                         var src= children.attr('src');
                         children.attr('src',src);  
                         $(this).hide();
-						$next.show();
-						$(this).removeClass("active");
-						$next.addClass("active");
-						//$(this).parent().next().$(".video-info1").addClass("none");
-						//$(".col-3>.video-info2")removeClass("none");
+                        $next.show();
+                        $(this).removeClass("active");
+                        $next.addClass("active");
+                        //$(this).parent().next().$(".video-info1").addClass("none");
+                        //$(".col-3>.video-info2")removeClass("none");
                     }
-					return false;
-				}
+                    return false;
+                }
             });
-			
-		});//next video
-	});
+            
+        });//next video
+    });
 </script>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -467,32 +467,32 @@
         ?>
     <section class="tab3-videos" id="section4" style="padding: 0px;">
         <div class="video-content">
-			<h1 class="text-center"><a style="font-size: 35px;" href="" class="link-effect link-effect-20"><span data-hover="VIDEOS">VIDEOS</span></a></h1>
-			<div class="video col-12 relative">
-				<a href="#" class="button-left" title="previous" ><i class="fa fa-angle-left"></i></a>
-				<div class="tab-content">
+            <h1 class="text-center"><a style="font-size: 35px;" href="" class="link-effect link-effect-20"><span data-hover="VIDEOS">VIDEOS</span></a></h1>
+            <div class="video col-12 relative">
+                <a href="#" class="button-left" title="previous" ><i class="fa fa-angle-left"></i></a>
+                <div class="tab-content">
                     <?php $i = 1;
         foreach ($videos as $row) {
             ?>
                         <div role="tabpanel" class="tab-pane <?php if ($i == 1) {
     echo 'active';
 } ?>" id="th<?php echo $i++?>">
-    				    	 <?php 
+                             <?php 
                         
                             if ($res_data_artist['primary_video']==$row['id']) { ?>
                                 <iframe width="100%" height="380" src="<?= base_url().'video_embed/'.$res_data_artist['primary_video'] ?>" frameborder="0" allowfullscreen></iframe>
                      <?php       } else { ?>
-    				    	<iframe width="100%" height="380" src="<?= base_url().'video_embed/'.$row['id']?>" frameborder="0" allowfullscreen></iframe>
+                            <iframe width="100%" height="380" src="<?= base_url().'video_embed/'.$row['id']?>" frameborder="0" allowfullscreen></iframe>
                             <?php } ?>
-    				    </div>
+                        </div>
                         <?php
 
         } ?>
-				    
-				 </div>
-				 <a href="#" class="button-right" title="next"><i class="fa fa-angle-right"></i></a>
-			</div>
-		</div>
+                    
+                 </div>
+                 <a href="#" class="button-right" title="next"><i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
     </section>
     <?php 
     }
@@ -515,7 +515,7 @@
                             <?php
                         ++$i;
         } ?>
-					</ul>
+                    </ul>
                     <script>
                         function playTrailer(index) {
                             if(index == jwplayer().getPlaylistIndex()){
@@ -596,10 +596,10 @@
                             </ul>
                         </div>
                     <script>
-                    	function tick(){
-                    		$('#ticker li:first').slideUp( function () { $(this).appendTo($('#ticker')).slideDown(); });
-                    	}
-                    	setInterval(function(){ tick () }, 5000);
+                        function tick(){
+                            $('#ticker li:first').slideUp( function () { $(this).appendTo($('#ticker')).slideDown(); });
+                        }
+                        setInterval(function(){ tick () }, 5000);
                     </script>
                 </div>
                 </div>
@@ -805,21 +805,21 @@
 </div>
 
 <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="myModalPhoto" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalPhoto">Send Message</h4>
-			</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalPhoto">Send Message</h4>
+            </div>
             <!-- action="<?php echo base_url()?>artist/presskit/contact" -->
             <form class="form form-signup" id="contact_form" role="form"  method="post">
-				<input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
+                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
                 <div class="modal-body">
                     <div class="form-group">
-						<label class="form-input col-md-3">To:</label>
-						<div class="input-group col-md-8">
+                        <label class="form-input col-md-3">To:</label>
+                        <div class="input-group col-md-8">
                             <label><span><?php if(!empty($customize['email_artist'])) { echo $customize['email_artist']; echo ',';}?></span><span><?php if(!empty($customize['email_booking'])) { echo ' '.$customize['email_booking']; echo ',';}?></span><span><?php if(!empty($customize['email_manager'])) { echo ' '.$customize['email_manager']; echo ',';}?></span></label>
-							<label  class="checkbox">
+                            <label  class="checkbox">
                             
                             <input type="checkbox"  name="to[public_email]" id="to[public_email]" value="<?php if(!empty($customize['email_artist'])) { echo $customize['email_artist']; }else {'';} ?>" <?php if (empty($customize['email_artist'])) {
     echo 'disabled';
@@ -840,54 +840,54 @@
 } else {
     echo 'checked';
 } ?>/>Management</label>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="form-input col-md-3">From:</label>
-						<div class="input-group col-md-8">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-input col-md-3">From:</label>
+                        <div class="input-group col-md-8">
                             <input type="hidden" name="fromemail" >
                             <input type="email" class="form-control" id="from" name="from" />
                         </div>
-					</div>
-					<div class="form-group">
-						<label class="form-input col-md-3">Subject:</label>
-						<div class="input-group col-md-8">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-input col-md-3">Subject:</label>
+                        <div class="input-group col-md-8">
                             <input type="hidden" name="subject" >
                             <input type="text" class="form-control" id="subject" name="subject" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="form-input col-md-3">Message:</label>
-						<div class="input-group col-md-8">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-input col-md-3">Message:</label>
+                        <div class="input-group col-md-8">
                              <input type="hidden" name="msg" >
-							<textarea class="form-control" rows="6" name="msg" id="msg"></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
+                            <textarea class="form-control" rows="6" name="msg" id="msg"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="dialog-confirm" onclick="checkOtherMail()"> Send</button> 
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
-				</div>
-			</form>
-		</div>
-	</div>
-</div> 
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <?php if ($data_json->dw_photo == 'on') {
     ?>
 <!-- Modal download photo -->
 <div class="modal fade" id="photo" tabindex="-1" role="dialog" aria-labelledby="myModalPhoto" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalPhoto">Download Media Photos</h4>
-			</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalPhoto">Download Media Photos</h4>
+            </div>
             s
-			<div class="modal-body">
+            <div class="modal-body">
                 <p>The following media photos are available for download.
                  You can save images individually by clicking the download link next to each.</p>
                 <h3>Click link to download</h3>
-				<div class="song_box" style="max-width: 500px;">
+                <div class="song_box" style="max-width: 500px;">
                     <ul class="sortable with_main_songs"> 
                         <?php
                         foreach ($photos as $pt) {
@@ -904,12 +904,12 @@
                         
                     </ul>
                 </div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
+            </div>
+        </div>
+    </div>
 </div>
         <?php } if ($data_json->dw_video == 'on') {
     ?>
@@ -957,16 +957,16 @@
     ?>
 <!-- Modal download songs -->
 <div class="modal fade" id="songsdownload" tabindex="-1" role="dialog" aria-labelledby="myModalPhoto" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalPhoto">Download Media Photos</h4>
-			</div>
-			<div class="modal-body">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalPhoto">Download Media Photos</h4>
+            </div>
+            <div class="modal-body">
                 <p>The following songs are available for download in MP3 format. For higher quality audio, you may try contacting the artist directly.</p>
                 <h3>Click link to download</h3>
-				<div class="song_box" style="max-width: 500px;">
+                <div class="song_box" style="max-width: 500px;">
                     <ul class="sortable with_main_songs"> 
                         <?php
                         foreach ($download_songs as $row) {
@@ -980,12 +980,12 @@
                         
                     </ul>
                 </div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
+            </div>
+        </div>
+    </div>
 </div>
 <?php 
 }?>
@@ -1095,28 +1095,28 @@ if (!empty($songs)) {
 $(document).ready(function() {
   $lightboxGalleryEl = $('[data-lightbox="gallery"]');
   $lightboxGalleryEl.each(function() {
-		var element = $(this);
+        var element = $(this);
 
-		if( element.find('a[data-lightbox="gallery-item"]').parent('.clone').hasClass('clone') ) {
-			element.find('a[data-lightbox="gallery-item"]').parent('.clone').find('a[data-lightbox="gallery-item"]').attr('data-lightbox','');
-		}
+        if( element.find('a[data-lightbox="gallery-item"]').parent('.clone').hasClass('clone') ) {
+            element.find('a[data-lightbox="gallery-item"]').parent('.clone').find('a[data-lightbox="gallery-item"]').attr('data-lightbox','');
+        }
 
-		element.magnificPopup({
-			delegate: 'a[data-lightbox="gallery-item"]',
-			type: 'image',
-			closeOnContentClick: true,
-			closeBtnInside: false,
-			fixedContentPos: true,
-			image: {
-				verticalFit: true
-			},
-			gallery: {
-				enabled: true,
-				navigateByImgClick: true,
-				preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-			}
-		});
-	});  
+        element.magnificPopup({
+            delegate: 'a[data-lightbox="gallery-item"]',
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: false,
+            fixedContentPos: true,
+            image: {
+                verticalFit: true
+            },
+            gallery: {
+                enabled: true,
+                navigateByImgClick: true,
+                preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+            }
+        });
+    });  
   $('.image-link').magnificPopup({type:'image'});
 });
 </script>

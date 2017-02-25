@@ -475,7 +475,7 @@
 
                                             	?>
                                     		   {
-                                                    title:"<?php if($video_by_album['option_type']=="1"){ echo $video_by_album['song_name'].$video_by_album['song_name_auth']; } else { echo $video_by_album['video_name'].$video_by_album['video_name_auth']; } ?>",
+                                                    title:"<?php echo $video_by_album['song_name'] ?>",
                                                     artist:"Price: <?php echo $video_by_album['price'] ?> <?php echo $video_by_album['currency'] ?>",
                                                     mp3:"<?php echo $file_url ?>",
                                                     //oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg",
@@ -2486,7 +2486,7 @@ $(document).ready(function() {
                                             $rating = $song['sales'] * 100 / $song['listened'];
                                         } ?>
                                         {
-                                            "text" : "<?php if($song['option_type']=="1") { echo $song['song_name'].$song['song_name_auth'].'- Rating ('.$rating.'%)'; } else { echo  $song['video_name'].$song['video_name_auth'].'- Rating ('.$rating.'%)'; } ?>",
+                                            "text" : "<?=$song['song_name'].'- Rating ('.$rating.'%)'?>",
                                             "state" : { "selected" : false },
                                             "icon" : "jstree-file",
                                             "id": "<?=$song['id']?>",

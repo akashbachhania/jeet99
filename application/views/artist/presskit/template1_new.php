@@ -18,8 +18,6 @@
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://code.jquery.com/ui/1.8.9/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    
     <link rel="stylesheet" type="text/css"
           href="https://fonts.googleapis.com/css?family=Tangerine">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.mCustomScrollbar.css">
@@ -491,7 +489,6 @@
                           <?php } ?>           
                             </div>
                             </div>
-
                         </div>
                         <?php } if ($data_json->song == 'on') {?>
                         <div id="section5" class="tab-pane fade">
@@ -630,8 +627,7 @@
                                 
                             ?>
                             <div class="row">
-                                
-                            
+                            <div class="col-xs-12  col-md-6">
                             <div class="col-xs-12 col-sm-3 col-md-3">
                                 <a href="#">
                                     <img src="<?php echo base_url('uploads/'.$blog['user_id'].'/photo/blogs/'.$blog['image_rep']) ?>" class="img-responsive img-box img-thumbnail"> 
@@ -962,10 +958,10 @@
   
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-2.0.2.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url()?>assets/epk/template3/magnific-popup.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/agency.js"></script>

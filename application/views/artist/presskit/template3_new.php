@@ -20,10 +20,10 @@
     <link href="<?php echo base_url()?>/assets/epk/template3_new/css/style.css" rel="stylesheet">
      <link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.mCustomScrollbar.css">
      <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/amp/css/jplayer.blue.monday.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="<?php echo base_url(); ?>assets/js/jquery-2.0.2.min.js"></script>
     <!-- jQuery -->
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/amp/js/jquery.min.js"> </script> 
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/jquery-ui/jquery-ui.js"></script>
 
     <script type="text/javascript">
         var base_url = "<?php echo base_url(); ?>";

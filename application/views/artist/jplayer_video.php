@@ -36,7 +36,7 @@ $(document).ready(function(){
 	$("#jquery_jplayer_video_<?php echo $video['id'];?>").jPlayer({
 		ready: function () {
 			$(this).jPlayer("setMedia", {
-				title: "<?php echo "Video Title:"." ".$video['video_name'].$video['video_name_auth'];?>",
+				title: "<?php echo $video['song_name']."-".$data_playlist['name'];?>",
                                 <?php if($file_format_video=="mp4"){ ?>
                                      <?php echo "m4v"?>: "<?php echo $file_url_video;?>",
 				
@@ -77,7 +77,6 @@ $(document).ready(function(){
 </head>
 <body>
  <div id="jp_container_video_<?php echo $video['id'];?>" class="jp-video jp-video-270p" role="application" aria-label="media player">
-     <p style="text-align:center;"><?php echo "Playlist Name:"." ". $data_playlist['name'];?>	</p>
 	<div class="jp-type-single">
             <div id="jquery_jplayer_video_<?php echo $video['id'];?>" class="jp-jplayer"></div>
 		<div class="jp-gui">
@@ -120,11 +119,6 @@ $(document).ready(function(){
 		</div>
 	</div>
       </div>
-<script>
-        $("#closevideo<?php echo $video['id'];?>").click( function() {
-            alert("isme");
-        $("#jquery_jplayer_video_<?php echo $video['id'];?>").jPlayer("stop");
-    });
-    </script> 
+
 </body>
 </html>

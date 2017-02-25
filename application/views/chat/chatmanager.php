@@ -21,7 +21,7 @@ var link = "<?php echo base_url();?>";
 		<div class="col-md-5 col-lg-5">
 			<div class="panel panel-default" style="background-color: rgba(0, 0, 0, 0.53);">
 				<div class="panel-heading">
-                    <h4 class="tt" about="/content_homes1_tittle_new1_82/">
+                    <h4 class="tt" about="/content_homes1_tittle_new1_82/">                        
                          <span property="content" id= "content_homes1_tittle_new1_82">
                                 <?php
                                     echo $this->M_text->getdatavalue('<_scontent_homes1_tittle_new1_82_s>', 'Profile');
@@ -31,7 +31,7 @@ var link = "<?php echo base_url();?>";
                     <span class="liner"></span>
 				</div>
 				<div class="panel-body" style=" color: #fff;">
-					<span class="rect image_frame"><img height="50px" width="50px" class="img-circle" alt="" src="<?php echo $avata?>" title=""></span>
+					<span class="rect image_frame"><img height="50px" width="50px"class="img-circle" alt="" src="<?php echo $avata?>" title=""></span>
 					<div class="text text-capitalize">
 						<?= $this->M_user->get_name($user_data['id'])?>
 					</div>
@@ -293,149 +293,9 @@ var link = "<?php echo base_url();?>";
                                                 ?>
                                             </table>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <th>Affiliates Channel</th>
-                                                </tr>
-                                                <?php 
-                                                foreach($affiliates_channel as $row) {
-                                                    ?>
-                                                <tr>
-                                                    <td>
-                                                        <a class="load_iframe" href="#" >
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['id']?>" />
-                                                            <img class="img-circle" height="35px" width="35px" src="<?php echo base_url()?>assets/images/default-img.gif">
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="load_iframe" href="#">
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['id']?>" />
-                                                            <span class="userNames">Channel <?=$row['name']?></span>
-                                                        </a> 
-                                                    </td>
-                                                </tr>
-                                                <?php }
-                                                ?>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <th>Affiliates to Level1</th>
-                                                </tr>
-                                                <?php 
-                                                foreach($dataChannel1 as $row) {
-                                                    ?>
-                                                <tr>
-                                                    <td>
-                                                        <a class="load_iframe" href="#" >
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <img class="img-circle" height="35px" width="35px" src="<?php echo base_url()?>assets/images/default-img.gif">
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="load_iframe" href="#">
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <span class="userNames">Channel <?=$row['name']?></span>
-                                                        </a> 
-                                                    </td>
-                                                </tr>
-                                                <?php }
-                                                ?>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <th>Affiliates to Level2</th>
-                                                </tr>
-                                                <?php 
-                                                foreach($dataChannel2 as $row) {
-                                                    ?>
-                                                <tr>
-                                                    <td>
-                                                        <a class="load_iframe" href="#" >
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <img class="img-circle" height="35px" width="35px" src="<?php echo base_url()?>assets/images/default-img.gif">
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="load_iframe" href="#">
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <span class="userNames">Channel <?=$row['name']?></span>
-                                                        </a> 
-                                                    </td>
-                                                </tr>
-                                                <?php }
-                                                ?>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <th>Affiliates to Level3</th>
-                                                </tr>
-                                                <?php 
-                                                foreach($dataChannel3 as $row) {
-                                                    ?>
-                                                <tr>
-                                                    <td>
-                                                        <a class="load_iframe" href="#" >
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <img class="img-circle" height="35px" width="35px" src="<?php echo base_url()?>assets/images/default-img.gif">
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="load_iframe" href="#">
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <span class="userNames">Channel <?=$row['name']?></span>
-                                                        </a> 
-                                                    </td>
-                                                </tr>
-                                                <?php }
-                                                ?>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <th>Affiliates to Level4</th>
-                                                </tr>
-                                                <?php 
-                                                foreach($dataChannel4 as $row) {
-                                                    ?>
-                                                <tr>
-                                                    <td>
-                                                        <a class="load_iframe" href="#" >
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <img class="img-circle" height="35px" width="35px" src="<?php echo base_url()?>assets/images/default-img.gif">
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="load_iframe" href="#">
-                                                            <input type="hidden" name="link_iframe" value="<?php echo base_url()?>chat/channel/<?=$row['channel_id']?>" />
-                                                            <span class="userNames">Channel <?=$row['name']?></span>
-                                                        </a> 
-                                                    </td>
-                                                </tr>
-                                                <?php }
-                                                ?>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+									</tr>
+								</tbody>
+							</table>
                         </div>
                         <div class="tab-pane" id="invite_contacts">
                             <div class="notification">
@@ -486,7 +346,7 @@ var link = "<?php echo base_url();?>";
                     <span class="liner"></span>
 				</div>
                   <div class="panel-body">
-                    <div class="row"> 
+                    <div class="row">
                     	<div class="col-lg-10">
                             Search Name or Email
                             <form action="<?php echo base_url('chat/search')?>" method="post">
@@ -500,7 +360,7 @@ var link = "<?php echo base_url();?>";
                         		</div>
                             </form>
                     	</div>
-                    </div> 
+                    </div>
                   </div>
             </div>
             <?php
@@ -611,14 +471,14 @@ var link = "<?php echo base_url();?>";
 					<div class="input-group col-md-8">
 						<select name="members[]" class="chosen-select form-control" multiple="multiple" data-placeholder="Choose Member..." id="editar-element-6">
                         <?php foreach ($friends as $row) {
-                            if ($row['role'] == 1) {
-                                ?><option  value="<?php echo $row['id']?>"><?=$this->M_user->get_name($row['id'])?> (A)</option><?php
+    if ($row['role'] == 1) {
+        ?><option  value="<?php echo $row['id']?>"><?=$this->M_user->get_name($row['id'])?> (A)</option><?php
 
-                            } elseif ($row['role'] == 2) {
-                                ?><option value="<?php echo $row['id']?>"><?=$this->M_user->get_name($row['id'])?>(F)</option><?php
+    } elseif ($row['role'] == 2) {
+        ?><option value="<?php echo $row['id']?>"><?=$this->M_user->get_name($row['id'])?>(F)</option><?php
 
-                            }
-                        }?>
+    }
+}?>
                         </select>
 					</div>
 				</div>
@@ -651,8 +511,8 @@ var link = "<?php echo base_url();?>";
 				<div class="form-group">
 					<label class="form-input col-md-3">Name Group *:</label>
 					<div class="input-group col-md-8">
-                        <input type="hidden" class="form-control" name="id_group" required="" id="edit_group"/>
-						<input type="text" class="form-control" name="name" required="" id="edit_name"/>
+                        <input type="hidden"class="form-control" name="id_group" required="" id="edit_group"/>
+						<input type="text"class="form-control" name="name" required="" id="edit_name"/>
 					</div>
 				</div>
 				<div class="form-group">

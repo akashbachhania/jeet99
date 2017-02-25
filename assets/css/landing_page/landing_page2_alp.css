@@ -190,6 +190,7 @@ footer {
  }
  .list-group-item {
     background-color:#36333D;
+
  }
  a.list-group-item:hover {
     color:#9C27B0;
@@ -410,9 +411,6 @@ span.play-mix-btn:hover {
         color: #9c27b0;
     }
 }
-
-
-
 header .header-content {
     position: relative;
     width: 100%;

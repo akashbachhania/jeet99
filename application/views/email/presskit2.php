@@ -4,11 +4,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Temp 2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
 </head>
 <body >
 <?php 
     $data_json = json_decode($customize['data_customize']);
 ?>
+<table style="border-collapse: collapse;background-color:#F0F0F0;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding:0 5px;" width="670px" cellspacing="0" cellpadding="0" border="0" align="center">
 <table width="100%" style="font-family: Arial, 'Trebuchet MS', Verdana, sans-serif;">
 <tr>
 <td>
@@ -33,30 +35,43 @@
 		</tr>
 	</table>
 	<!--INFORMATION-->
-	<table width="670px" style="background: #F6F6F6;border-top:1px solid #CBD0D6;padding:20px">
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px;  background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>1.</td><td >INFOMATION</td></tr></table>
+			</td>
+		</tr>
+		<tr>
+		<td height="10"></td>
+	</tr>
+	</table>
+	<!-- <table width="670px" style="background: #fffafa;border-top:1px solid #CBD0D6;padding:20px">
 		<tr style="">
 			<td style="font-size:28px;padding-left:10px;color:#337AB7;">1. INFOMATION</td>
 		</tr>
-	</table>
-
-	<table width="670px" style="background: #F6F6F6;">
+	</table> -->
+	
+	<table width="670px" style="background: #fffafa;">
 		<tr style="">
 			<td width="390">
-				<table  cellpadding="0" cellspacing="0">
-					<tr style="height:30px">
+				<table  cellpadding="0" cellspacing="0" style="font-weight: normal;color: #5F6263;">
+					<!-- <tr style="height:30px">
 						<th width="215">Gender Demographics</th>
 						<th width="220">Age Breakdown</th>
-					</tr>	
-					<tr>
-						<td align="center" style="border-right: 2px dotted #CCC;">
+					</tr> -->	
+					<!-- <tr> --><!-- 
+						 <td align="center" style="border-right: 2px dotted #CCC;">
 							<p>No Data Available</p>	
-						</td>
+						</td>  -->
 						<td>
 							<?php if ($data_json->stats == 'on') {
     ?>
 							<table style="">
 								<tr>
-									<td width="50">13-17</td>
+									<th width="50">13-17</th>
 									<td width="150">
 										<div style="background: #CCC; height: 20px;">
 											<div style="background: #337AB7; height: 20px;width:<?php echo $this->Member_model->stast_fan($fans, 13, 17)?>%"></div>
@@ -97,12 +112,12 @@
 								</tr>
 							</table>
 						</td>
-					</tr>	
-					<tr align="center">
+				<!-- 	</tr>	 -->
+					<!-- <tr align="center">
 						<td style="border-right:2px dotted #CCC;border-top:2px dotted #CCC;height:120px;"><?php echo count($fans)?>  fans</td>
 						<th style="border-top:2px dotted #CCC;height:120px;">Fans Near
 							<p>No Data Available</p></th>
-					</tr>
+					</tr> -->
 					<tr align="center">
 						<td colspan="2">*Fan demographics represent 99Sound fans only</td>
 						
@@ -118,7 +133,7 @@
 						<td>
 							 <?php if ($photo != 'notfound') {
     ?>
-                                <img  src="<?php echo base_url(); ?>uploads/<?php echo $photo['user_id']; ?>/photo/avatar.png"  width="150" height="150"/>      
+                                <img  src="<?php echo base_url(); ?>uploads/<?php echo $photo['user_id']; ?>/photo/avatar.png"  width="150" height="150"/ style="border-radius: 50%;">      
                             <?php 
 } else {
     ?>
@@ -127,9 +142,9 @@
 } ?>
 						</td>
 					</tr>
-					<tr>
+					<tr style="font-weight: normal;color: #5F6263;">
 						<td>
-					<p style="font-weight:bold"><?php echo $user_data['artist_name'] ?></p>
+					<p style="font-weight: 900;color: #5F6263"><?php echo $user_data['artist_name'] ?></p>
 					<p><b>From :</b> <?php echo $user_data['city'].', '.$country_code['country'];?> </p>
 					<p><b>Genre :</b><?php echo $genres['name'];?></p>
 					<p><b>Members : </b>
@@ -153,18 +168,27 @@
 
 
 	<!--END INFORMATION-->
+	
 
 <?php if ($data_json->photo == 'on') {
     ?>
 	<!--PHOTOS-->
-	<table width="670px" style="background: #F6F6F6;padding:20px;border-top:1px solid #CBD0D6; ">
-		<tr>
-			<td style="font-size:28px;color:#337AB7;" >2. PHOTOS</td>
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px;  background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>2.</td><td>PHOTOS</td></tr></table>
+			</td>
 		</tr>
+		<tr>
+		<td height="10"></td>
+	</tr>
 	</table>
 
 	
-	<table width="670px" style="background: #F6F6F6;border-bottom:1px solid #CBD0D6;padding-bottom:10px;">
+	<table width="670px" style="background: #fffafa;border-bottom:1px solid #CBD0D6;padding-bottom:10px; text-decoration:none;">
 		<tr>
 			<?php
             foreach ($photos as $pt) {
@@ -187,85 +211,165 @@
         if ($data_json->stats == 'on') {
             ?>
 	<!--STATS-->
-	<table width="670px" style="background: #F6F6F6;padding:20px;">
-		<tr>
-			<td style="font-size:28px;color:#337AB7;" >3. STATS</td>
-		</tr>
-	</table>
-
-	<table width="670px" style="background: #F6F6F6;font-size:18px">
-		<tr>
-			<th>Fan Demographics</th>
-		</tr>
-		<tr align="center">
-			<td>Top Demographics is Females (age 13-60)</td>
-		</tr>
-		<tr align="center">
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px;  background-color:rgb(45,62,80);">
 			<td>
-				<table  style="border-collapse: collapse;border-radius:5px 5px 0 0;line-height:30px">
-					<tr style="background:#EFEFEF;font-size:18px;line-height:35px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
-						<th width="150">Female</th>
-						<th width="150">Age</th>
-						<th width="150">Male</th>
-					</tr>
-
-					<tr align="center"  style="border-bottom:1px solid #D0D0D0">
-						<td><?php echo $this->Member_model->stast_fan($fans, 13, 17, 1)?>%</td>
-						<td>13-17</td>
-						<td><?php echo $this->Member_model->stast_fan($fans, 13, 17, 2)?>%</td>
-					</tr>
-
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
-						<td><?php echo $this->Member_model->stast_fan($fans, 18, 24, 1)?>%</td>
-						<td>18-24</td>
-						<td><?php echo $this->Member_model->stast_fan($fans, 18, 24, 2)?>%</td>
-					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
-						<td><?php echo $this->Member_model->stast_fan($fans, 25, 34, 1)?>%</td>
-						<td>25-34</td>
-						<td><?php echo $this->Member_model->stast_fan($fans, 25, 34, 2)?>%</td>
-					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
-						<td><?php echo $this->Member_model->stast_fan($fans, 35, 44, 1)?>%</td>
-						<td>35-44</td>
-						<td><?php echo $this->Member_model->stast_fan($fans, 35, 44, 2)?>%</td>
-					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
-						<td><?php echo $this->Member_model->stast_fan($fans, 45, 54, 1)?>%</td>
-						<td>45-54</td>
-						<td><?php echo $this->Member_model->stast_fan($fans, 45, 54, 2)?>%</td>
-					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
-						<td><?php echo $this->Member_model->stast_fan($fans, 55, 200, 1)?>%</td>
-						<td>55+</td>
-						<td><?php echo $this->Member_model->stast_fan($fans, 55, 200, 2)?>%</td>
-					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
-						<td><?php echo $this->Member_model->stast_fan($fans, 0, 13, 1)?>%</td>
-						<td>n/a</td>
-						<td><?php echo $this->Member_model->stast_fan($fans, 0, 13, 2)?>%</td>
-					</tr>
-			</table>
-
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>3.</td><td>STATS</td></tr></table>
 			</td>
 		</tr>
-
-		<tr align="center">
-			<td>
-				<table style="margin:15px 0">
+		<tr>
+		<td height="10"></td>
+	</tr>
+	</table>
+	<table width="670px" style="background: #fffafa;font-size:18px">
+		<tr>
+		<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; padding-right:5px; ">
+				<table align="center">
 					<tr>
-						<th width="300">THEIR FANS LIVE HERE</th>
-						<th width="300">FAN SUMMARY</th>
+						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/envelope.png"/></td>
 					</tr>
-					<tr align="center">
-						<td>No Data Available</td>
-						<td><?php echo count($fans); ?> Total Fans</td>
+					<tr>
+						<td  align="center">10</td>
 					</tr>
+
+					<tr>
+						<td>Send Mail</td>
+					</tr>
+					
 				</table>
 			</td>
-			
-		</tr>
+			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; ">
+				<table align="center">
+					<tr>
+						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/twitter.png"/></td>
+					</tr>
+					<tr>
+						<td  align="center">16</td>
+					</tr>
 
+					<tr>
+						<td>Share Twitter</td>
+					</tr>
+					
+				</table>
+			</td>
+			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px;">
+				<table align="center">
+					<tr>
+						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/facebook.png"/></td>
+					</tr>
+					<tr>
+						<td  align="center">24</td>
+					</tr>
+
+					<tr>
+						<td>Share facebook</td>
+					</tr>
+					
+				</table>
+			</td>
+		</tr>
+		<tr>
+		<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; padding-right:5px; ">
+				<table align="center">
+					<tr>
+						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/music.png"/></td>
+					</tr>
+					<tr>
+						<td  align="center">6</td>
+					</tr>
+
+					<tr>
+						<td>Songs Counts</td>
+					</tr>
+					
+				</table>
+			</td>
+			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; ">
+				<table align="center">
+					<tr>
+						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/rss.png"/></td>
+					</tr>
+					<tr>
+						<td  align="center">16</td>
+					</tr>
+
+					<tr>
+						<td>Blogs Counts</td>
+					</tr>
+					
+				</table>
+			</td>
+			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px;">
+				<table align="center">
+					<tr>
+					<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/video-camera.png"/></td>
+						
+					<tr>
+						<td  align="center">14</td>
+					</tr>
+
+					<tr>
+						<td>Video Counts</td>
+					</tr>
+					
+				</table>
+			</td>
+		</tr>
+		<tr>
+		<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; padding-right:5px; ">
+				<table align="center">
+					<tr>
+						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/users.png"/></td>
+						</tr>
+					<tr>
+						<td  align="center">10</td>
+					</tr>
+
+					<tr>
+						<td>Fans Counts</td>
+					</tr>
+					
+				</table>
+			</td>
+			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; ">
+				<table align="center">
+					<tr>
+						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/comments.png"/></td>
+						
+					</tr>
+					<tr>
+						<td  align="center">6</td>
+					</tr>
+
+					<tr>
+						<td>Comments Counts</td>
+					</tr>
+					
+				</table>
+			</td>
+			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px;">
+				<table align="center">
+					<tr>
+					<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/calendar.png"/></td>
+					</tr>
+					<tr>
+						<td  align="center">24</td>
+					</tr>
+
+					<tr>
+						<td>Events Counts</td>
+					</tr>
+					
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td height="20"></td>
+		</tr>
 	</table>
 	<!--END STATS-->
 	<?php 
@@ -274,13 +378,26 @@
             ?>
 
 	<!--VIDEOS-->
-	<table width="670" style="background:#F6F6F6;padding:20px;border-top:1px solid #CBD0D6">
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px;background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>4.</td><td>VIDEOS</td></tr></table>
+			</td>
+		</tr>
+		<tr>
+		<td height="10"></td>
+	</tr>
+	</table>
+	<!-- <table width="670" style="background:#fffafa;padding:20px;border-top:1px solid #CBD0D6">
 		<tr>
 			<td style="font-size:28px;color:#337AB7">4. VIDEOS</td>
 		</tr>
-	</table>
+	</table> -->
 
-<table width="670px" cellspacing="0" cellpadding="0" style="background:#F6F6F6;">
+<table width="670px" cellspacing="0" cellpadding="0" style="background:#fffafa;">
     <tr>
         <td align="center" valign="top" style="">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -289,22 +406,22 @@
                         <table width="180" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td style="border-collapse: collapse;">
-                                  <a href="#" border="0"><img src="avatar2.png" width="180"></a>
+                                  <a href="#" border="0"><img src="avatar2.png" width="180" style="border:4px solid #ADABAB;"></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="color: #888889; font-size: 14px; font-weight: bold; line-height: 16px;   padding-top: 15px; ">
+                                <td style="font-weight: 900;color: #5F6263; line-height: 16px;   padding-top: 15px; ">
                                     TITLE VIDEO
                                 </td>
                             </tr>
                             <tr>
-                                <td class="three-col-description" style="color: #c1c4c6; font-size: 14px; line-height: 16px;  padding-top: 15px;">
+                                <td class="three-col-description" style="color: #5F6263; font-size: 14px; line-height: 16px;  padding-top: 15px;">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. 
                                 </td>
                             </tr>
                             <tr>
                                 <td class="three-col-cta" style="font-size: 14px; font-weight: normal; line-height: 16px; padding-bottom: 20px; padding-left: 0px; padding-top: 15px;">
-                                    <a href="#" style="color: #1fa2ea; text-decoration: underline;">View Video</a>
+                                    <a href="#" style="color: #1fa2ea; text-decoration:none;">View Video</a>
                                 </td>
                             </tr>
                       </table>
@@ -313,22 +430,22 @@
                         <table width="180" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td style="border-collapse: collapse;">
-                                  <a href="#" border="0"><img src="avatar3.png" width="180"></a>
+                                  <a href="#" border="0"><img src="avatar3.png" width="180" style="border:4px solid #ADABAB;"></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="color: #888889; font-size: 14px; font-weight: bold; line-height: 16px;   padding-top: 15px; ">
+                                <td style="font-weight: 900;color: #5F6263; line-height: 16px;   padding-top: 15px; ">
                                     TITLE VIDEO
                                 </td>
                             </tr>
                             <tr>
-                                <td class="three-col-description" style="color: #c1c4c6; font-size: 14px; line-height: 16px;  padding-top: 15px;">
+                                <td class="three-col-description" style="color: #5F6263; font-size: 14px; line-height: 16px;  padding-top: 15px;">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. 
                                 </td>
                             </tr>
                             <tr>
                                 <td class="three-col-cta" style="font-size: 14px; font-weight: normal; line-height: 16px; padding-bottom: 20px; padding-left: 0px; padding-top: 15px;">
-                                    <a href="#" style="color: #1fa2ea; text-decoration: underline;">View Video</a>
+                                    <a href="#" style="color: #1fa2ea; text-decoration:none;">View Video</a>
                                 </td>
                             </tr>
                       </table>
@@ -337,22 +454,22 @@
                         <table width="180" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td style="border-collapse: collapse;">
-                                  <a href="#" border="0"><img src="avatar.png" width="180"></a>
+                                  <a href="#" border="0"><img src="avatar.png" width="180" style="border:4px solid #ADABAB;"></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td style="color: #888889; font-size: 14px; font-weight: bold; line-height: 16px;   padding-top: 15px; ">
+                                <td style="font-weight: 900;color: #5F6263; line-height: 16px;   padding-top: 15px; ">
                                     TITLE VIDEO
                                 </td>
                             </tr>
                             <tr>
-                                <td class="three-col-description" style="color: #c1c4c6; font-size: 14px; line-height: 16px;  padding-top: 15px;">
+                                <td class="three-col-description" style="color: #5F6263; font-size: 14px; line-height: 16px;  padding-top: 15px;">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. 
                                 </td>
                             </tr>
                             <tr>
                                 <td class="three-col-cta" style="font-size: 14px; font-weight: normal; line-height: 16px; padding-bottom: 20px; padding-left: 0px; padding-top: 15px;">
-                                    <a href="#" style="color: #1fa2ea; text-decoration: underline;">View Video</a>
+                                    <a href="#" style="color: #1fa2ea; text-decoration:none;">View Video</a>
                                 </td>
                             </tr>
                       </table>
@@ -363,13 +480,8 @@
     </tr>
  </table>
 
-	<table width="670" style="padding:15px 0;background:#F6F6F6;border-bottom:1px solid #CBD0D6">
-		<tr align="center">
-			<td width="100" style="font-weight:bolder">TOTAL :</td>
-			<td width="155">15 VIDEOS</td>
-			<td width="155">15256 VIEWS</td>
-			<td width="155">745 COMMENTS</td>
-		</tr>
+	<table width="670" style="padding:15px 0;background:#fffafa;border-bottom:1px solid #CBD0D6">
+		
 	</table>
 
 	<!--END VIDEOS-->
@@ -378,18 +490,25 @@
 
 
 	<!--BIOS-->
-	<table width="670px" style="background: #F6F6F6;padding:20px;">
-		<tr>
-			<td style="font-size:28px;color:#337AB7;">5. BIOS</td>
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px;  background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>5.</td><td>BIOS</td></tr></table>
+			</td>
 		</tr>
+		<tr>
+		<td height="10"></td>
+	</tr>
 	</table>
-
-	<table width="670px" style="background: #F6F6F6;padding-bottom:15px;">
+	<table width="670px" style="background: #fffafa;padding-bottom:15px;">
 		<tr>
 			<td width="190">
 				<?php if ($photo != 'notfound') {
     ?>
-                    <img  src="<?php echo base_url(); ?>uploads/<?php echo $photo['user_id']; ?>/photo/avatar.png"  width="170" height="170"/>       
+                    <img  src="<?php echo base_url(); ?>uploads/<?php echo $photo['user_id']; ?>/photo/avatar.png"  width="170" height="170" style=" border-radius: 50%; border:4px solid #ADABAB;"/>       
                 <?php 
 } else {
     ?>
@@ -398,8 +517,8 @@
 } ?>
 
 			</td>
-			<td width="480" style="color: #888889;font-weight:normal">
-				<h3><?php echo $user_data['artist_name']?></h3>
+			<td width="480" style="color: #888889;font-weight:normal;">
+				<h3 style="font-weight: 900;color: #5F6263;"><?php echo $user_data['artist_name']?></h3>
 				<?php echo $user_data['bio']?>
 			</td>
 		</tr>
@@ -407,70 +526,182 @@
 	<!--END BIOS-->
 
 	<!--SONG-->
-	<table width="670px" style="background: #F6F6F6;padding:20px;border-top:1px solid #CBD0D6">
-		<tr>
-			<td style="font-size:28px;color:#337AB7;;">6. SONG</td>
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px;  background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>6.</td><td>SONG</td></tr></table>
+			</td>
 		</tr>
+		<tr>
+		<td height="10"></td>
+	</tr>
 	</table>
-
-	<table width="670px" style="background: #F6F6F6;padding-bottom:10px;border-bottom:1px solid #CBD0D6">
+	<table width="670px" style="background: #fffafa;padding-bottom:10px;border-bottom:1px solid #CBD0D6">
 		<tr>
 			<td width="400">
 				<table align="center" border="0" style="border-collapse: collapse;line-height:25px;">
-					<tr style="background:#EFEFEF;font-size:20px;line-height:28px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
-						<th width="350">SONG</th>
+					<tr style="background:#15a7ad; color:#fff; font-size:20px;line-height:28px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
+						<th align="left" style="padding-left:10px;" width="350">SONG</th>
 						<th width="100">VIEWS</th>
 					</tr>
 
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
+					<tr align="center" style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 						<td align="left" style="padding-left:10px">MAOKAI</td>
 						<td>5555</td>
 					</tr>
 
-					<tr align="center" style="background:#EFEFEF;border-bottom:1px solid #D0D0D0">
+					<tr align="center" style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 						<td align="left" style="padding-left:10px">FIORA</td>
 						<td>444</td>
 					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
+					<tr align="center" style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 						<td align="left" style="padding-left:10px">You Belong With Me</td>
 						<td>333</td>
 					</tr>
-					<tr align="center" style="background:#EFEFEF;border-bottom:1px solid #D0D0D0">
+					<tr align="center" style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 						<td align="left" style="padding-left:10px">My Love</td>
 						<td>222</td>
 					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0">
+					<tr align="center" style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 						<td align="left" style="padding-left:10px">Stay With Me</td>
 						<td>111</td>
 					</tr>
 
 			</table>
 			</td>
-			<td width="150">
-				<table align="center">
+			<td width="150" height="150px">
+				<table align="center" style="background:#15a7ad; color:#fff ; border-radius: 50%;padding: 21px 16px 29px;background-color: #15a7ad;font-size: 16px;border-bottom: 4px solid #069196;text-transform: uppercase;color: #ffffff;">
 					<tr>
 						<td>150 SONGS</td>
 					</tr>
 					<tr>
 						<td>250,000 VIEWS</td>
 					</tr>
+					<!-- <td width="330">
+				<a href="<?php echo base_url('epk/'.$res_data_artist['home_page'])?>" style="float:right;text-decoration: none;border-radius: 3px;padding: 10px 22px 9px;background-color: #15a7ad;font-size: 16px;border-bottom: 4px solid #069196;text-transform: uppercase;color: #ffffff;" >150 SONGS</a>
+			</td> -->
 				</table>
 			</td>
 		</tr>
 	</table>
 	<!--END SONG-->
+	<!--blog-->
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px; background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>7.</td><td>blog</td></tr></table>
+			</td>
+		</tr>
+		<tr>
+		<td height="10"></td> 
+	</tr>
+	</table>
+	<table width="666px" style="background: #fffafa;padding-bottom:10px;border-bottom:1px solid #CBD0D6;">
+	<?php foreach ($epk_blogs as $key => $blog) {
+		# code...
+	?>
+		<tr>
+			<td>
+				<table  width="666px" align="center" style="border:2px solid #15a7ad;line-height:25px;">
+					<td width="190" style="background-color:#15a7ad;"><img src="<?php echo base_url('uploads/'.$blog['user_id'].'/photo/blogs/'.$blog['image_rep']) ?>" width="170" height="170" style="border-radius: 50%;"></td>
+					<td style="padding-left:14px;font-weight:normal;color: #5F6263;"><span>
+						<img width="15" height="15" src="<?php echo base_url('uploads/'.$blog['user_id'].'/photo/blogs/'.$blog['image_rep']) ?>"/>
+						<a href="#" style="color: #5F6263; text-decoration:none;font-weight: 900;">user name</a>
+						</span><br/>
+						<img width="15" height="15" src="<?php echo base_url(); ?>assets\premail-image/calendar1.png"/>
+						<a href="#" style="color:#5F6263; text-decoration:none;font-weight: 900;">1/24/2017</a>
+						<img width="15" height="15" src="<?php echo base_url(); ?>assets\premail-image/comments1.png"/>
+						<a href="#" style="color:#5F6263; text-decoration:none;font-weight: 900;">12</a>
+					
+						<p style="font-weight:normal;"><?php 
+                                                $text = strip_tags($blog['content']);
+                                                $desLength = strlen($text);
+                                                $stringMaxLength = 250;
+                                                if ($desLength > $stringMaxLength) {
+                                                    $des = substr($text, 0, $stringMaxLength);
+                                                    $text = $des.'...';
+                                                    echo $text;
+                                                } else {
+                                                    echo $blog['content'];
+                                                } ?> <a href="#" style="color: #1fa2ea; text-decoration:none;">More</a></p>
+					</td>	
+				</table>
+			</td>
+		</tr>
+		<?php 
+		} ?>
+		
+	</table>
+	<!--END blog-->
 
 	    <?php 
         if ($data_json->press == 'on') {
             ?>
 	<!--PRESS-->
-	<table width="672px" style="background: #F6F6F6;padding:20px">
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:10px; background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>8.</td><td>PRESS</td></tr></table>
+			</td>
+		</tr>
 		<tr>
-			<td style="font-size:28px;color:#337AB7">7. PRESS</td>
+		<td height="10"></td>
+	</tr>
+	</table>
+	<table width="670px" style="background: #fffafa;padding-bottom:15px">
+		<tr>
+			<td>
+			<table border-collapse: collapse; style="border:2px solid #15a7ad">
+			<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
+									<th>News heading</th>	
+								</tr>
+				<tr>
+					<td><p style="color:#5F6263";>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></td>
+				</tr>
+				<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
+									
+									<td style="float:right;"><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/user.png"/>
+						<a href="#" style="color: #fff;font-size:18px; text-decoration:none;">article</a>
+						</span><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/calendar.png"/>
+						<a href="#" style="color:#fff;font-size:18px;text-decoration:none;">1/24/2017</a>
+						</td>	
+				</tr>
+				<tr>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<table border-collapse: collapse; style="border:2px solid #15a7ad">
+			<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
+									<th>News heading</th>	
+								</tr>
+				<tr>
+					<td><p style="color:#5F6263;font-family: Arial, Helvetica, sans-serif;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></td>
+				</tr>
+				<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
+									
+									<td style="float:right;"><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/user.png"/>
+						<a href="#" style="color: #fff;font-size:18px; text-decoration:none;">article</a>
+						</span><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/calendar.png"/>
+						<a href="#" style="color:#fff;font-size:18px;text-decoration:none;">1/24/2017</a>
+						</td>	
+				</tr>
+				<tr>
+			</table>
+			</td>
 		</tr>
 	</table>
-
-	<table width="650px" style="background: #F6F6F6;padding-bottom:15px">
+	<!-- <table width="670px" style="background: #fffafa;padding-bottom:15px">
 		<tr align="center">
 			<td style="color: #888889;font-weight:normal">
 				<?php foreach ($press as $row) {
@@ -488,7 +719,7 @@
 				<?php 
 } ?>
 		</tr>
-	</table>
+	</table> -->
 	<!--END PRESS-->
         <?php 
         }
@@ -496,41 +727,54 @@
             ?>
 
 	<!--SHOWS-->
-	<table width="670px" style="background: #F6F6F6;padding:20px;border-top:1px solid #CBD0D6">
+	<table width="670px" style="background: #fffafa; border-top:1px solid #CBD0D6; ">
+	<tr>
+		<td height="20"></td>
+	</tr>
+		<tr style="font-size:22px;color:#fff;padding-left:12px;background-color:rgb(45,62,80);">
+			<td>
+			<table><tr style=" font-weight: bold;text-shadow: 1px 1px 1px;margin-left: 8px;"><td>9.</td><td>SHOWS</td></tr></table>
+			</td>
+		</tr>
+		<tr>
+		<td height="10"></td>
+	</tr>
+	</table>
+	<!-- <table width="670px" style="background: #fffafa;padding:20px;border-top:1px solid #CBD0D6">
 		<tr>
 			<td style="font-size:28px;color:#337AB7">8. SHOWS</td>
 		</tr>
-	</table>
+	</table> -->
 
-	<table width="670px" style="background: #F6F6F6;padding-bottom:15px;border-bottom:1px solid #CBD0D6">
+	<table width="670px" style="background: #fffafa;padding-bottom:15px;border-bottom:1px solid #CBD0D6">
 		<tr>
 			<td>
 				<table>
 					<tr>
-						<th style="font-size:22px" >UPCOMING SHOWS</th>
+						<th style="font-size:22px;color:#337AB7;">UPCOMING SHOWS</th>
 						
 					</tr>
 					<tr>
 						<td>
 							<table border="0" style="border-collapse:collapse;line-height:25px">
-								<tr style="background:#EFEFEF;font-size:20px;line-height:30px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
+								<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0;">
 									<th width="110">Date</th>
 									<th width="345">Event</th>
 									<th width="205">Venue</th>
 								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0">
+								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 									<td>Mo, 04/11/16</td>
-									<td>ROCK TOURNAMENT</td>
-									<td>ABC ZS, Toronto, ON</td>
+									<td align="center">ROCK TOURNAMENT</td>
+									<td >ABC ZS, Toronto, ON</td>
 								</tr>
-								<tr style="background:#EFEFEF;border-bottom:1px solid #D0D0D0"> 
+								<tr style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;"> 
 									<td>Tu, 04/12/16</td>
-									<td>DANCE TOURNAMENT</td>
+									<td align="center">DANCE TOURNAMENT</td>
 									<td>lio, Los Angles, CL</td>
 								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0">
+								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 									<td>We, 04/13/16</td>
-									<td>Marathon AKIZ</td>
+									<td align="center">Marathon AKIZ</td>
 									<td>lio, Los Angles, CL</td>
 								</tr>
 							</table>
@@ -541,30 +785,30 @@
 
 				<table style="margin:15px 0">
 					<tr>
-						<th style="font-size:22px" align="center">PAST SHOWS</th>
+						<th style="font-size:22px;color:#337AB7;" align="center">PAST SHOWS</th>
 						
 					</tr>
 					<tr>
 						<td>
 							<table border="0" style="border-collapse:collapse;line-height:25px">
-								<tr style="background:#EFEFEF;font-size:20px;line-height:30px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
+								<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
 									<th width="110">Date</th>
 									<th width="345">Event</th>
 									<th width="205">Venue</th>
 								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0">
+								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 									<td>Mo2, 04/11/16</td>
-									<td>ROCK TOURNAMENT</td>
+									<td align="center">ROCK TOURNAMENT</td>
 									<td>ABC ZS, Toronto, ON</td>
 								</tr>
-								<tr style="background:#EFEFEF;border-bottom:1px solid #D0D0D0"> 
+								<tr style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;"> 
 									<td>Tu, 04/12/16</td>
-									<td>DANCE TOURNAMENT</td>
+									<td align="center">DANCE TOURNAMENT</td>
 									<td>lio, Los Angles, CL</td>
 								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0">
+								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
 									<td>We, 04/13/16</td>
-									<td>Marathon AKIZ</td>
+									<td align="center">Marathon AKIZ</td>
 									<td>lio, Los Angles, CL</td>
 								</tr>
 							</table>
@@ -583,7 +827,7 @@
 		<tr>
 			<td width="330">
 				<table>
-					<tr width="330">
+					<tr width="330" style="font-weight: normal;color: #5F6263;">
 						<th colspan="3">Download Assets</th>
 					</tr>
 					<tr style="color:#000;margin:10px 0">
@@ -594,7 +838,7 @@
 				</table>
 			</td>
 			<td width="330">
-				<a href="<?php echo base_url('epk/'.$res_data_artist['home_page'])?>" style="float:right;text-decoration: none;border-radius: 3px;padding: 10px 22px 9px;background-color: #71b7e6;font-size: 16px;border-bottom: 4px solid #4292dd;text-transform: uppercase;color: #ffffff;" >View Contact</a>
+				<a href="<?php echo base_url('epk/'.$res_data_artist['home_page'])?>" style="float:right;text-decoration: none;border-radius: 3px;padding: 10px 22px 9px;background-color: #15a7ad;font-size: 16px;border-bottom: 4px solid #069196;text-transform: uppercase;color: #ffffff;" >View Contact</a>
 			</td>
 		</tr>
 	</table>
@@ -612,19 +856,19 @@
 							<td style="font-family:Roboto,'Helvetica Neue',Arial,sans-serif;font-size:10px;line-height:1.6;color:#333;font-weight:normal;text-align:center">
 								<p style="margin-bottom:0">
 									<a href="https://www.facebook.com/99sounds" target="_blank">
-									<img alt="Facebook" height="26" src="https://ci4.googleusercontent.com/proxy/PVk28cKWOvOMVX9gp9u-_7_Rr-CNvmG4StZWwky9aKyu8yR_Ze0VYHlgktyk9n9Eq8WGjAPbJ1Y1Eiz3Jp0u58tv5hBcEZmdks0JnYpnvWDH1n7VyC0wtviet60VlgXbv7ZqRDF_xtHpl-ZEFhNbogPIWiuh9zh_r-jogXEvabH0e6BYp3H1VeLqwKMMbYBKUG_18QBtRbq_Vt3MJREQjjoCED16fgeM=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_facebook_light.png?1446651957" style="border:none" width="26" class="CToWUd">
+									<img alt="Facebook" height="26" src="https://ci4.googleusercontent.com/proxy/PVk28cKWOvOMVX9gp9u-_7_Rr-CNvmG4StZWwky9aKyu8yR_Ze0VYHlgktyk9n9Eq8WGjAPbJ1Y1Eiz3Jp0u58tv5hBcEZmdks0JnYpnvWDH1n7VyC0wtviet60VlgXbv7ZqRDF_xtHpl-ZEFhNbogPIWiuh9zh_r-jogXEvabH0e6BYp3H1VeLqwKMMbYBKUG_18QBtRbq_Vt3MJREQjjoCED16fgeM=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_facebook_light.png?1446651957" style="border:none;text-decoration: none;color:#15a7ad;" width="26" class="CToWUd">
 									</a>
 									<a href="https://twitter.com/SoundHouseInc" target="_blank">
-									<img alt="Twitter" height="26" src="https://ci4.googleusercontent.com/proxy/WLs2AeRmZ4yZE-St0MLT7pbcWIHDS7ohgyzS2eAqDxotpErx5YQcgADgY3vs6zpr9MAQVrT9NZ-ZmUNcTutMm7SIBlLIgm9rPjDRDKUh7QP2nSKjEDGTi8a_wN7Ffl2B5BrI1Phqnbk2IM_d0jcRKYTo7OK7csOacLsRZi7iYsrXycKH3oqtK_A2iVpo7S_in-RvFukgbK6bzx0NihjbV8kHSiqaXbU=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_twitter_light.png?1446651957" style="border:none" width="26" class="CToWUd">
+									<img alt="Twitter" height="26" src="https://ci4.googleusercontent.com/proxy/WLs2AeRmZ4yZE-St0MLT7pbcWIHDS7ohgyzS2eAqDxotpErx5YQcgADgY3vs6zpr9MAQVrT9NZ-ZmUNcTutMm7SIBlLIgm9rPjDRDKUh7QP2nSKjEDGTi8a_wN7Ffl2B5BrI1Phqnbk2IM_d0jcRKYTo7OK7csOacLsRZi7iYsrXycKH3oqtK_A2iVpo7S_in-RvFukgbK6bzx0NihjbV8kHSiqaXbU=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_twitter_light.png?1446651957" style="border:none;text-decoration: none;color:#15a7ad;" width="26" class="CToWUd">
 									</a>
 									<a href="https://plus.google.com/104993070863948605840" style="display:inline-block;border:0;text-decoration:none" target="_blank">
-									<img alt="gPlus" height="26" src="https://ci3.googleusercontent.com/proxy/QCwjjZ6gyUQlsTWOkQHCywnixjsVrQ3hTiNlAl1xTAYkV-NZBjhhhN3_sipcG9H2H3jtWx2Wvvq-I5x9SabBcHEfOrWXzOtS30sCmfoFeLOoR-nBp8Kn-o_UVvToyaayVtemol-iqpR3q6b09LyoHNVlIUHvfU-e9xbOPJKGeleEpR01Bik9l8bo3axF8E8f6ZThFNWwMpfm19i6cbLmYp2jr3Vb=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_gplus_light.png?1446651957" style="border:none" width="26" class="CToWUd">
+									<img alt="gPlus" height="26" src="https://ci3.googleusercontent.com/proxy/QCwjjZ6gyUQlsTWOkQHCywnixjsVrQ3hTiNlAl1xTAYkV-NZBjhhhN3_sipcG9H2H3jtWx2Wvvq-I5x9SabBcHEfOrWXzOtS30sCmfoFeLOoR-nBp8Kn-o_UVvToyaayVtemol-iqpR3q6b09LyoHNVlIUHvfU-e9xbOPJKGeleEpR01Bik9l8bo3axF8E8f6ZThFNWwMpfm19i6cbLmYp2jr3Vb=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_gplus_light.png?1446651957" style="border:none;text-decoration: none;color:#15a7ad;" width="26" class="CToWUd">
 									</a>
 									<a href="https://www.youtube.com/channel/UCbx21T0l7_ttr26tZ9d2_Zw" style="display:inline-block;border:0;text-decoration:none" target="_blank">
-									<img alt="YouTube" height="26" src="https://ci3.googleusercontent.com/proxy/RCnKYJH1Ni3KDEFfk4sMsHaMzIthkyD1yeJwCnk9mfy55E3Gwyy3nRlETsxjRuVhv9PKBqbpHwJg8fpxSUstcagoSsLHXXCoUT39b8jTaJMRmjkjSR7BfySVGdUUUtYgkKdhK3MkYlRM3n0jS9MxUVG6T1dKMwoD6H1fyjiOHPJYe-dEc_DR13KPsDGnets5BNOg7OrHMGbHstcunPmJhYmU4D_RneY=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_youtube_light.png?1446651957" style="border:none" width="26" class="CToWUd">
+									<img alt="YouTube" height="26" src="https://ci3.googleusercontent.com/proxy/RCnKYJH1Ni3KDEFfk4sMsHaMzIthkyD1yeJwCnk9mfy55E3Gwyy3nRlETsxjRuVhv9PKBqbpHwJg8fpxSUstcagoSsLHXXCoUT39b8jTaJMRmjkjSR7BfySVGdUUUtYgkKdhK3MkYlRM3n0jS9MxUVG6T1dKMwoD6H1fyjiOHPJYe-dEc_DR13KPsDGnets5BNOg7OrHMGbHstcunPmJhYmU4D_RneY=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_youtube_light.png?1446651957" style="border:none;text-decoration: none;color:#15a7ad;" width="26" class="CToWUd">
 									</a>
 									<a href="https://instagram.com/soundhousepromotions" style="display:inline-block;border:0;text-decoration:none" target="_blank">
-									<img alt="Instagram" height="26" src="https://ci5.googleusercontent.com/proxy/nI1UDKboRctXOs7cYWiU5g8cuNNV0ASUu3LBvE2174gq8Gng2BfKU7olsUbqWORKu2ECFdqsgnC8k1d18u0okTgoLlGSbM0AHhzZjcPcR1_5G-5hFjWiL__sSh_BUJbD69Ht0Li43vUJWXeZQdkJSlkzVoLPp-uP8gIEoP0Nn464rffMM6K5MyAy4UXHguOOSicEH-p8fE-FykOLCYDQnNNGOboN82a68w=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_instagram_light.png?1446651957" style="border:none" width="26" class="CToWUd">
+									<img alt="Instagram" height="26" src="https://ci5.googleusercontent.com/proxy/nI1UDKboRctXOs7cYWiU5g8cuNNV0ASUu3LBvE2174gq8Gng2BfKU7olsUbqWORKu2ECFdqsgnC8k1d18u0okTgoLlGSbM0AHhzZjcPcR1_5G-5hFjWiL__sSh_BUJbD69Ht0Li43vUJWXeZQdkJSlkzVoLPp-uP8gIEoP0Nn464rffMM6K5MyAy4UXHguOOSicEH-p8fE-FykOLCYDQnNNGOboN82a68w=s0-d-e1-ft#https://gp1.wac.edgecastcdn.net/802892/production_static/20151104151831/images/email/icons_social_media/social-icon_instagram_light.png?1446651957" style="border:none;text-decoration: none;color:#15a7ad;" width="26" class="CToWUd">
 									</a>
 								</p>
 							</td>
@@ -649,7 +893,7 @@
 								<table width="100%" cellpadding="0" cellspacing="0" border="0">
 									
 									<tr>
-										<td style="font-family:Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.4;color:#999;font-weight:normal;text-align:center">
+										<td style="font-family:Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.4;color: #5F6263;font-weight:normal;text-align:center">
 											Your preferences are set to receive
 											<strong>Booking Requests</strong>
 											<i>daily</i>.<br>
@@ -676,7 +920,7 @@
 								<table width="100%" cellpadding="0" cellspacing="0" border="0">
 									
 										<tr>
-											<td style="font-family:Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.4;color:#999;font-weight:normal;text-align:center">
+											<td style="font-family:Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.4;color: #5F6263;font-weight:normal;text-align:center">
 												99Sound
 											</td>
 										</tr>
@@ -685,7 +929,7 @@
 										</tr>
 										<tr>
 											<td style="font-family:Roboto,'Helvetica Neue',Arial,sans-serif;font-size:12px;line-height:1.4;color:#999;font-weight:normal;text-align:center">
-												<a href="<?=base_url()?>footer/privacy-policy" target="_blank">Privacy Policy</a>
+												<a style="text-decoration: none;color:#15a7ad;" href="<?=base_url()?>footer/privacy-policy" target="_blank">Privacy Policy</a>
 											</td>
 										</tr>
 										<tr>

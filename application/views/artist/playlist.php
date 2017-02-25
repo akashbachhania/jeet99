@@ -11,11 +11,6 @@
         padding-top:20px;
         padding-bottom: 20px;
     }
-    .btn-song {
-        width:70%;
-    }
-    .btn-song:hover span {display:none;}
-.btn-song:hover:before {content:"View Playlist";}
 </style>
 <div  style=" min-height: 100vh;padding-top:10px">
     <div class="container-fluid fix-amp">
@@ -56,9 +51,9 @@ echo $this->M_audio_song->get_cover_playlist_path_new($row['id']).thumb($src_img
 alt="<?php echo $row['name']?>" class="img-responsive img-thumb" />
                                                                             
                         				<h3 class="title-item"> 
-                                                            <a href="<?php echo base_url('artist/playlist').'/'.$row['id']?>" class="" style="text-decoration:none;">    <?php echo $row['name']?></a>
+                                            <?php echo $row['name']?>
                                         </h3>
-                                                    <a href="<?php echo base_url('artist/playlist').'/'.$row['id']?>" class="btn btn-primary btn-song"><span>Upload Songs & Video</span></a>
+                                                    <a href="<?php echo base_url('artist/playlist').'/'.$row['id']?>" class="btn btn-primary">Upload Songs & Video</a>
                         				<p class="title-sd-item">
                                             <span class="txt-info"></span>
                                         </p>

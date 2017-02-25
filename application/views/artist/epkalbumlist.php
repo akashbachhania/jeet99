@@ -49,7 +49,7 @@ $(document).ready(function() {
                                             $rating = $song['sales'] * 100 / $song['listened'];
                                         } ?>
                                         {
-                                            "text" : "<?php if($song['option_type']=="1"){ echo $song['song_name'].$song["song_name_auth"].'- Rating ('.$rating.'%)'; } else { echo $song['video_name'].$song["video_name_auth"].'- Rating ('.$rating.'%)'; } ?>",
+                                            "text" : "<?=$song['song_name'].'- Rating ('.$rating.'%)'?>",
                                             "state" : { "selected" : false },
                                             "icon" : "jstree-file",
                                             "id": "<?=$song['id']?>",

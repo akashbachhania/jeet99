@@ -5091,7 +5091,7 @@ ul.notifications {
 .notifications li {
     float: right;
     margin: 3px;
-    width: 100%;
+    width: 36px;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
 }
 

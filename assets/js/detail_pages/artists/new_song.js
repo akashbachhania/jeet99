@@ -30,7 +30,7 @@ $(window).load(function(){
              $("input[name=file_audio5]").parsley().isValid() ||
              $("input[name=file_video1]").parsley().isValid() || 
             $("input[name=file_video2]").parsley().isValid() || 
-             $("input[name=file_video3]").parsley().isValid())  {
+             $("input[name=file_video3]").parsley().isValid()) {
                       
         $("input[name=file_audio1]").removeAttr('required').parsley().destroy();
             $("input[name=file_audio2]").removeAttr('required').parsley().destroy();
@@ -41,11 +41,7 @@ $(window).load(function(){
                $("input[name=file_video2]").removeAttr('required').parsley().destroy();
                 $("input[name=file_video3]").removeAttr('required').parsley().destroy();
       
-        form.parsley().validate();
-            if (!form.parsley().isValid()) {
         
-                return false;
-            }   
             } else {
                  $("input[name=file_audio1]").attr('required', 'required').parsley();
         $("input[name=file_audio2]").attr('required', 'required').parsley();
@@ -64,7 +60,6 @@ $('.invalid-form-error-message').html('<div class="alert alert-danger">You must 
                 return false;
             } 
         }
-        
         },
         onTabClick: function(tab, navigation, index) {
             var form = $('form[name="step'+ (index+1) +'"]');
@@ -97,13 +92,9 @@ $('.invalid-form-error-message').html('<div class="alert alert-danger">You must 
         var audio_file="tmp_audio4";
          
     }
-    else if($("#file_audio-ext5").val()!=null) {
+    else {
          var audio_ext = $("#file_audio_ext5").val();
          var audio_file="tmp_audio5";
-    }
-    else {
-        var audio_ext ="";
-        var audio_file="";
     }
 
       
@@ -125,18 +116,8 @@ $('.invalid-form-error-message').html('<div class="alert alert-danger">You must 
        
         if(!video_ext){
             $("#radio_video").attr('disabled',true);
-            $( "#radio_video" ).prop( "checked",false );
-            
         }else{
             $("#radio_video").removeAttr('disabled');
-            $( "#radio_video" ).prop( "checked",true );
-        }
-         if(!audio_ext){
-            $("#radio_audio").attr('disabled',true);
-            $( "#radio_audio" ).prop( "checked",false );
-        }else{
-            $("#radio_audio").removeAttr('disabled');
-                $( "#radio_audio" ).prop( "checked",true );
         }
         $.ajax({
              type: "POST",
@@ -316,14 +297,6 @@ $(document).ready(function(){
         }
     });
     
-   if($('#radio_audio').is(':checked')) {
-        $("#box_demo_video").hide();
-            $("#box_demo_audio").show();
-   }
-   else{
-            $("#box_demo_audio").hide();
-            $("#box_demo_video").show();
-        }
     $('input[name="options_demo"]').change(function(){
        
 
@@ -370,9 +343,6 @@ $(document).ready(function(){
                  'csrf_test_name':get_csrf_hash ,
                 'id_paylist':$playlist_id,
                 'name_song': $('#song_name').val(),
-                'name_song_auth':$("#song_name_auth").val(),
-                 'name_video': $('#video_name').val(),
-                'name_video_auth':$("#video_name_auth").val(),
                 'availability': $("#availability").val(),
                 'price': $("#price").val(),
                 'lyric': CKEDITOR.instances.lyrics.getData(),

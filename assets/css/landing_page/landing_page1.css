@@ -445,6 +445,7 @@ section{
 
     .carousel-info .pull-left{
         float:none !important;
+        
     }
     .carousel-info img{
         margin-right: 0;
@@ -456,4 +457,5 @@ section{
         text-align:center;
         float:none;
     }
+     
 }

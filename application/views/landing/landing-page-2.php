@@ -147,18 +147,12 @@
                     <div id="menu2" class="tab-pane fade">
                       <a href="<?php echo base_url('artist/allfans').'/'.$id; ?>"><h3>FANS</h3></a>
                       <?php if (isset($fans) && count($fans) > 0) { ?>
-                       <?php $i = 0; foreach ($fans as $fan) { 
-                        if($fan['role'] == 1)
-                            {
-                              $avata = $this->M_user->get_avata($fan['fan_id']);
-                            }else{
-                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
-                            }
-                        ?>
+                       <?php $i = 0; foreach ($fans as $fan) { ?>
                         
                         <div class="row">
                             <div class="col-xs-3 col-md-2">
-                                <img src="<?php echo $avata ?>" class="img-circle img-responsive" alt="?php echo $fan['artist_name']; ?>" />
+                                <img src="<?php if (!empty($fan['avata'])) { echo base_url().'uploads/'.$users[0]->id.'/photo/'.$fan['avata'];}
+                                                 else { echo base_url().'assets/images/default-img.gif'; } ?>" class="img-circle img-responsive" alt="?php echo $fan['artist_name']; ?>" />
                             </div>
                             <div class="col-xs-9 col-md-10">
                                 <div>
@@ -172,7 +166,7 @@
                         <hr>
                         <?php $i++ ; } ?>
                          <?php } else { ?>
-                           <span class="testimonials-name text-center">No content have been added in this section yet.</span>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
                            <?php } ?>
                     </div>
                     <div id="menu3" class="tab-pane fade">
@@ -196,7 +190,7 @@
                         </div>
                         <hr>
                         <?php } }else { ?>
-                           <span class="testimonials-name text-center">No content have been added in this section yet.</span>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
                            <?php } ?>
                     </div>
                   </div>
@@ -272,7 +266,7 @@
                                         }
                                                                     $array_avai = explode(',', $video_by_album['availability']); ?>
                                                                     {
-                                                                        title:"<?php if($video_by_album['option_type']=="1") { echo $video_by_album['song_name'].$video_by_album['song_name_auth']; } else { echo $video_by_album['video_name'].$video_by_album['video_name_auth']; }?>",
+                                                                        title:"<?php echo $video_by_album['song_name'] ?>",
                                                                         mp3:"<?php echo $file_url ?>",
                                                                         poster: "<?php echo base_url().'uploads/'.$id.'/img_playlist/'.$album_song['image_file']; ?>",
                                                                         <?php
@@ -356,7 +350,7 @@
 
                                     </div>
                                     <?php } else { ?>
-                           <span class="testimonials-name text-center">No content have been added in this section yet.</span>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
                            <?php } ?>
         </div>
               
@@ -396,7 +390,7 @@
                 <?php ++$i;
                         }
                     }else { ?>
-                           <span class="testimonials-name text-center">No content have been added in this section yet.</span>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
                            <?php } ?>
                 
             </div>
@@ -490,7 +484,7 @@
                             </article>
                             <?php } ?>
                             <?php }  else { ?>
-                           <span class="testimonials-name text-center">No content have been added in this section yet.</span>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
                            <?php } ?>
                         </div>
                     </article>
@@ -649,7 +643,7 @@
                         </div>
                     </div>
                     <?php } } else { ?>
-                           <span class="testimonials-name text-center">No content have been added in this section yet.</span>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
                            <?php } ?>
                 </div>
             </div>

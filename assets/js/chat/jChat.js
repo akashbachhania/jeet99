@@ -27,7 +27,7 @@
 
                     $(opt.chat).html(chat.messages());
 
-                    $("ul.chat-message").on('dblclick', 'span.time', function() {
+                    $("ul.messages-layout").on('dblclick', 'span.time', function() {
                         var message_id = $(this).attr("id");
 
                         var construct = {
@@ -40,7 +40,7 @@
                         var client_or_server_id = $(this).parent().parent().parent().attr("id");
 
                         $("li." + client_or_server + '#' + client_or_server_id).remove();
-                        $("ul.chat-message").html(chat.messages());
+                        $("ul.messages-layout").html(chat.messages());
 
                     });
 
@@ -178,20 +178,20 @@
 
                     };
                     $.post(opt.ajaxUpdate, construct, function(response) {
-                        $("ul.chat-message").append(response);
-                        $("ul.chat-message").scroll(function() {
+                        $("ul.messages-layout").append(response);
+                        $("ul.messages-layout").scroll(function() {
                             $(this).getNiceScroll().resize();
                             clearTimeout(chat.interval);
                         });
 
-                        $("ul.chat-message").on('scroll', function() {
+                        $("ul.messages-layout").on('scroll', function() {
                             $(this).getNiceScroll().resize();
                             chat.interval = setTimeout(function() {
                                 chat.update();
                             }, opt.chatRefresh);
                         });
                         if (response != '') {
-                            $("ul.chat-message").animate({ scrollTop: 999999 }, 'fast');
+                            $("ul.messages-layout").animate({ scrollTop: 999999 }, 'fast');
                         }
                     });
 
@@ -212,12 +212,12 @@
                     if (message_entry) {
                         $.post(opt.ajaxSendMessage, construct, function(response) {
                             // just send the message chat.update will do the work of getting the message
-                            //$("ul.chat-message").append(response);
-                            $("ul.chat-message").scroll(function() {
+                            //$("ul.messages-layout").append(response);
+                            $("ul.messages-layout").scroll(function() {
                                 $(this).getNiceScroll().resize();
                             });
-                            console.log(response);
-                            $("ul.chat-message").animate({ scrollTop: 999999 }, 'fast');
+
+                            $("ul.messages-layout").animate({ scrollTop: 999999 }, 'fast');
                             $('#text-input-field').val('');
                         });
                     }
@@ -237,20 +237,19 @@
 	
 })(jQuery);
 
-var searchRequest2 = null;
+var searchRequest1 = null;
 $(function () {
     var minlength = 5;
     console.log("function called in chat");
-    $("input#text-input-field").keypress(function (e) {
+    $(document).on('keypress', 'input#text-input-field', function (e) {
         var that = this,
         value = $("input#text-input-field").val();
         console.log(value);
         if (e.keyCode === 0 || e.keyCode === 32) {
-             console.log(e.keyCode);
             var word = value.split(" ").pop();
-            if (searchRequest2 != null) 
-                searchRequest2.abort();
-            searchRequest2 = $.ajax({
+            if (searchRequest1 != null) 
+                searchRequest1.abort();
+            searchRequest1 = $.ajax({
                 type: "GET",
                 url: link + "chat/spam_word/" + word,
                 dataType: "json",
@@ -268,14 +267,9 @@ $(function () {
                     if (value==$(that).val()) {
                     //Receiving the result of search here
                     }
-                },
-                error:function(error){
-                    console.log(error);
                 }
             });
             
-        }else{
-            console.log('else');
         }
     });
 });

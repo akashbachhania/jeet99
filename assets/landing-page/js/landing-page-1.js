@@ -34,7 +34,7 @@
     }); 
  
  
- function playvideo(link_video, o){
+ function playvideo(link_video,o){
     $link_vd = link_video;              
     var playerInstance = jwplayer("video");
     jwplayer("video").setup({

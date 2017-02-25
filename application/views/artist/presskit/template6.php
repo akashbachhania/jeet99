@@ -126,6 +126,7 @@ $data_json = json_decode($customize['data_customize']);
 						<li><a href="#" class="l8">Shows</a></li>
                         <?php 
                             }?>
+                            <li><a href="#" class="l9">blog</a></li>
 				      </ul>
 				    </div><!-- /.navbar-collapse -->
 				  </div><!-- /.container-fluid -->
@@ -161,7 +162,7 @@ $data_json = json_decode($customize['data_customize']);
 						<div class="col-md-3">
 							<div class="info">
 								<img src="<?php echo $this->M_user->get_avata($res_data_artist['id'])?>" class="img-responsive animated bounceInDown">
-								<h3 class="animated fadeInUp"><?php echo $this->M_user->get_name($res_data_artist['id'])?></h3>
+								<!-- <h3 class="animated fadeInUp"><?php echo $this->M_user->get_name($res_data_artist['id'])?></h3>
 
 								<p class="animated fadeInUp">From:<br />
 									<span class="from"><?php echo $res_data_artist['city'].', '.$country['country'];?></span>
@@ -187,7 +188,7 @@ $data_json = json_decode($customize['data_customize']);
 								</p>
                                 <p class="animated fadeInUp">Bio:<br />
 									<span class="bio"><?php custom_echo_html($res_data_artist['bio'], 300)?></span>
-								</p>
+								</p> -->
 							</div>
 						</div>
 
@@ -197,10 +198,37 @@ $data_json = json_decode($customize['data_customize']);
 							<div id="info_statistics_div_placeholder">
 	                            <ul class="new_charts fix-nav">
 	                                <li class="animated bounceInLeft">
-	                                    <div id="gender_demographics">
+	                               <!--  <h3 class="animated fadeInUp"><?php echo $this->M_user->get_name($res_data_artist['id'])?></h3> -->
+	                                <div class="chartTitle animated fadeInUp"><?php echo $this->M_user->get_name($res_data_artist['id'])?></div>
+								<p class="animated fadeInUp"><b>From:</b>
+									<span class="from"><?php echo $res_data_artist['city'].', '.$country['country'];?></span>
+								</p>
+
+								<p class="animated fadeInUp"><b>Genre:</b>
+									<span class="genre"><?php echo $genre['name'];?></span>
+								</p>
+
+								<p class="animated fadeInUp"><b>Members:</b>
+									<span class="members"><p><?php
+                                           foreach ($groups_member as $member) {
+                                               echo $member['name_member'].' - '.$member['contribution'];
+                                               if (!empty($member['contribution2'])) {
+                                                   echo '/'.$member['contribution2'];
+                                               }
+                                               if ($member != end($groups_member)) {
+                                                   echo ',';
+                                               }
+                                           }
+                                           ?> 
+                                     </p></span>
+								</p>
+                                <p class="animated fadeInUp"><b>Bio:</b>
+									<span class="bio"><?php custom_echo_html($res_data_artist['bio'], 300)?></span>
+								</p>
+	                                    <!-- <div id="gender_demographics">
 	                                        <div class="chartTitle">Gender Demographics</div>
 	                                        <div class="chartBody">No Data Available</div>
-	                                    </div>
+	                                    </div> -->
 	                                    <div class="clearfix"></div>
 	                                </li>
 	                                <li class="animated bounceInRight">
@@ -252,7 +280,7 @@ $data_json = json_decode($customize['data_customize']);
 	                                    </div>
 	                                    <div class="clearfix"></div>
 	                                </li>
-	                                <li class="animated bounceInLeft">
+	                               <!--  <li class="animated bounceInLeft">
 	                                    <div id="fans">
 	                                        <div class="chartTitle"><span id="fans_count"><?php echo count($fans)?></span>&nbsp;&nbsp;fans</div>
 	                                        <div class="chartBody"></div>
@@ -265,7 +293,7 @@ $data_json = json_decode($customize['data_customize']);
 	                                        <div class="chartBody"> No Data Available </div>
 	                                    </div>
 	                                    <div class="clearfix"></div>
-	                                </li>
+	                                </li> -->
 	                                <div style="clear: both"></div>
 	                            </ul>
 	                            <div class="see_all">*Fan demographics represent 99Sound fans only</div>
@@ -280,13 +308,18 @@ $data_json = json_decode($customize['data_customize']);
 				<div id="photos" class="none panels">
 					<h2 class="h2 animated fadeInDown">Photos</h2>
 						<div class="row">
+						<div class="col-sm-12">
+
 							<div class="li-image">
                                 <?php
                                 foreach ($photos as $pt) {
-                                    ?><a class="animated slideInLeft" href="#"><img src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive fix-img"></a>
+                                    ?><a class="animated slideInLeft" href="#"><img src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive fix-img">
+                                    
+                                    </a>
                                     <?php
 
                                 } ?> 
+							</div>
 							</div>
 						</div>
 				</div><!-- end #photos -->
@@ -295,8 +328,74 @@ $data_json = json_decode($customize['data_customize']);
     ?>
 				<div id="stats" class="none panels">
 					<h2 class="h2 animated fadeInDown">Stats</h2>
-					<div class="row">
-						<div class="index">
+					<div class="row top_tiles">
+					 <div class="right_col" role="main">
+		              <div class="animated fadeInDown col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-envelope fa-3x"></i></div>
+		                  <div class="count">6</div>
+		                  <h3>Send Mail</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-twitter fa-3x"></i></div>
+		                  <div class="count">9</div>
+		                  <h3>Share Twitter</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-facebook fa-3x"></i></div>
+		                  <div class="count">9</div>
+		                  <h3>Share Facebook</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-music fa-3x"></i></div>
+		                  <div class="count">9</div>
+		                  <h3>Songs Counts</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-offset-1 col-lg-2 col-md-2 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-rss fa-2x"></i></div>
+		                  <div class="count">17</div>
+		                  <h3>Blogs Counts</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-2 col-md-2 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-video-camera fa-2x"></i></div>
+		                  <div class="count">9</div>
+		                  <h3>Video Counts</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-2 col-md-2 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-users fa-2x"></i></div>
+		                  <div class="count">12</div>
+		                  <h3>Fans Counts</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-2 col-md-2 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-comments fa-2x"></i></div>
+		                  <div class="count">179</div>
+		                  <h3>Comments Counts</h3>
+		                </div>
+		              </div>
+		              <div class="animated fadeInDown col-lg-2 col-md-2 col-sm-6 col-xs-12">
+		                <div class="tile-stats">
+		                  <div class="icon"><i class="fa fa-calendar-o fa-2x"></i></div>
+		                  <div class="count">12</div>
+		                  <h3>Events Counts</h3>
+		                </div>
+		              </div>
+		            
+					
+<!-- 						<div class="index">
 							<h5 class="animated fadeInDown">Fan Demographics</h5>
 							<p class="animated fadeInDown">Top Demographics is Females (age 13-17)</p>
 
@@ -338,9 +437,9 @@ $data_json = json_decode($customize['data_customize']);
 									<td><?php echo $this->Member_model->stast_fan($fans, 0, 12, 2)?>%</td>
 								</tr>
 							</table>
-						</div>
+						</div> -->
 
-						<div class="stats-info animated fadeInLeft">
+						<!-- <div class="stats-info animated fadeInLeft">
 							<div class="row">
 								<div class="col-md-6 col-sm-6 col-xs-6 stats-info">
 									<h5>Their fans live here</h5>
@@ -352,7 +451,7 @@ $data_json = json_decode($customize['data_customize']);
 									<p><b><?php echo count($fans)?> total fans</b></p>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div><!-- end #stats -->
                 <?php 
@@ -531,7 +630,25 @@ $data_json = json_decode($customize['data_customize']);
 					<div class="press-content">
 
 						<div class="row">
-                            <?php $i = 1;
+						  <h1>Article title first</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum ex eget porttitor sollicitudin. Morbi cursus tempor placerat. Pellentesque suscipit tortor in orci pretium, ac facilisis ex pretium. Fusce hendrerit orci diam, vitae tristique quam porttitor eu. Donec ligula orci, ultricies in sagittis non, porta sed lorem. Aenean interdum posuere mattis. Curabitur dignissim dictum quam, vitae malesuada velit tristique a. </p>
+        <div>
+            <ul class="list-unstyled list-inline">
+								<li><i class="fa fa-calendar"></i> January 18, 2017</li>
+								<li><i class="fa fa-user"></i> Sergio Rodriguez</li>
+							</ul>
+        </div> 
+        <div class="clear"></div>
+        <hr>
+        <h1>Article title second</h1>
+        <p>Sed interdum massa ac pretium faucibus. Integer semper euismod lorem faucibus molestie. Aenean luctus ut metus eget dignissim. Sed tincidunt augue non elementum pharetra. Suspendisse non feugiat urna. Etiam egestas neque euismod neque sollicitudin consectetur. Fusce facilisis augue a velit porta scelerisque. Sed mattis justo sapien. Sed ultrices lectus diam, id vestibulum ante finibus a. </p>
+        <div style="margin-bottom:40px;">
+            <ul class="list-unstyled list-inline">
+								<li><i class="fa fa-calendar"></i> January 18, 2017</li>
+								<li><i class="fa fa-user"></i> Sergio Rodriguez</li>
+							</ul>
+        </div> 
+                      <!--       <?php $i = 1;
                     foreach ($press as $row) {
                         ?>
                                 	<div id="id<?php echo $i;
@@ -554,7 +671,7 @@ $data_json = json_decode($customize['data_customize']);
                                     
                                 <?php
 
-                    } ?>
+                    } ?> -->
 						</div>
 					</div>
 				</div><!-- end #press -->
@@ -577,16 +694,114 @@ $data_json = json_decode($customize['data_customize']);
 							  <!-- Tab panes -->
 							  <div class="tab-content">
 							    <div role="tabpanel" class="tab-pane active" id="home">
-							    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+							    	<div class="panel-body">
+					                    <ul class="media-list">
+					                        <li class="media">
+					                            <div class="media-left">
+					                                <img src="http://placehold.it/60x60" class="img-circle">
+					                            </div>
+					                            <div class="media-body">
+					                                <h4 class="media-heading">
+					                                    Aenean Consect 
+					                                </h4>
+					                                <ul class="list-unstyled list-inline">
+														<li><i class="fa fa-calendar"></i> January 18, 2017</li>
+													</ul>
+					                                <p>
+					                                    Curabitur vel malesuada tortor, sit amet ultricies mauris. Aenean consectetur ultricies luctus.
+					                                </p>
+					                            </div>
+					                        </li>
+					                        <li class="media">
+					                            <div class="media-left">
+					                                <img src="http://placehold.it/60x60" class="img-circle">
+					                            </div>
+					                            <div class="media-body">
+					                                <h4 class="media-heading">
+					                                    Aenean Consect 
+					                                </h4>
+					                                <ul class="list-unstyled list-inline">
+														<li><i class="fa fa-calendar"></i> January 18, 2017</li>
+													</ul>
+					                                <p>
+					                                    Curabitur vel malesuada tortor, sit amet ultricies mauris. Aenean consectetur ultricies luctus.
+					                                </p>
+					                            </div>
+					                        </li>
+					                    </ul> 
+					                </div>
 							    </div>
 							    <div role="tabpanel" class="tab-pane" id="profile">
-							    	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...two</p>
+							    		<div class="panel-body">
+					                    <ul class="media-list">
+					                        <li class="media">
+					                            <div class="media-left">
+					                                <img src="http://placehold.it/60x60" class="img-circle">
+					                            </div>
+					                            <div class="media-body">
+					                                <h4 class="media-heading">
+					                                    Aenean Consect 
+					                                </h4>
+					                                <ul class="list-unstyled list-inline">
+														<li><i class="fa fa-calendar"></i> January 18, 2017</li>
+													</ul>
+					                                <p>
+					                                    Curabitur vel malesuada tortor, sit amet ultricies mauris. Aenean consectetur ultricies luctus.
+					                                </p>
+					                            </div>
+					                        </li>
+					                    </ul> 
+					                </div>
 							    </div>
 							  </div>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				<div id="blog" class="none">
+					<h2 class="h2 animated fadeInDown">Blog</h2>
+					<div class="row">
+						<div class="bios-content">
+							<div class="well">
+									      <div class="media">
+									      	<a class="pull-left" href="#">
+									    		<img class="media-object" src="http://placekitten.com/150/150">
+									  		</a>
+									  		<div class="media-body">
+									    		<h4 class="media-heading"><b>Receta xyz</b></h4>
+									          <p class="text-right">By Francisco</p>
+									          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
+									Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
+									dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
+									Aliquam in felis sit amet augue.</p>
+									          <ul class="list-inline list-unstyled">
+									  			<li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+									            <li>|</li>
+									            <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+									            <li>|</li>
+									            <li>
+									               <span class="glyphicon glyphicon-star"></span>
+									                        <span class="glyphicon glyphicon-star"></span>
+									                        <span class="glyphicon glyphicon-star"></span>
+									                        <span class="glyphicon glyphicon-star"></span>
+									                        <span class="glyphicon glyphicon-star-empty"></span>
+									            </li>
+									            <li>|</li>
+									            <li>
+									            <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+									              <span><i class="fa fa-facebook-square"></i></span>
+									              <span><i class="fa fa-twitter-square"></i></span>
+									              <span><i class="fa fa-google-plus-square"></i></span>
+									            </li>
+												</ul>
+									       </div>
+									    </div>
+									  </div>
+							<p style="color: #fff;" class="animated fadeInUp"><?php echo $res_data_artist['bio']?></p>
+						</div>
+					</div>
+				</div><!-- end #bios -->
                  <?php 
                 }?>
 			</div>

@@ -284,59 +284,6 @@ email=$("#email").val();
 		    var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
 		    return pattern.test(email);
 		}
-</script>
-
-
-<!--Code to hide the status box after 30 secs-->   
-<script type="text/javascript">
-    $(document).ready(function() {
-        var $child = $(".alert_gloabal").children();
-        if($child){
-            $(".alert_gloabal").delay(60000).hide();
-        }
-    });                           
-</script>
-<script type="text/javascript">
-var base_url = "<?php echo base_url(); ?>";
-
-<?php if(isset($user_data))
-{
-    
-?>
-    var user_id = <?php echo $user_data['id']?>;
-    function get_ajax_notification(user_id)
-    {
-        $.ajax({
-        url:base_url+'Notices/get_notify_by_type',
-        data:{
-            'user_id' : user_id,
-            'type' : 'group',
-            "<?=$this->security->get_csrf_token_name();?>":"<?=$this->security->get_csrf_hash();?>"
-        },
-        type:'post',
-        success: function(data){
-            var data = JSON.parse(data);
-               setTimeout(function() {
-                    // alert("call");
-                            get_ajax_notification(user_id);
-                        }, 5000);
-                $("#notify_nav").empty();
-                $("#notice_count").empty();
-                if(data.count != 0)
-                {
-                    $("#notify_nav").html(data.count);
-                    $("#notice_count").html(data.count);
-                }
-                
-               
-            }
-
-        });
-    }
-    get_ajax_notification(user_id);
-    <?php
-    }
-    ?>
-</script>
+                </script>
 </body>
 </html>

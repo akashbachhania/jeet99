@@ -6,47 +6,7 @@
 <script src="<?php echo base_url()?>assets/js/jquery.bootstrap.wizard.min.js"></script>
 <script src="<?php echo base_url()?>assets/js/parsley.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.form.min.js"></script>
-<script src="<?=base_url('assets/js/bootstrap-maxlength.js')?>"></script>
 <script>
-    $(document).ready(function(){
-    
-$('input#song_name_auth').maxlength({
-
-alwaysShow: true,
-threshold: 10,
-showMaxLength: true,
-warningClass: "label label-warning",
-limitReachedClass: "label label-danger",
-
-
-separator: ' of ',
-
-preText: 'You have ',
-
-postText: ' chars remaining.'
-
-});
-});
-
-$(document).ready(function(){
-
-$('input#video_name_auth').maxlength({
-
-alwaysShow: true,
-threshold: 10,
-showMaxLength: true,
-warningClass: "label label-warning",
-limitReachedClass: "label label-danger",
-
-
-separator: ' of ',
-
-preText: 'You have ',
-
-postText: ' chars remaining.'
-
-});
-});
     
 var load_duration     ='<?=base_url('artist/load_duration')?>';
 var get_csrf_hash     ='<?php echo $this->security->get_csrf_hash(); ?>';
@@ -126,16 +86,6 @@ var playlist_id ="<?=base_url('artist/playlist/'.$playlist_id)?>";
                 						
                                                                 </div>
                 					</div>						
-                                    <div id="songname-auth">
-                                        <div class="form-group">
-                						<label class="col-xs-3 control-label">Matching Song Title Authentication <i class="fa fa-asterisk" style="font-size:8px;vertical-align: super;"></i></label>
-                						<div class="col-md-6 col-xs-9 input-group">
-                							 
-                                                                    <input type="text" maxlength="20" name="song_name_auth" id="song_name_auth"  value="<?php echo $data_song->song_name_auth; ?>" class="form-control" data-parsley-required  data-parsley-required-message="Enter a Song Title auth" data-toggle="tooltip" data-placement="top" title="This Field Requires Input When an Exact Match of Song Titles in our Database Occurs.  Input Additional  Information Into Parenthetical Field to Clearly Identify Your Song. Ex Song Name: Mile High (John Smith)">
-                                                                   
-                                                                </div></div>
-                                        
-                                    </div>
                 					<div class="form-group" >
                 						<label class="col-xs-3 control-label">Post Song to: <i class="fa fa-asterisk" style="font-size:8px;vertical-align: super;"></i></label>
                 						<div class="col-md-6 col-xs-9 input-group">
@@ -385,23 +335,6 @@ var playlist_id ="<?=base_url('artist/playlist/'.$playlist_id)?>";
                                     <div class="invalid-form-error-message"></div>
                                     <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
                                <div class="form-group" >
-                						<label class="col-xs-3 control-label">Video Name</label>
-                						<div class="col-md-6 col-xs-9 input-group">
-                                                                    <input type="text" class="form-control" value="<?=$data_song->video_name ?>" name="video_name" id="video_name" data-parsley-required data-parsley-videoname data-parsley-required-message="Enter a Video Name" />
-                						</div>
-                					</div> 
-                             <div id="videoname-auth">
-                                        <div class="form-group">
-                						<label class="col-xs-3 control-label">Matching Video Title Authentication <i class="fa fa-asterisk" style="font-size:8px;vertical-align: super;"></i></label>
-                						<div class="col-md-6 col-xs-9 input-group">
-                							 
-                                                                    <input type="text" maxlength="20" value="<?=$data_song->video_name_auth ?>" name="video_name_auth" id="video_name_auth"  class="form-control" data-parsley-required  data-parsley-required-message="Enter a Video Title Auth" data-toggle="tooltip" data-placement="top" title="This Field Requires Input When an Exact Match of Video Titles in our Database Occurs.  Input Additional  Information Into Parenthetical Field to Clearly Identify Your Song. Ex Video Name: Mile High (John Smith)">
-                                                                   
-                                                                </div></div>
-                                        
-                                    </div>
-                                    
-                                    <div class="form-group" >
                 						<label class="col-xs-3 control-label">Video File(MP4,M4V)</label>
                 						<div class="col-md-6 col-xs-9 input-group">
                 							<input type="file" class="form-control" accept="video/*" name="file_video1" required data-parsley-errors-messages-disabled/>
@@ -621,14 +554,6 @@ else {
     }
     
     $(document).ready(function() {
-    <?php if($data_song->song_name_auth!="") { ?>
-           
-             $('#songname-auth').show(); 
-
-    <?php } else { ?>
-      
-           $('#songname-auth').hide();
-  <?php  }?>
         window.ParsleyValidator
                 .addValidator('songname', function (value, requirement) {
                     var response = false;
@@ -641,92 +566,19 @@ else {
                         async: false,
                         success: function(data) {
                             response = true;
-                            $('#songname-auth').hide();
                         },
                         error: function() {
                             response = false;
-                              $('#songname-auth').show();
                         }
                     });
- if(response==false){
-                   if($('#song_name_auth').val()!==""){
-    return true;
-}
-else {
-    return false;
-}
- }
- else
-{
-    $('#songname-auth').hide();
-    $('#song_name_auth').removeAttr("data-parsley-required");
-    return true;
-}
+
+                    return response;
                 }, 32)
                 .addMessage('en', 'songname', 'This Song Name already exists.');
 
         $("form[name=step1]").parsley();
 
         $("form[name=step1]").on('submit', function(e) {
-            var f = $(this);
-            f.parsley().validate();
-
-            
-            e.preventDefault();
-        });
-    });    
-    
-    $(document).ready(function() {
-    <?php if($data_song->video_name_auth!="") { ?>
-           
-             $('#videoname-auth').show(); 
-
-    <?php } else { ?>
-      
-           $('#videoname-auth').hide();
-  <?php  }?>
-        window.ParsleyValidator
-                .addValidator('videoname', function (value, requirement) {
-                    var response = false;
-                    var song_id=<?php echo $song_id;?>;
-                    $.ajax({
-                        url: "<?php echo base_url();?>artist/audio/checkVideoName",
-                        data: {song_name: value,csrf_test_name:get_csrf_hash, song_id:song_id},
-                        dataType: 'json',
-                        type: 'post',
-                        async: false,
-                        success: function(data) {
-                        response = true;
-                            $('#videoname-auth').hide();
-                        },
-                        error: function() {
-                            response = false;
-                              $('#videoname-auth').show();
-                        }
-                    });
-
-                                     if(response==false){
-if($('#video_name_auth').val()!==""){
-        $('#videoname-auth').hide();
-    return true;
-}
-else {
-      $('#videoname-auth').show();
-    return false;
-}
-}
-else
-{
-    $('#videoname-auth').hide();
-    $('#video_name_auth').removeAttr("data-parsley-required");
-    return true;
-}
-                }, 32)
-                .addMessage('en', 'videoname', 'This Video Name already exists.');
-
-        $("form[name=step3]").parsley();
-
-        $("form[name=step3]").on('submit', function(e) {
             var f = $(this);
             f.parsley().validate();
 

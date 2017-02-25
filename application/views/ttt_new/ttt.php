@@ -1029,7 +1029,7 @@ test();
 	}
 	function get_manager_member_view(tour_id)
 	{
-		$tour_id = tour_id;
+		
 		$.ajax({
     	url:base_url+'the_total_tour/members/'+tour_id,
     	data:{'type': "member"},
@@ -1249,6 +1249,3 @@ checkNoTour();
     $('#date_booking_from').datepicker(); 
     $('#date_booking_to').datepicker();
 </script>
-<script src="<?php echo base_url()?>assets/js/chosen.jquery.min.js" type="text/javascript"></script> 
-<script src="<?php echo base_url(); ?>assets/js/chat/chat_dashboard.js"></script>
-

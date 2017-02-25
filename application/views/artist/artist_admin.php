@@ -300,7 +300,7 @@ input[type=radio] + label:before{
 						<div class="one-fifth add-new-on">
                             <a href="#" data-toggle="modal" data-target="#uploadvideo">
 								<div class="container_ad">
-                                                                    <span class="subtitle"><br></span>
+                                                                    <span class="subtitle"></span>
                                                                     
 									<i class="fa fa-film fa-3x"></i>
                                                                         
@@ -439,7 +439,7 @@ input[type=radio] + label:before{
                                                 <a href="javascript:playTrailer(<?php echo $i;
     $i++?>)" class="pull-left icon" >
                                                 </a>
-                                                <span class="text-center" style="color: #aaa;"><?php if($row['option_type']=="1"){ echo $row['song_name'].$row['song_name_auth']; } else { echo $row['video_name'].$row['video_name_auth']; } ?></span>
+                                                <span class="text-center" style="color: #aaa;"><?php echo $row['song_name']; ?></span>
                                                 <div class="pull-right">
                                                     <div class="btn-group" >
                                                       <button class="btn btn-default btn-sm dropdown-toggle " type="button" data-toggle="dropdown" style="  border-radius: 50%;">

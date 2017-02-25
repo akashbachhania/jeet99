@@ -5,7 +5,7 @@
 #intro{
 	padding-left: 20px;
 }
-
+.bord{border:1px solid red;}
 #intro>header>.info>p{
 	margin: 0!important;
     font-size: 14px;

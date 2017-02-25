@@ -73,7 +73,7 @@ $(document).ready(function() {
 function load_iframe(id){
     
     //var link = '<?php //echo base_url()?>/chat/'+id;
-    $("#frame").attr('src',link+'chat/'+id);
+    $("#frame").attr('src',link+'chat'+id);
 }
 function load_iframe_artist(id){
     //var link = '<?php //echo base_url()?>/chat/artist/'+id;

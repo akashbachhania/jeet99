@@ -39,11 +39,7 @@ $(window).load(function(){
       $("input[name=file_video1]").removeAttr('required').parsley().destroy();
                $("input[name=file_video2]").removeAttr('required').parsley().destroy();
                 $("input[name=file_video3]").removeAttr('required').parsley().destroy();
-         form.parsley().validate();
-            if (!form.parsley().isValid()) {
         
-                return false;
-            }
             } else {
                  $("input[name=file_audio1]").attr('required', 'required').parsley();
         $("input[name=file_audio2]").attr('required', 'required').parsley();
@@ -140,16 +136,13 @@ $('.invalid-form-error-message').html('<div class="alert alert-danger">You must 
         var audio_file="tmp_audio4";
          
     }
-    else if($("#file_audio_ext5").val()!=null) {
+    else {
          var audio_ext = $("#file_audio_ext5").val();
          var audio_file="tmp_audio5";
     }
-else {
-    var audio_ext = "";
-         var audio_file="";
-}
 
       
+         
         //Video Extension
    if( $("#file_video_ext1").val()!=null){
     var video_ext = $("#file_video_ext1").val();
@@ -159,32 +152,16 @@ else {
          var video_ext = $("#file_video_ext2").val();
          var video_file="tmp_video2";
     }
-    else if ($("#file_video_ext3").val()!=null){
+    else {
          var video_ext = $("#file_video_ext3").val();
          var video_file="tmp_video3";
     }
     
-        else {
-         var video_ext = "";
-         var video_file="";
-}
        
-    
-    
-       
-        if(!video_ext && !video_path){
+        if(!video_ext&&!video_path){
             $("#radio_video").attr('disabled',true);
-            $( "#radio_video" ).prop( "checked",false );
         }else{
             $("#radio_video").removeAttr('disabled');
-            $( "#radio_video" ).prop( "checked",true );
-        }
-         if(!audio_ext && !audio_path){
-            $("#radio_audio").attr('disabled',true);
-            $( "#radio_audio" ).prop( "checked",false );
-        }else{
-            $("#radio_audio").removeAttr('disabled');
-                $( "#radio_audio" ).prop( "checked",true );
         }
         $.ajax({
              type: "POST",
@@ -196,8 +173,7 @@ else {
                 'audio_path':  audio_path,
                 'video_path':  video_path,
                 'audio_file':audio_file,
-                'video_file':video_file,
-                'song_id':song_id
+                'video_file':video_file
              },
              
              dataType: "json",
@@ -367,14 +343,6 @@ $(document).ready(function(){
         }
     });
     
-    if($('#radio_audio').is(':checked')) {
-        $("#box_demo_video").hide();
-            $("#box_demo_audio").show();
-   }
-   else{
-            $("#box_demo_audio").hide();
-            $("#box_demo_video").show();
-        }
     $('input[name="options_demo"]').change(function(){
        
 
@@ -488,9 +456,6 @@ $(document).ready(function(){
                  "csrf_test_name":get_csrf_hash,
                 'id_paylist': $playlist_id,
                 'name_song': $('#song_name').val(),
-                'name_song_auth':$("#song_name_auth").val(),
-                 'name_video': $('#video_name').val(),
-                'name_video_auth':$("#video_name_auth").val(),
                 'song_id': $data_song,
                 'availability': $("#availability").val(),
                 'price': $("#price").val(),

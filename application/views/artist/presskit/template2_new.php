@@ -21,7 +21,6 @@
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
     <!-- Fonts -->
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.mCustomScrollbar.css">
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>/assets/epk/template2_new/template_epk_2.css" rel="stylesheet">
@@ -33,7 +32,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-2.0.2.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <style type="text/css">
         .modal {
@@ -181,7 +179,6 @@
                                 <h5>Fans Counts</h5>
                                  <?php }?>
                             </div>
-                            
                             <div class="clearfix"></div>
                             <?php
                             }
@@ -189,7 +186,7 @@
                         </div>
                         
                         <div class="col-md-3 wel-grid">
-                            <img src="<?php echo $this->M_user->get_avata($res_data_artist['id'])?>" width="400" height="200" alt="" />
+                            <img src="<?php echo $this->M_user->get_avata($res_data_artist['id'])?>"  class="img-responsive" alt="" />
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -214,7 +211,7 @@
                     ?>
                     <div class="col-md-3 col-sm-6 hero-feature">
                         <div class="thumbnail catbox">
-                            <img src="<?php echo base_url(); ?>uploads/<?php echo $photos[$i]['user_id']; ?>/photo/<?php echo $photos[$i]['filename'];?>" class="img-responsive" style="height: 200px;"  alt="<?php echo $photos[$i]['caption']; ?>">
+                            <img src="<?php echo base_url(); ?>uploads/<?php echo $photos[$i]['user_id']; ?>/photo/<?php echo $photos[$i]['filename'];?>" alt="<?php echo $photos[$i]['caption']; ?>">
                         </div>
                     </div>
                     <?php }
@@ -602,7 +599,7 @@
     </div>
     <!-- jQuery -->
     <!-- Bootstrap Core JavaScript -->
-     
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <!-- script for play-list -->
     

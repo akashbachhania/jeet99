@@ -426,7 +426,7 @@
                                         }
                                                             $array_avai = explode(',', $video_by_album['availability']); ?>
                                                             {
-                                                                title:"<?php if($video_by_album['option_type']=="1") { echo $video_by_album['song_name'].$video_by_album['song_name_auth']; } else { echo $video_by_album['video_name'].$video_by_album['video_name_auth']; }?>",
+                                                                title:"<?php echo $video_by_album['song_name'] ?>",
                                                                 mp3:"<?php echo $file_url ?>",
                                                                 poster: "<?php echo base_url().'uploads/'.$id.'/img_playlist/'.$album_song['image_file']; ?>",
                                                                 <?php
@@ -812,17 +812,13 @@
                         <div class="panel-body panel-area3 ScrollStyle3 text-center"> 
                         <?php if (isset($fans) && count($fans) > 0) { ?>                       
                            <?php $i = 0; foreach ($fans as $fan) { 
-                            if($fan['role'] == 1)
-                            {
-                              $avata = $this->M_user->get_avata($fan['fan_id']);
-                            }else{
-                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
-                            }
+
                             ?>
                                 <div class="carousel-info">
                                     <a href="<?php echo base_url().$fan['home_page']; ?>">
                                         <img title="<?php echo $fan['artist_name']; ?>" alt=""
-                                            src="<?php echo $avata?>" class="pull-left">
+                                            src="<?php if (!empty($fan['avata'])) { echo base_url().'uploads/'.$users[0]->id.'/photo/'.$fan['avata'];}
+                                            else { echo base_url().'assets/images/default-img.gif'; } ?>" class="pull-left">
                                     </a>
                                     <span class="rblog-name"><a href="<?php echo base_url().$fan['home_page']?>"><?php echo $fan['firstname']; ?></a></span>
                                 </div>

@@ -22,7 +22,7 @@
 
                     $(opt.chat).html(chat.messages());
 
-                    $("ul.chat-message").on('dblclick', 'span.time', function() {
+                    $("ul.messages-layout").on('dblclick', 'span.time', function() {
                         var message_id = $(this).attr("id");
                         var csrfName = $("#csrf").attr('name');
                         var csrfVal = $("#csrf").val();
@@ -37,7 +37,7 @@
                         var client_or_server_id = $(this).parent().parent().parent().attr("id");
 
                         $("li." + client_or_server + '#' + client_or_server_id).remove();
-                        $("ul.chat-message").html(chat.messages());
+                        $("ul.messages-layout").html(chat.messages());
 
                     });
 
@@ -177,20 +177,20 @@
 
                     };
                     $.post(opt.ajaxUpdate, construct, function(response) {
-                        $("ul.chat-message").append(response);
-                        $("ul.chat-message").scroll(function() {
+                        $("ul.messages-layout").append(response);
+                        $("ul.messages-layout").scroll(function() {
                             $(this).getNiceScroll().resize();
                             clearTimeout(chat.interval);
                         });
 
-                        $("ul.chat-message").on('scroll', function() {
+                        $("ul.messages-layout").on('scroll', function() {
                             $(this).getNiceScroll().resize();
                             chat.interval = setTimeout(function() {
                                 chat.update();
                             }, opt.chatRefresh);
                         });
                         if (response != '') {
-                            $("ul.chat-message").animate({ scrollTop: 999999 }, 'fast');
+                            $("ul.messages-layout").animate({ scrollTop: 999999 }, 'fast');
                         }
                     });
 
@@ -211,12 +211,12 @@
                     if (message_entry) {
                         $.post(opt.ajaxSendMessage, construct, function(response) {
                             // just send the message chat.update will do the work of getting the message
-                            //$("ul.chat-message").append(response);
-                            $("ul.chat-message").scroll(function() {
+                            //$("ul.messages-layout").append(response);
+                            $("ul.messages-layout").scroll(function() {
                                 $(this).getNiceScroll().resize();
                             });
 
-                            $("ul.chat-message").animate({ scrollTop: 999999 }, 'fast');
+                            $("ul.messages-layout").animate({ scrollTop: 999999 }, 'fast');
                             $('#text-input-field').val('');
                         });
                     }

@@ -289,7 +289,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 					<div class="form-group">
-                        <input class="form-control"  type="text" id="plugins4_q" value=""placeholder="Search Name Song"  style="margin:0em auto 1em auto; padding:4px; border-radius:4px; border:1px solid silver;">
+                        <input class="form-control"  type="text" id="plugins4_q" value="" placeholder="Search Name Song"  style="margin:0em auto 1em auto; padding:4px; border-radius:4px; border:1px solid silver;">
 						<ul id="tree_playlist" class="droptree" >
 							<div id="frmt" class="demo"></div>
 						</ul>

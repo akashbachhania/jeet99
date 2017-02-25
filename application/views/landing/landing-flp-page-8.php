@@ -164,7 +164,7 @@
                                                                     foreach ($video_by_albums as $video_by_album) {
                                                                     $array_avai = explode(',', $video_by_album['availability']); ?>
                                                                     {
-                                                                        title:"<?php if($video_by_album['option_type']=="1") { echo $video_by_album['song_name'].$video_by_album['song_name_auth']; } else { echo $video_by_album['video_name'].$video_by_album['video_name_auth']; }?>",
+                                                                        title:"<?php echo $video_by_album['song_name'] ?>",
                                                                         mp3:"<?php echo 'http://d2c1n1yejcka7l.cloudfront.net/uploads/'.$id.'/audio/'.$video_by_album['audio_file'] ?>",
                                                                         poster: "<?php echo base_url().'uploads/'.$id.'/img_playlist/'.$album_song['image_file']; ?>",
                                                                         <?php
@@ -338,7 +338,7 @@
                     	        <div class="CommentForm-2">
                                     <div class="col-md-12">
                                         <form method="post" action="<?php echo base_url().'artist/membercomment'?>">
-                                            <h2>Add a Comment</h2>
+                                            <h2>Add Comment</h2>
                                             <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>" />
                                             <input type="hidden" name="id_artist" value="<?=$id?>" />
                                             <textarea class="CommentText-2" rows="3" name="comment" placeholder="Enter Your Comment" required></textarea>
@@ -457,7 +457,7 @@
                             ?>
                         
                         <div class="carousel-info">
-                            <img alt="" src="<?php echo base_url(); ?>uploads/<?php echo $member['artist_id'];?>/image_member/<?php echo $member['member_image'];?>" class="pull-left">
+                            <img alt="" src="<?php echo base_url(); ?>assets/images/2.jpg" class="pull-left">
                             <div class="pull-left">
                                 <span class="testimonials-name"><a href="#"><?php echo $member['name_member']; ?></a></span>
                                 <span class="testimonials-post"><?php echo $member['contribution'];?></span>
@@ -482,7 +482,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
-                <h4 class="tt" id="myModalevent">Add a Comment</h4>
+                <h4 class="tt" id="myModalevent">Add Comment</h4>
                 <span class="liner"></span>
             </div>
             <div class="modal-body">

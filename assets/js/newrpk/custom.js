@@ -48,6 +48,7 @@ var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
     $RIGHT_COL = $('.right_col'),
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
+console.log(CURRENT_URL);
 // Sidebar
 $(document).ready(function() {
     // TODO: This is some kind of easy fix, maybe we can improve this
@@ -69,6 +70,7 @@ $(document).ready(function() {
          if (!$li.is('.active')) {
             $li.removeClass('active active-sm');
             $('ul:first', $li).slideUp(function() {
+                console.log($li);
                 setContentHeight();
             });
         } else {
@@ -120,6 +122,7 @@ $(document).ready(function() {
 
     // fixed sidebar
     if ($.fn.mCustomScrollbar) {
+        console.log($.fn.mCustomScrollbar);
         $('.menu_fixed').mCustomScrollbar({
 
             autoHideScrollbar: true,
@@ -255,6 +258,7 @@ function countChecked() {
 $(document).ready(function() {
     $(".expand").on("click", function () {
         $(this).next().slideToggle(200);
+        console.log(this);
         $expand = $(this).find(">:first-child");
 
         if ($expand.text() == "+") {

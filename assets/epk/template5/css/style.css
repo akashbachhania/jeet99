@@ -37,7 +37,7 @@ h5,b{
 
 body{
 	color:#fff;
-	background: rgba(0, 0, 0, 0) url("../../../../assets/images/audience.jpg");
+	background: rgba(0, 0, 0, 0) url("../template5-images/bg.jpg");
 	 background-repeat: no-repeat;
     background-attachment: fixed;
      background-size: cover;
@@ -215,7 +215,7 @@ body{
 }
 .quote-card:before {
   font-family: Georgia, serif;
-  content: "“";
+  content: "â€œ";
   position: absolute;
   top: 10px;
   left: 25px;
@@ -226,7 +226,7 @@ body{
 .quote-card::after {
     bottom: -98px;
     color: rgba(238, 238, 238, 0.8);
-    content: "”";
+    content: "â€";
     font-family: Georgia,serif;
     font-size: 10em;
     font-weight: normal;
@@ -277,7 +277,7 @@ margin: 0 0 25px;
 
 .pres .title1 {
 	/*padding: 29px 30px;*/
-	padding: 18px 30px;
+	padding: 45px 30px;
 	position: absolute;
 	left: 0;
 	/*background: #fff;*/
@@ -418,11 +418,9 @@ margin: 0 0 25px;
 	border-radius: 3px;
 }
 
-.fix-img{
+.li-image>a>.fix-img{
 	width: 250px;
 	height:250px; 
-	margin-bottom: 5px;
-	padding-bottom: 5px;
 }
 
 .index{

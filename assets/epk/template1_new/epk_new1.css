@@ -1,12 +1,7 @@
-.max_height450{
-	min-height: 550px;
-	max-height: 450px;
-	overflow-y: scroll;
-    overflow-x: hidden;
-}
+
 .tp-heading {
     margin-bottom: 5px;
-    margin-top: 192px;
+    margin-top: 63px;
     font-size: 48px;
      text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
@@ -33,6 +28,7 @@ margin:0;
 .txcent{
 	text-align:center;
 }
+.mar-top{margin-top:10px;}
 @media screen and (max-width: 1280px) {
  
    .mdarea1{

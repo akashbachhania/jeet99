@@ -6,13 +6,6 @@ if (isset($user_data['id'])) {
        var page_url                  = '<?php echo base_url(); ?>';
        var $user_data                ="<?php echo $user_data['id']?>";       
     </script>
-    <script type="text/javascript">
-        function set_notification_type(type)
-        {
-            localStorage.setItem('notice_type', type); 
-            location.href = page_url+'notifications/all';
-        }
-    </script>
     <script src="<?php echo base_url(); ?>assets/js/detail_pages/include/navbar.js"></script>
     <?php
 
@@ -696,15 +689,15 @@ else{
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-globe" style="font-size:2em;display: block!important"></i>
                         <?php if (count($notyfi_) != 0) {
-    ?><span class="badge bg-lightred" id="notify_nav"><?php echo count($notyfi_)?></span><?php
+    ?><span class="badge bg-lightred"><?php echo count($notyfi_)?></span><?php
 
 } ?>
                         </a>
                         <div class="dropdown-menu pull-right with-arrow panel panel-default animated littleFadeInLeft">
                             <div class="panel-heading">
-                                You have <strong id="notice_count"><?php echo count($notyfi_)?></strong> notifications unread
+                                You have <strong><?php echo count($notyfi_)?></strong> notifications unread
                             </div>
-                            <!-- <ul class="list-group">
+                            <ul class="list-group">
                                 <?php 
                                 $notify = $this->M_notify->getnotify($user_data['id']);
     foreach ($notify as $row) {
@@ -730,56 +723,9 @@ else{
                                     <?php
 
     } ?>
-                            </ul> -->
-                            <ul class="list-group">
-                                <li class="list-group-item" onclick='set_notification_type("amper_register");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Requests To be An Affilates(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'amper_register');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("affiliates");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Affiliate chat(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'affiliates');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("personal");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;"> Request : Private chat(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'personal');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("band");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Band chat(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'band');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("tour");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Tour chat(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'tour');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("group");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Group chat(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'group');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("amper_sales");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Songs sales(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'amper_sales');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("invite");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Invites(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'invite');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("band_invite");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Band Invites(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'band_invite');?>)</div>
-                                </li>
-                                <li class="list-group-item"  onclick='set_notification_type("tour_invite");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Tour Invites(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'tour_invite');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("amper_unlocked");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Affiliate Unlock(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', '');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("amper_locked");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Affiliate Lock(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'amper_locked');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("amper_allow");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Affiliate Allowed(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'amper_allow');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("amper_not_allow");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request :  Affiliate Not allowed(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'amper_not_allow');?>)</div>
-                                </li>
-                                <li class="list-group-item" onclick='set_notification_type("memeber_comment");'>
-                                    <div style="background: rgba(95, 202, 243, 0.94);padding: 6px;text-align: left;width: 100%;color: black;">Request : Member Comment(<?php echo $this->M_notify->get_notify_count($user_data['id'], '0', 'memeber_comment');?>)</div>
-                                </li>
                             </ul>
                             <div class="panel-footer">
-                                <a href="<?=base_url('notifications/all')?>" role="button" tabindex="0">Show all notifications<i class="fa fa-angle-right pull-right"></i></a>
+                                <a href="<?=base_url('notifications/all')?>" role="button" tabindex="0">Show all notifications <i class="fa fa-angle-right pull-right"></i></a>
                             </div>
                         </div>
                     </li>

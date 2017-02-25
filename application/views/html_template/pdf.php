@@ -192,7 +192,7 @@
                                 if (!empty($photos)) {
                             ?>
 
-                            <table>
+                            <table width="100%">
                                 <?php 
                                     $tdCounter = 1;
                                     $count = count($photos);
@@ -261,7 +261,7 @@
                                     <td style="border-left:4px solid #337AB7;font-size:22px;padding-left:10px;background-color: #EFEFEF;color:#000;margin:10px 0">VIDEOS</td>
                                 </tr>
                             </table>
-                            <table >
+                            <table width="100%">
                                 
                                     <?php $i = 1;
                                     $count=count($videos);
@@ -360,27 +360,43 @@
                                     <td style="border-left:4px solid #337AB7;font-size:22px;padding-left:3mm;background-color: #EFEFEF;color:#000;margin:10px 0">SONG</td>
                                 </tr>
                             </table>
-                             <table  style=" margin:0 auto;border:2px solid gray; border-collapse: collapse;font-family: arial, sans-serif;
+                             <table width="670" style=" margin:0 auto; border-radius:4px;border:2px solid gray; border-collapse: collapse;font-family: arial, sans-serif;
     border-collapse: collapse;">
-                           
-                                <tr style="background-color:#345D7E;font-size:20px;line-height:8px;color:#FFF;">
-                                    <th style="text-align: justify;background-color:rgb(52,93,125); color:white;font-size:20px;padding:10px;" width="300">songs</th>
-                                     <th width="300" style="text-align: justify;background-color:rgb(52,93,125); color:white;font-size:20px;padding:10px;">Price</th>
-                                </tr>
-                               
-                                 <?php 
-                                    foreach ($songs as $row) {
-                                       
-                                ?>
-                                      <tr>
-                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;"><a href="<?php echo base_url().'epk/'.$res_data_artist['home_page'];?>">
-                                            <?=$row['song_name']?>
-                                        </a></td>
-                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;text-align:center;"><?=$row['price']?></td>
+                                      <tr style="background-color:#345D7E;font-size:20px;line-height:8px;color:#FFF;">
+                                        <th style="text-align: justify;background-color:rgb(52,93,125); color:font-size:20px;padding:10px;" width="300">songs</th>
+                                        <th width="300">artist names</th>
                                       </tr>
-                               <?php } ?>  
-                                      
-                            </table>
+                                      <tr>
+                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;">Alfreds Futterkiste</td>
+                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;text-align:center;">Maria Anders</td>
+                                      </tr>
+                                      <tr>
+                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;">Centro comercial Moctezuma</td>
+                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;text-align:center;">Francisco Chang</td>
+                                      </tr>
+                                      <tr>
+                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;">Ernst Handel</td>
+                                        <td style="border-bottom:1px solid gray;font-size:16px;padding:10px;text-align:center;">Roland Mendel</td>
+                                      </tr>
+                                    </table>
+
+                            <!-- <table width="670" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate;">
+                            <tr style="background-color:#345D7E;font-size:20px;line-height:30px;color:#FFF;">
+
+                                
+                             <?php 
+                                    foreach ($songs as $row) {
+
+                                ?>
+                                <tr>
+                                   <td>
+                                        <a href="<?php echo base_url().'epk/'.$res_data_artist['home_page'];?>">
+                                            <?=$row['song_name']?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php } ?>  
+                            </table> -->
                         </td>
                     </tr>
                     <?php } ?>
@@ -404,7 +420,7 @@
                                     ?>
                                     <tr>
                                         <td>
-                                            <table  style="background-color:rgb(241,241,241);margin-bottom:20px;"> 
+                                            <table width="672" style="background-color:rgb(241,241,241);margin-bottom:20px;"> 
                                              
                                                 <tr  style="background-color:rgb(52,93,126);color:rgb(245,245,245); margin-top:0;">
                                                  <th width="600" colspan="2" style="color:rgb(245,245,245);"><?php echo $row['name']; ?></th>
@@ -424,7 +440,30 @@
                                     </tr>
                                   <?php
                                     } 
-                                } ?>
+                                } ?> 
+                         <!--    <?php
+                                if($press) {
+                                foreach ($press as $row) {
+                                    ?>
+                                <tr>
+                                    <td>
+                                        <table width="650"  >
+                                            <tr>
+                                                <th><?php echo $row['name']; ?></th>
+                                            </tr>
+                                            <tr>
+                                                <td ><?php echo $row['quote']?></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><?php echo $row['author']?></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>  
+                                
+                                <?php
+                                    } 
+                                } ?> -->
                             </table>
                         </td>
                     </tr>

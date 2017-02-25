@@ -32,10 +32,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-     <script src="<?php echo base_url(); ?>assets/js/jquery-2.0.2.min.js"></script>
-    <!-- jQuery -->
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.mCustomScrollbar.css">
     <style type="text/css">
         .max_height515{
@@ -64,12 +60,11 @@
         .modal, .modal p{
             color: black;
         }
-        .ui-dialog-content p{
-            color:#000;
-        }
     </style>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/amp/css/jplayer.blue.monday.css">
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-2.0.2.min.js"></script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
      <script type="text/javascript">
         var base_url = "<?php echo base_url(); ?>";
     </script>
@@ -840,7 +835,7 @@
                 <p>The following media photos are available for download.
                  You can save images individually by clicking the download link next to each.</p>
                 <h3>Click link to download</h3>
-                <div class="song_box" style="max-width: 500px;">
+				<div class="song_box" style="max-width: 500px;">
                     <ul class="sortable with_main_songs"> 
                         <?php
                         foreach ($photos as $pt) {
@@ -857,14 +852,14 @@
                         
                     </ul>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
-            </div>
-        </div>
-    </div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                                
+			</div>
+		</div>
+	</div>
 </div>
-        <?php } if ($data_json->dw_video == 'on') {
+		<?php } if ($data_json->dw_video == 'on') {
     ?>
 <!-- Modal download video -->
 <div class="modal fade" id="video" tabindex="-1" role="dialog" aria-labelledby="myModalVideo" aria-hidden="true">
@@ -968,7 +963,7 @@
         });
     })(jQuery);
     </script>
-
+    <script type="text/javascript" src="<?php echo base_url(); ?>assets/amp/js/jquery.min.js"> </script> 
      <script type="text/javascript" src="<?php echo base_url(); ?>assets/amp/js/jquery.jplayer.js"> </script>   
       <script type="text/javascript" src="<?php echo base_url(); ?>assets/amp/js/jplayer.playlist.js"> </script>   
        <script type="text/javascript" src="<?php echo base_url(); ?>assets/amp/js/jquery.redirect.js"> </script>   
@@ -977,3 +972,6 @@
 </body>
 
 </html>
+
+
+
