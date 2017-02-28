@@ -5,7 +5,11 @@
  <link href="<?php echo base_url();?>assets/css/landing_page/99sound2.css" rel="stylesheet" type="text/css">
 <link href="<?php echo base_url();?>assets/css/landing_page/style002.css" rel="stylesheet" type="text/css">
 <!-- player css/js-->
-
+<link rel="stylesheet" href="<?php echo base_url()?>assets/css/dist/viewer.css">
+<link rel="stylesheet" href="<?php echo base_url()?>assets/css/dist/css/main.css">
+<link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.mCustomScrollbar.css">
+<script src="<?php echo base_url()?>assets/css/dist/viewer.js"></script>
+<script src="<?php echo base_url()?>assets/css/dist/js/main.js"></script>
 <script>jwplayer.key="<?=$this->M_setting->get_jwplayer_key()?>";</script>
 <script src="<?=base_url('assets/jwplayer7/jwplayer.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/playermusic/dist/jplayer/jquery.jplayer.min.js"></script>
@@ -26,7 +30,7 @@
                     <div class="col-md-12 text-center">
                         <div class="ProfileInfo">
                             <div class="ProfilePicZoom">
-                                <img src="<?php echo $this->M_user->get_avata($users[0]->id); ?>" alt="">
+                                <img src="<?php echo $this->M_user->get_avata_flp($user_id); ?>" alt="">
                             </div>
                             <h2><?php echo ucfirst($name); ?> <br /><span><?php if(isset($genres[0]['name'])) echo ucfirst($genres[0]['name']); ?>  <?php echo ucfirst($city); if (!empty($country_code[0]['countrycode'])) { echo ', '.ucfirst($country_code[0]['countrycode']); }?></span></h2>
                             <div class="ProfileSocial">
@@ -71,92 +75,22 @@
                     <div class="BoxTitle"> <a  href="<?php echo base_url().$name; ?>/photos"><h2 class="animated rubberBand"><i class="fa fa-picture-o" aria-hidden="true"></i> PHOTOS</h2></a></div>
                         <div class="BoxGrid2 text-center">
                        <div class="ScrollStyle1">
-                    	<div class="row">
-                            <div class="col-lg-4 col-md-4 col-xs-12 thumb">
-                                <a class="thumbnail hvr-grow" href="#">
-                                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                    	<div class="row docs-pictures" >
+                        <?php 
+                            $i = 0;
+                            foreach ($photos as $pt) {
+                                ?>
+                            <div class="col-lg-4 col-md-4 col-xs-12 thumb ">
+                                <a class="thumbnail hvr-grow" href="#" data-gal="photo" class="effect_slide">
+                                    <img class="img-responsive" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" alt="">
                                 </a>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-xs-12 thumb">
-                                <a class="thumbnail hvr-grow" href="#">
-                                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                                </a>
+                            <?php ++$i;
+                                                }
+                                            ?>
+                            
                             </div>
-                            <div class="col-lg-4 col-md-4 col-xs-12 thumb">
-                                <a class="thumbnail hvr-grow" href="#">
-                                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                                </a>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-lg-4 col-md-4 col-xs-12 thumb">
-                                <a class="thumbnail hvr-grow" href="#">
-                                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-xs-12 thumb">
-                                <a class="thumbnail hvr-grow" href="#">
-                                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                                </a>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-xs-12 thumb">
-                                <a class="thumbnail hvr-grow" href="#">
-                                    <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                                </a>
-                            </div>
-                            <?php $count = count($photos);
-                            if ($count == 3) {
-                                $i = 0;
-                                foreach ($photos as $pt) {
-                                    ?>
-                                  <!--   <div class="col-md-4 col-xs-4">
-                                        <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                                        <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive Photo-Border"/>
-
-                                    </div> -->
-                                    <?php ++$i;
-                                }
-                            } elseif ($count == 2) {
-                                $i = 0;
-                                foreach ($photos as $pt) {
-                                    ?>
-                               <!--      <div class="col-md-4 col-xs-4">
-                                        <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                                        <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>"class="img-responsive Photo-Border"/>
-
-                                    </div> -->
-                                    <?php ++$i;
-                                } ?>
-                                <!-- <li class="col-md-4 col-xs-4">
-                                    <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                                    <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive Photo-Border"/>
-
-                                </li> -->
-                            <?php } elseif ($count == 1) { foreach ($photos as $pt) { ?>
-                                <<!-- li class="col-md-4 col-xs-4">
-                                    <div class="image_fix_value" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
-                                    <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive Photo-Border"/>
-
-                                </li> -->
-                            <?php } ?>
-                                <div class="col-md-4 col-xs-4 ">
-                                    <!-- <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif"  class="img-responsive Photo-Border"/> -->
-                                </div>
-                                <div class="col-md-4 col-xs-4">
-                                    <img width="100" src="<?php echo base_url(); ?>assets/images/default-img.gif"class="img-responsive Photo-Border"/>
-                                </div>
-                            <?php } else { ?>
-                                <div class="col-md-4 col-xs-4">
-                                    <<!-- img src="<?php echo base_url(); ?>assets/images/default-img.gif" class="center-block PhotoPic img-responsive"/> -->
-                                </div>
-                                <div class="col-md-4 col-xs-4">
-                                   <!--  <img src="<?php echo base_url(); ?>assets/images/default-img.gif" class="center-block PhotoPic img-responsive"/> -->
-                                </div>
-                                <div class="col-md-4 col-xs-4">
-                                    <!-- <img src="<?php echo base_url(); ?>assets/images/default-img.gif" class="center-block PhotoPic img-responsive"/> -->
-                                </div>
-                            <?php } ?>
-                        </div><!--  row  -->
+                            
                     </div><!--  BoxGrid2 -->
                 </div>
             </div><!-- row -->
@@ -179,20 +113,35 @@
                 <div class="col-md-12">
                 <div class="BoxTitle"><h2 class="animated rubberBand"><i class="fa fa-rss" aria-hidden="true"></i>blog</h2></div>
                     <div class="BoxGrid2">
-                    <div class="thumbnail">
-                                <img class="img-responsive" src="http://placehold.it/800x300" alt="">
-                                <div class="caption-full caption-area">
-                                    <h4><a href="#">Product Name</a>
-                                    </h4>
-                                    <p>
-                                      <i class="fa fa-user"></i> by <a href="#">John</a> 
-                                      | <i class="fa fa-calendar"></i> jan 16th, 2017
-                                     
-                                    </p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                                </div> 
-                            </div>
-                        
+                     <?php if (isset($blogs) && count($blogs) > 0) {  
+                         foreach ($blogs as $row) { 
+
+                        ?>
+                        <div class="thumbnail">
+                            <img class="img-responsive" src="<?php echo base_url('uploads/'.$row['user_id'].'/photo/blogs/'.$row['image_rep']) ?>" alt="">
+                            <div class="caption-full caption-area">
+                                <h4><a href="<?php echo base_url('artist/blogs').'/'.$user_data['id']?>"><?php echo $row['title']?></a>
+                                </h4>
+                                <p>
+                                  <i class="fa fa-user"></i> by <a href="#"><?php echo $this->M_user->get_name($row['user_id'])?></a> 
+                                  | <i class="fa fa-calendar"></i> <?php echo date('M d, Y', $row['time'])?>
+                                 
+                                </p>
+                                <p><?php
+                                                             $text = strip_tags($row['introduction']);
+                                                            $desLength = strlen($text);
+                                                            //var_dump($desLength);exit;
+                                                            $stringMaxLength = 120;
+                                                            if ($desLength > $stringMaxLength) {
+                                                                $des = substr($text, 0, $stringMaxLength);
+                                                                $text = $des.'...';
+                                                                echo $text;
+                                                            } else {
+                                                                echo $row['introduction'];
+                                                            } ?></p></p>
+                            </div> 
+                        </div>
+                        <?php } }?>
                     </div><!--  BoxGrid2 -->
                 </div>
             </div><!-- row -->
@@ -310,37 +259,40 @@
         <div class="col-md-12">
         <div class="BoxTitle"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>"><h2 class="animated rubberBand"><i class="fa fa-comments-o" aria-hidden="true"></i> COMMENT</h2></a></div>
             <div class="BoxGrid3">
-                
+            <?php
+             foreach ($comments as $comment) { ?>
+            <?php $role = $this->M_user->get_user_role($comment['client']);
+           
+            if($role == '1'){
+              $avata = $this->M_user->get_avata($comment['client']);
+            } else {
+                $avata = $this->M_user->get_avata_flp($comment['client']);
+            }
+            ?>   
             <div class="col-md-4">
                  <div class="thumbnail">
-                           <div class="panel  post">
+                    <div class="panel  post">
                         <div class="post-heading">
                             <div class="pull-left image">
-                                <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-responsive" alt="user profile image">
+                                <img src="<?php echo $avata; ?>" class="img-responsive avatar" alt="user profile image" width="100" height="100" /> 
                             </div>
                             <div class="pull-left meta">
                                 <div class="title h5">
-                                    <a href="#"><b>Ryan Haywood</b></a>
+                                    <a href="<?php echo $this->M_user->get_home_page($comment['client']);?>"><b><?php echo $this->M_user->get_name($comment['client']);?></b></a>
                                     made a post.
                                 </div>
-                                <h6 class="text-muted time">1 minute ago</h6>
+                                <h6 class="text-muted time"><?php echo date('d M Y',strtotime($comment['time']));?></h6>
                             </div>
                         </div> 
                         <div class="post-description"> 
-                            <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                            <div class="stats">
-                                <a href="#" class="stat-item">
-                                    <i class="fa fa-thumbs-up icon"></i>2
-                                </a>
-                                <a href="#" class="stat-item">
-                                    <i class="fa fa-thumbs-down icon"></i>12
-                                </a>
-                                
-                            </div>
+                            <p><?php echo ucfirst($comment['comment']); ?></p>
+                            
                         </div>
                     </div>          
                 </div>
             </div>
+
+            <?php } ?>
             <div class="col-md-4">
                  <div class="thumbnail">
                            <div class="panel  post">
@@ -403,7 +355,7 @@
                 </div>
             </div>
             <div class="text-right" >
-                        <a class="btn  clb2">comments</a>
+                        <a class="btn  clb2" data-toggle="modal" data-target="#addComment">comments</a>
                     </div>
         </div>
     </div><!--  row  --> 
@@ -414,6 +366,32 @@
 </div><!--  container  -->	
 </section>
 <!-- End section  -->
+<div class="modal fade new_modal_style" id="addComment" tabindex="-1" role="dialog" aria-labelledby="myModalcomment" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form class="" action="<?php echo base_url().'amper/membercomment'?>" method="post">
+        <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>" />
+        <input type="hidden" name="id_artist" value="<?=$id?>" />
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="tt">Add Comment</h4>
+          <span class="liner"></span> </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-input col-md-2">Comment</label>
+            <div class="input-group col-md-9">
+              <textarea class="form-control" name="comment" rows="6" required="" ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer searchform">
+          <button type="button" class="btn btn-default MarNoneBtn" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <!-- Modal showEvent -->
 <div class="modal fade new_modal_style" id="showEvent" tabindex="-1" role="dialog" aria-labelledby="myModalcomment" aria-hidden="true">
     <div class="modal-dialog">
@@ -440,14 +418,14 @@
                 </div>
                 <div class="col-md-12">
                     <span>Post By: <span id="post-b" style="font-weight: bold;"></span></span>
-                </div>
-                <div class="col-md-12">
+                 </div>
+                 <div class="col-md-12">
                     <span>Location: <span id="lo" style="font-weight: bold;"></span></span>
-                </div>
+                 </div>
             </div>
             <div class="modal-footer searchform" style="border-top: none;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                
+            </div>                                    
         </div>
     </div>
 </div>
