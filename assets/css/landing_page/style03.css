@@ -137,12 +137,6 @@ padding-bottom: 28px;
     padding:17px 0;
     margin-bottom:64px;
 }
-.info_social {
-    bottom: 0;
-    color: #fff;
-    padding:4px 8px 2px 0;
-    position: absolute;
-    right: 0;
-    text-align: right;
-    z-index: 2;
-}
+.info_area {
+    padding:2px 5px 1px 0;
+   }

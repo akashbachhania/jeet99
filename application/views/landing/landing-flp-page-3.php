@@ -36,8 +36,8 @@ $(".effect_slide").click(function(){
                     </div>                    
                 </div>
                 <div class="col-md-6 col-xs-12 info_social">
+                    <p class="text-justify info_area">
                     <?php if (!empty($users[0]->bio)) { echo $this->Member_model->short_Text_Bio($users[0]->bio); } ?>
-                    <p class="text-justify" style="margin-left: -15px;margin-top: 20px;margin-bottom: 20px;">
                       <a href="<?php echo $users[0]->twitter_username; ?>" target="_blank" title="Twitter">
                         <span class="relative inline" style="height:24px;width:24px">
                           <img alt="Icon_twitter" class="centerer--y" src="https://gp1.wac.edgecastcdn.net/802892/production_static/20151016092753/images/v4/standard_resources/social_icons/icon_twitter.png?1445003519" style="z-index:1">

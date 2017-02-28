@@ -119,7 +119,7 @@
                            <img class="img-responsive" src="http://placehold.it/100x100" alt="">
                       </div>
                       <div class="col-xs-8 details">
-                          <h4> this is heading for video</h4>
+                          <h3 style="color: #337ab7;"> this is heading for video</h3>
                             <p>this video section</p>
                       </div>
                   </div> 
