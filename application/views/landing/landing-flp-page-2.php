@@ -82,7 +82,7 @@
                                 ?>
                             <div class="col-lg-4 col-md-4 col-xs-12 thumb ">
                                 <a class="thumbnail hvr-grow" href="#" data-gal="photo" class="effect_slide">
-                                    <img class="img-responsive" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" alt="">
+                                    <img class="img-responsive img-height" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" alt="">
                                 </a>
                             </div>
                             <?php ++$i;
@@ -98,12 +98,9 @@
             <div class="row">
                 <div class="col-md-12">
                 <div class="BoxTitle"><h2 class="animated rubberBand"><i class="fa fa-play" aria-hidden="true"></i> AMP</h2></div>
-                    <div class="BoxGrid2">
-                        <div class="row">
-                            <div class="col-md-12">
+                    <div class="BoxGrid2 ampbox2">
                                 <?php echo $this->M_audio_song->get_shortcode_AMP($id)?>
-                            </div>
-                        </div><!--  row  -->
+                        
                     </div><!--  BoxGrid2 -->
                 </div>
             </div><!-- row -->
@@ -112,7 +109,7 @@
         	<div class="row">
                 <div class="col-md-12">
                 <div class="BoxTitle"><h2 class="animated rubberBand"><i class="fa fa-rss" aria-hidden="true"></i>blog</h2></div>
-                    <div class="BoxGrid2">
+                    <div class="BoxGrid2 ScrollStyle3">
                      <?php if (isset($blogs) && count($blogs) > 0) {  
                          foreach ($blogs as $row) { 
 
@@ -210,30 +207,15 @@
         <div class="col-md-12">
          <div class="BoxTitle"><h2 class="animated rubberBand"><i class="fa fa-file-video-o" aria-hidden="true"></i>videos</h2></div>
             <div class="BoxGrid3">
-                <div class="col-md-8 col-sm-12 ">
-                     <iframe width="100%" height="315" src="//www.youtube.com/embed/ac7KhViaVqc" allowfullscreen=""></iframe>
-                     <div>
-                                <p>
-                                      <i class="fa fa-user"></i> by <a href="#">John</a> 
-                                      | <i class="fa fa-calendar"></i> jan 16th, 2017
-                                      | <i class="fa fa-comment"></i> <a href="#">3 Comments</a>
-                                      | <i class="fa fa-share"></i> <a href="#">39 Shares</a>
-                                    </p>
-                                <h4><a href="#">First Product</a>
-                                </h4>
-                                <p>See more snippets like this online store item See more snippets like this online store item</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="thumbnail ScrollStyle2">
+                    <div class="ScrollStyle2">
                     <div class="BoxGrid2 ">
                             <div class="row">
                                 <div class="col-md-12">
                                 <?php foreach ($videos as $video) {
                                             if ($video['type'] == 'file') { $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];}
                                             else { $link_video = $video['link_video']; } ?>
-                                     <div class="col-md-12 brod">
-                                        <div class="col-xs-12 col-md-5 vht text-center">
+                                     <div class="col-md-6 brod">
+                                        <div class="col-xs-12 col-md-5 vht text-center hvr-grow">
                                                     <img src="<?=$this->M_video->get_image_video($video['id'])?>" alt="bootsnipp"
                                                         class="img-rounded img-responsive" />
                                         </div>
@@ -250,7 +232,7 @@
                             </div><!--  row  -->
                         </div><!--  BoxGrid2 -->
                         </div>
-                </div>
+               
             </div>
         </div>
     </div><!--  row  -->
@@ -259,6 +241,7 @@
         <div class="col-md-12">
         <div class="BoxTitle"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>"><h2 class="animated rubberBand"><i class="fa fa-comments-o" aria-hidden="true"></i> COMMENT</h2></a></div>
             <div class="BoxGrid3">
+             <div class="ScrollStyle4">
             <?php
              foreach ($comments as $comment) { ?>
             <?php $role = $this->M_user->get_user_role($comment['client']);
@@ -270,95 +253,34 @@
             }
             ?>   
             <div class="col-md-4">
-                 <div class="thumbnail">
-                    <div class="panel  post">
-                        <div class="post-heading">
-                            <div class="pull-left image">
+                 <div class="row thumbnail combox">
+                    <div class="col-xs-4">
+                            <div class="image">
                                 <img src="<?php echo $avata; ?>" class="img-responsive avatar" alt="user profile image" width="100" height="100" /> 
                             </div>
-                            <div class="pull-left meta">
+                            </div>
+                            <div class="col-xs-8">
+                            <div class=" meta">
                                 <div class="title h5">
                                     <a href="<?php echo $this->M_user->get_home_page($comment['client']);?>"><b><?php echo $this->M_user->get_name($comment['client']);?></b></a>
                                     made a post.
                                 </div>
                                 <h6 class="text-muted time"><?php echo date('d M Y',strtotime($comment['time']));?></h6>
+                                    <p><?php echo ucfirst($comment['comment']); ?></p>
                             </div>
-                        </div> 
-                        <div class="post-description"> 
-                            <p><?php echo ucfirst($comment['comment']); ?></p>
+                        </div>    
+                      
                             
-                        </div>
-                    </div>          
                 </div>
             </div>
 
             <?php } ?>
-            <div class="col-md-4">
-                 <div class="thumbnail">
-                           <div class="panel  post">
-                        <div class="post-heading">
-                            <div class="pull-left image">
-                                <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-responsive avatar" alt="user profile image">
-                            </div>
-                            <div class="pull-left meta">
-                                <div class="title h5">
-                                    <a href="#"><b>Ryan Haywood</b></a>
-                                    made a post.
-                                </div>
-                                <h6 class="text-muted time">1 minute ago</h6>
-                            </div>
-                        </div> 
-                        <div class="post-description"> 
-                            <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                            <div class="stats">
-                                <a href="#" class=" stat-item">
-                                    <i class="fa fa-thumbs-up icon"></i>2
-                                </a>
-                                <a href="#" class=" stat-item">
-                                    <i class="fa fa-thumbs-down icon"></i>12
-                                </a>
-                                
-                            </div>
-                        </div>
-                    </div>          
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="thumbnail">
-                           <div class="panel  post">
-                        <div class="post-heading">
-                            <div class="pull-left image">
-                                <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-responsive" alt="user profile image">
-                            </div>
-                            <div class="pull-left meta">
-                                <div class="title h5">
-                                    <a href="#"><b>Ryan Haywood</b></a>
-                                    made a post.
-                                </div>
-                                <h6 class="text-muted time">1 minute ago</h6>
-
-                            </div>
-                        </div> 
-                        <div class="post-description meta"> 
-                            <p>Bootdey is a gallery of free snippets resources templates and utilities for bootstrap css hmtl js framework. Codes for developers and web designers</p>
-                             <div class="stats">
-                                <a href="#" class="stat-item">
-                                    <i class="fa fa-thumbs-up icon"></i>2
-                                </a>
-                                <a href="#" class="stat-item">
-                                    <i class="fa fa-thumbs-down icon"></i>12
-                                </a>
-                                
-                            </div>
-                        </div>
-                    </div>          
-                </div>
-            </div>
-            <div class="text-right" >
+         </div>
+         <div class=" col-md-12 text-right" >
                         <a class="btn  clb2" data-toggle="modal" data-target="#addComment">comments</a>
-                    </div>
         </div>
-    </div><!--  row  --> 
+        </div>
+    </div>
     </div><!--  row  -->
 
 
@@ -491,7 +413,7 @@
      (function($){
         $(window).load(function(){
             console.log('inside funtion');
-            $(".ScrollStyle1,.ScrollStyle2").mCustomScrollbar({theme:"minimal-dark"});
+            $(".ScrollStyle1,.ScrollStyle2,.ScrollStyle3,.ScrollStyle4").mCustomScrollbar({theme:"minimal-dark"});
         });
         })(jQuery);
 </script>
