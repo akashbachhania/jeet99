@@ -211,7 +211,7 @@ $(".effect_slide").click(function(){
                                 <h2 class="title-line"><a href="<?php echo base_url('artist/allvideos').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_video.png" /> Videos</a></h2>
                                 <div class="line"></div>
                             </div>
-                            <div class="col-md-12" style="max-height: 570px;overflow-y: scroll;overflow-x: hidden;">
+                            <div class="col-md-12" style=" height:520px; max-height: 560px;overflow-y: scroll;overflow-x: hidden;">
                             <?php foreach ($videos as $video) {
                                              if ($video['type'] == 'file') { $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];}
                      elseif($video['type'] == 'link') { $link_video = $video['link_video']; }
@@ -242,7 +242,7 @@ $(".effect_slide").click(function(){
                                <h2 class="title-line"><a href="<?php echo base_url('artist/allblogs').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_blog.png" /> Recent Blogs</a></h2>
                                 <div class="line"></div>
                             </div>
-                            <div class="col-md-12" style="max-height: 300px;overflow-y: scroll;overflow-x: hidden;">
+                            <div class="col-md-12" style="height:250px; max-height: 250px;overflow-y: scroll;overflow-x: hidden;">
                             <article class="audio-box">
                             <?php foreach ($blogs as $row) {
                         ?>
@@ -282,7 +282,7 @@ $(".effect_slide").click(function(){
                             <img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_comment.png" /> Comments</a></h2>
                                 <div class="line"></div>
                             </div>
-                            <div class="col-md-12" style="max-height: 300px;overflow-y: scroll;overflow-x: hidden;">
+                            <div class="col-md-12" style="height:250px; max-height: 250px;overflow-y: scroll;overflow-x: hidden;">
                                  <article>
                                      <?php  foreach ($comments as $comment) { ?>
                                         <?php $role = $this->M_user->get_user_role($comment['client']);
@@ -301,6 +301,103 @@ $(".effect_slide").click(function(){
                                        <div class="text-right clb3" >
                                             <a class="btn btn-info" data-toggle="modal" data-target="#addComment" style="color:#fff;">comments</a>
                                         </div>     
+                                  </article>
+                             </div>  
+                        </div>
+                    </div>
+                    <div class="box-section">
+                        <div class="col-md-4" >
+                            <div class="col-md-12 photos_title ">
+                               <h2 class="title-line"><a href="<?php echo base_url('artist/allblogs').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_git_event.png" /> Events</a></h2>
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-md-12" style="height:200px; max-height: 200px;overflow-y: scroll;overflow-x: hidden;">
+                            <article class="audio-box">
+                            <?php if (isset($events) && count($events) > 0){ ?>                      
+                            <?php foreach ($events as $event) {?>
+                                <div class="col-xs-4 col-md-4 text-center">
+                                    <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
+                                     class="img-circle img-responsive" />
+                                </div>
+                                                    <div class="col-xs-8 col-md-8 section-box">
+                                                        <h4>
+                                                            <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
+                                                        </h4>
+                                                        <p>
+                                                            <?php  custom_echo_html($event['event_desc'], 400); ?></p>
+                                                        </div>
+                                                        
+                                                        <hr/>
+                                                         <?php } }?>
+                            </article>    
+                            </div>
+                        </div>
+                        <div class="col-md-4" >
+                            <div class="col-md-12 photos_title ">
+                                <h2 class="title-line"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>">
+                            <img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/support.png" /> fan</a></h2>
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-md-12" style=" height:200px; max-height: 200px;overflow-y: scroll;overflow-x: hidden;">
+                                 <article>
+                                     <?php if (isset($fans) && count($fans) > 0) { ?>                       
+                           <?php $i = 0; foreach ($fans as $fan) { 
+                            if($fan['role'] == 1)
+                            {
+                              $avata = $this->M_user->get_avata($fan['fan_id']);
+                            }else{
+                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
+                            }
+                            ?>
+                            <div class="col-xs-12 col-md-12 fan-area ">
+                                
+                                
+                                    <div class="col-xs-4 col-md-4 text-center">
+                                        <img src="<?php echo $avata?>" alt="Image"
+                                            class="img-rounded img-responsive" />
+                                    </div>
+                                    <div class="col-xs-8 col-md-8 section-box">
+                                        <h4>
+                                            <a href="<?php echo base_url().$fan['home_page']; ?>"><?php echo $this->M_user->get_name($fan['fan_id']); ?></a>
+                                        </h4>
+                                        
+                                    </div>
+                                     <hr/>
+                                                     
+                                    </div>
+                                 <?php } }?>  
+                                  </article>
+                             </div>  
+                        </div>
+                         <div class="col-md-4" >
+                            <div class="col-md-12 photos_title ">
+                                <h2 class="title-line"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>">
+                            <img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_member.png" /> member</a></h2>
+                                <div class="line"></div>
+                            </div>
+                            <div class="col-md-12" style=" height:200px; max-height: 200px;overflow-y: scroll;overflow-x: hidden;">
+                                 <article>
+                                    <?php if (isset($members) && count($members) > 0) { ?>
+                      <?php foreach($members as $member){ 
+                            
+                            ?>
+                       <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <img src="<?php echo base_url(); ?>uploads/<?php echo $member['artist_id'];?>/image_member/<?php echo $member['member_image'];?>" class="img-circle img-responsive" alt="" />
+                            </div>
+                            <div class="col-xs-9 col-md-10">
+                                <div>
+                                    <a href="#"><?php echo $member['name_member']; ?></a>
+                                </div>
+                                <div class="comment-text">
+                                    <?php echo $member['contribution'];?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php } }else { ?>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
+                           <?php } ?>
                                   </article>
                              </div>  
                         </div>

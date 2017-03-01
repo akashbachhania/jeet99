@@ -295,11 +295,11 @@
                 <div class="BoxGrid3 ScrollStyle5">
                      <?php if (isset($events) && count($events) > 0){ ?>                      
                             <?php foreach ($events as $event) {?>
-                                <div class="col-xs-12 col-md-4 text-center">
+                                <div class="col-xs-4 col-md-4 text-center">
                                     <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
                                      class="img-circle img-responsive" />
                                 </div>
-                                                    <div class="col-xs-12 col-md-8 section-box">
+                                                    <div class="col-xs-8 col-md-8 section-box">
                                                         <h4>
                                                             <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
                                                         </h4>
