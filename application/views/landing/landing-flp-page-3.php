@@ -25,7 +25,7 @@ $(".effect_slide").click(function(){
                 <?php } else { } ?>
                 <div class="col-md-6 profile-landing">
                     <div class="col-md-3 col-xs-12 pro-img-1">                                                                                                                     
-                        <img class="avata_landing" src="<?php echo $this->M_user->get_avata($users[0]->id)?>"/>                                                 
+                        <img class="avata_landing" src="<?php echo $avata;?>"/>                                                 
                     </div>
                     <div class="col-md-9 col-xs-12 pro-img-2">
                         <h1 class="text-h1"><?php echo ucfirst($name); ?></h1>
@@ -211,33 +211,38 @@ $(".effect_slide").click(function(){
                                 <h2 class="title-line"><a href="<?php echo base_url('artist/allvideos').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_video.png" /> Videos</a></h2>
                                 <div class="line"></div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="max-height: 570px;overflow-y: scroll;overflow-x: hidden;">
+                            <?php foreach ($videos as $video) {
+                                             if ($video['type'] == 'file') { $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];}
+                     elseif($video['type'] == 'link') { $link_video = $video['link_video']; }
+                    elseif($video['type'] == 'link-vimeo') { 
+                    $video_vimeo=basename($video['link_video']);
+                    $get_link='http://vimeo.com/api/v2/video/'.$video_vimeo.'.php';
+                     
+                    $hash = unserialize(file_get_contents($get_link));
+                    $url_id=$hash[0]['id'];
+                    $link_video = 'https://player.vimeo.com/video/'.$url_id.'?title=0&byline=0&portrait=0'; } ?>
                                 <figure class="video-box">                 
-                                    <img class="img-responsive" src="http://lorempixel.com/400/300/sports/6/">
-                                     <a class="fa fa-play-circle" href="#"></a>
-                                     <h6> con el Barça en la Liga</h6>
+                                    <img class="img-responsive" src="<?=$this->M_video->get_image_video($video['id'])?>">
+                                    <?php if(($video['type'] == 'file') || ($video['type'] == 'link')) { ?>
+                                     <a class="fa fa-play-circle" href="#videos" onclick="javascript:playvideo(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#videos"></a>
+                                     <?php } else { ?>
+                                     <a class="fa fa-play-circle" href="#vimeo_videos" onclick="javascript:play_vimeo_video(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#vimeo_videos"></a>
+                                     <?php } ?>
+                                     <h6> <?php echo $video['name_video']; ?></h6>
                                 </figure>
-                                <figure class="video-box toph">                 
-                                    <img class="img-responsive" src="http://lorempixel.com/400/300/sports/6/">
-                                     <a class="fa fa-play-circle" href="#"></a>
-                                     <h6> con el Barça en la Liga</h6>
-                                </figure>
-                                <figure class="video-box toph">                 
-                                    <img class="img-responsive" src="http://lorempixel.com/400/300/sports/6/">
-                                     <a class="fa fa-play-circle" href="#"></a>
-                                     <h6> con el Barça en la Liga</h6>
-                                </figure>
+                                <?php } ?>
+                                
                              </div>  
                         </div>
                     </div>
                     <div class="box-section">
-                        <div class="col-md-8">
-                        
+                        <div class="col-md-8" >
                             <div class="col-md-12 photos_title ">
                                <h2 class="title-line"><a href="<?php echo base_url('artist/allblogs').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_blog.png" /> Recent Blogs</a></h2>
                                 <div class="line"></div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="max-height: 300px;overflow-y: scroll;overflow-x: hidden;">
                             <article class="audio-box">
                             <?php foreach ($blogs as $row) {
                         ?>
@@ -247,7 +252,7 @@ $(".effect_slide").click(function(){
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading tcolor"><?php echo $row['title']?>
-                                      <p class="text-right">By<?php echo $this->M_user->get_name($row['user_id']);?></p></h4>
+                                      <p class="text-right tcolor">By ~ <?php echo $this->M_user->get_name($row['user_id']);?></p></h4>
                                           <p><?php 
                                         $text = strip_tags($row['introduction']);
                                     $desLength = strlen($text);
@@ -271,19 +276,19 @@ $(".effect_slide").click(function(){
                             </article>    
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" >
                             <div class="col-md-12 photos_title ">
                                 <h2 class="title-line"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>">
                             <img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_comment.png" /> Comments</a></h2>
                                 <div class="line"></div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="max-height: 300px;overflow-y: scroll;overflow-x: hidden;">
                                  <article>
                                      <?php  foreach ($comments as $comment) { ?>
                                         <?php $role = $this->M_user->get_user_role($comment['client']);
                                         ?>
                                     <div class="media">
-                                       <p class="pull-right"><small><?php echo date('d M Y',strtotime($comment['time']));?></small></p>
+                                       <p class="pull-right"><small><?php echo date('d M Y',$comment['time']);?></small></p>
                                         <a class="media-left" href="#">
                                           <img class="media-object" src="<?php if($role == '1'){ echo $this->M_user->get_avata($comment['client']);} else {echo $this->M_user->get_avata_flp($comment['client']);}?>" width="40" height="40" alt="">
                                         </a>
@@ -294,7 +299,7 @@ $(".effect_slide").click(function(){
                                      </div>
                                       <?php } ?>
                                        <div class="text-right clb3" >
-                                            <a class="btn btn-info" style="color:#fff;">comments</a>
+                                            <a class="btn btn-info" data-toggle="modal" data-target="#addComment" style="color:#fff;">comments</a>
                                         </div>     
                                   </article>
                              </div>  
@@ -312,9 +317,9 @@ $(".effect_slide").click(function(){
 <div class="modal fade new_modal_style" id="addComment" tabindex="-1" role="dialog" aria-labelledby="myModalcomment" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="" action="<?php echo base_url().'artist/membercomment'?>" method="post">
+            <form class="" action="<?php echo base_url().'amper/membercomment'?>" method="post">
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>" />
-                <input type="hidden" name="id_artist" value="<?=$id?>" />
+                <input type="hidden" name="id_flp" value="<?=$id?>" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="tt">Add Comment</h4>
@@ -398,17 +403,23 @@ $(".effect_slide").click(function(){
     				<button type="submit" class="btn btn-primary">Add to Contacts</button>
     			</div>
             </form>
-		</div>
-	</div>
-</div>
-<!--MODAL video-->
-    <div class="modal fade" id="videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div id="video"></div>
-            <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>      
         </div>
     </div>
-    
+</div>
+<!--MODAL video-->
+ <div class="modal fade" id="videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div id="video"></div>
+        <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
+</div>
+<div class="modal fade" id="vimeo_videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <iframe id="vimeo_video"  width="640" height="337" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        
+        <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
+</div>
     <div class="modal fade" id="photos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog text-center" role="document">
             <img src="<?php echo base_url(); ?>assets/images/adaptable.jpg" width="500" height="400"/>
