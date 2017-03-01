@@ -17,6 +17,8 @@ class Amper extends CI_Controller
         $this->load->model('M_channel');
 
         $this->load->model('M_fan');
+        $this->load->model('Events_model');
+        $this->load->model('M_fan');
         $this->load->model('M_video');
         $this->load->model('M_blog');
         $this->load->helper('string');
@@ -88,39 +90,52 @@ class Amper extends CI_Controller
             $data['photo'] = $this->M_photo->getPhotoProfile($user_id);
             // $data['comments'] = $this->M_comment->list_comment_flp($user_id, 5);
             $data['users'] = $results;
-             $data['album_songs'] = $this->M_audio_song->get_data_playlist($user_id);
-           
+            $data['members']=$this->db->where('artist_id',$user_id)
+                    ->get('groups_member')->result_array();
+            $data['fans'] = $this->M_fan->list_fan_alp($user_id, 12);
+            $data['events'] = $this->Events_model->list_event_alp($user_id, 6);
+            
+            $data['album_songs'] = $this->M_audio_song->get_data_playlist($user_id);
+           if($user['role'] == 1)
+            {
+                $data['avata'] = $this->M_user->get_avata($user_id);
+                $data['role']  = 1;
+            }else{
+                 $data['avata'] = $this->M_user->get_avata_flp($user_id);
+                  $data['role']  = 2;
+            }
+               
             $data['user_data'] = $this->session->userdata('user_data');
             $this->load->view('includes/header', $data);
             $this->load->view('includes/navbar', $data);
-            if($results[0]->role == 1)
-            {
-                $data['num_blogs'] = $this->M_blog->num_blogs_artist($user_id);
-                $data['num_comments'] = $this->M_comment->num_comments_alp($user_id);
-                $data['comments'] = $this->M_comment->all_comment_alp($user_id, 0, 5);
-                $data['videos'] = $this->M_video->list_videos_alp($user_id, 4);
-                $data['photos'] = $this->M_photo->list_photos_alp($user_id, 3);
-                $data['songs'] = $this->M_audio_song->list_songs_alp($user_id, 5);
-                $data['members']=$this->db->where('artist_id',$user_id)
-                    ->get('groups_member')->result_array();
-                    $data['fans'] = $this->M_fan->list_fan_alp($user_id, 12);
+            // if($results[0]->role == 1)
+            // {
+            //     $data['num_blogs'] = $this->M_blog->num_blogs_artist($user_id);
+            //     $data['num_comments'] = $this->M_comment->num_comments_alp($user_id);
+            //     $data['comments'] = $this->M_comment->all_comment_alp($user_id, 0, 5);
+            //     $data['videos'] = $this->M_video->list_videos_alp($user_id, 4);
+            //     $data['photos'] = $this->M_photo->list_photos_alp($user_id, 3);
+            //     $data['songs'] = $this->M_audio_song->list_songs_alp($user_id, 5);
+            //     $data['members']=$this->db->where('artist_id',$user_id)
+            //         ->get('groups_member')->result_array();
+            //         $data['fans'] = $this->M_fan->list_fan_alp($user_id, 12);
             
-                $data['blogs'] = $this->M_blog->get_blogs_less_artist($user_id, 6);
-                if($data['blogs'])
-                {
-                    for ($i=0; $i < count($data['blogs']); $i++) { 
-                        $data['blogs'][$i]['blog_comments_count'] = count($this->M_blog->getcomment_blog($data['blogs'][$i]['id']));
-                    }
-                }
-                $CounterHits = $this->session->userdata('CounterHits_alp');
-                if (!isset($CounterHits)) {
-                    $this->session->set_userdata('CounterHits_alp', true);
-                    $this->M_user->Counter_hits($user_id, 'alp');
-                }
-                    $this->load->view('landing/landing-page-'.$style, $data);
-                }
-            else
-            {
+            //     $data['blogs'] = $this->M_blog->get_blogs_less_artist($user_id, 6);
+            //     if($data['blogs'])
+            //     {
+            //         for ($i=0; $i < count($data['blogs']); $i++) { 
+            //             $data['blogs'][$i]['blog_comments_count'] = count($this->M_blog->getcomment_blog($data['blogs'][$i]['id']));
+            //         }
+            //     }
+            //     $CounterHits = $this->session->userdata('CounterHits_alp');
+            //     if (!isset($CounterHits)) {
+            //         $this->session->set_userdata('CounterHits_alp', true);
+            //         $this->M_user->Counter_hits($user_id, 'alp');
+            //     }
+            //         $this->load->view('landing/landing-page-'.$style, $data);
+            //     }
+            // else
+            // {
                 $data['num_blogs'] = $this->M_blog->num_blogs_amper($user_id);
                 $data['num_comments'] = $this->M_comment->num_comments_flp($user_id);
                 $data['comments'] = $this->M_comment->all_comments_flp($user_id, 0, 5);
@@ -144,7 +159,7 @@ class Amper extends CI_Controller
                     
                 }
                 $this->load->view('landing/landing-flp-page-'.$style, $data);
-            }       
+            // }       
             $this->load->view('includes/footer', $data);
         } else {
             redirect('404');
@@ -379,10 +394,10 @@ class Amper extends CI_Controller
     public function confirm_register()
     {
         $AffiliateRootId = $this->input->post('AffiliateRootId');
-        $list_network = $this->input->post('list_select');
+       $list_network = $this->input->post('input_select');
         $affiliate = $this->M_affiliate->get_affiliate($AffiliateRootId);
-
-        $DataParrent = $this->db->where_in('id', $list_network)
+foreach($list_network as $network) {
+        $DataParrent = $this->db->where_in('id',$network)
             ->get('affiliate_level')->result_array();
         $U_map = $this->U_map;
         foreach ($DataParrent as $Parrent) {
@@ -497,11 +512,12 @@ class Amper extends CI_Controller
             //add notifycation
             $check_notifi = $this->M_user->check_onoff_request($Parrent['artist_id']);
             if ($check_notifi) {
-                $this->M_notify->addnotify($Parrent['artist_id'], 'You have request want register to become affiliate ', 'amper_register');
+                $this->M_notify->addnotify($Parrent['artist_id'], 'New Request to become an <a href="'.base_url("amper/dashboard_affiliates").'">Affiliate</a> ', 'amper_register');
             }
             //update list artist
             $this->M_affiliate->update_list_artist($U_map['id'], $Parrent['artist_id']);
         }
+}
         redirect('amper/selectalbums/affiliate/'.$AffiliateRootId);
         //redirect('amper/dashboard');
     }

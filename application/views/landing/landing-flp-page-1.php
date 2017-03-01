@@ -64,8 +64,8 @@
                         <div class="profile-sidebar">
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
-                                <img src="<?php echo $this->M_user->get_avata_flp($user_id); ?>" class="img-responsive" alt="">
-                            </div>
+                                <img src="<?php echo $avata; ?>" class="img-responsive" alt="">
+                            </div> 
                             <div class="profile-usertitle">
                                 <div class="profile-usertitle-name">
                                     <?php echo ucfirst($name); ?>
@@ -92,7 +92,10 @@
                         <div class="page-content">
                             <div class="home-blog-box-list clearfix">
                                 <div class="row clearfix">
-                                    <div class="col-lg-5 col-sm-5 col-xs-12"  >
+                                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                                        
+                                    
+                                    <div class="col-lg-6 col-sm-6 col-xs-12"  >
                                         <div class="home-blog-box-item">
                                             <div class="small-blog-list-cat-name">
                                                 <div class="ico-img panel-title text-center">
@@ -102,7 +105,7 @@
                                                 </div>
                                                  <h2 class="panel-tp">VIDEOS</h2> 
                                             </div>
-                                            <div class="video" id="content-m" style="max-height: 505px;overflow-y: scroll;overflow-x: hidden;">
+                                            <div class="video" id="content-m" style="max-height: 450px;overflow-y: scroll;overflow-x: hidden;">
                                              
                                             <?php if (isset($videos) && count($videos) > 0) {?>
                                             <?php foreach ($videos as $video) {
@@ -136,48 +139,8 @@
                                             </div>
                                         </div>     
                                     </div>
-                                    <div class="col-lg-7 col-sm-7 col-xs-12">
-                                        <div class="home-blog-box-item">
-                                            <div class="small-blog-list-cat-name">
-                                                <div class="ico-img panel-title text-center">
-                                                    <span>
-                                                        <i class="fa fa-play fa-spin-hover" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                 <h2 class="panel-tp">AMP</h2> 
-                                            </div>
-                                            <div class="video" style="padding:2px;">
-                                                <?php echo $this->M_audio_song->get_shortcode_AMP($id)?>
-                                            </div>
-                                            
-                                        </div>     
-                                    </div>
-                                     <div class="col-lg-5 col-sm-5 col-xs-12">
-                                        <div class="home-blog-box-item">
-                                            <div class="small-blog-list-cat-name">
-                                                <div class="ico-img panel-title text-center">
-                                                    <span>
-                                                        <i class="fa fa-clock-o fa-spin-hover" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                 <h2 class="panel-tp">STATS</h2>
-                                                 <div class="panel-body well well-sm text-center">                        
-                                                <div class="Stats-area ">
-                                                    <ul>
-                                                        <li><a href="#"><i class="fa fa-music"></i> Song Plays<span class="pull-right"><?php echo $num_songs;?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-file-video-o"></i> Video Plays<span class="pull-right"><?php echo $num_videos;?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-users"></i> Total Fans<span class="pull-right"><?php echo $num_fands; ?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-hand-rock-o"></i> Total Events<span class="pull-right"><?php echo $num_events; ?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-bookmark"></i> Total Blogs<span class="pull-right"><?php echo $num_blogs; ?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-comments"></i> Total Comments<span class="pull-right"><?php echo $num_comments; ?></span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div> 
-                                            </div>                        
-                                        </div>     
-                                    </div>
-                                    <div class="col-lg-7 col-sm-7 col-xs-12">
-                                        <div class="home-blog-box-item">
+                                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                                              <div class="home-blog-box-item">
                                             <div class="small-blog-list-cat-name">
                                                 <div class="ico-img panel-title text-center">
                                                     <span>
@@ -186,7 +149,7 @@
                                                 </div>
                                                  <h2 class="panel-tp">Blog</h2>
                                             </div>    
-                                                <div class="row well well-sm scroller" style="max-height: 284px;overflow-y: scroll;overflow-x: hidden;">
+                                                <div class="row well well-sm scroller" style="max-height: 450px;overflow-y: scroll;overflow-x: hidden;">
                                                 <?php if (isset($blogs) && count($blogs) > 0) {  ?>
                                                  <?php foreach ($blogs as $row) { 
 
@@ -220,8 +183,127 @@
                                                         <hr/>
                                                          <?php } }?>
                                                     </div>     
+                                        </div> 
+                                    </div>
+                                    </div>
+                                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-8 col-sm-8 col-xs-12">
+                                        <div class="home-blog-box-item">
+                                            <div class="small-blog-list-cat-name">
+                                                <div class="ico-img panel-title text-center">
+                                                    <span>
+                                                        <i class="fa fa-play fa-spin-hover" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                 <h2 class="panel-tp">AMP</h2> 
+                                            </div>
+                                            <div class="video" style="padding:2px;">
+                                                <?php echo $this->M_audio_song->get_shortcode_AMP($id)?>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-4 col-xs-12">
+                                        <div class="home-blog-box-item">
+                                            <div class="small-blog-list-cat-name">
+                                                <div class="ico-img panel-title text-center">
+                                                    <span>
+                                                        <i class="fa fa-clock-o fa-spin-hover" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                 <h2 class="panel-tp">STATS</h2>
+                                                 <div class="panel-body well well-sm text-center">                        
+                                                <div class="Stats-area ">
+                                                    <ul>
+                                                        <li><a href="#"><i class="fa fa-music"></i> Song Plays<span class="pull-right"><?php echo $num_songs;?></span></a></li>
+                                                        <li><a href="#"><i class="fa fa-file-video-o"></i> Video Plays<span class="pull-right"><?php echo $num_videos;?></span></a></li>
+                                                        <li><a href="#"><i class="fa fa-users"></i> Total Fans<span class="pull-right"><?php echo $num_fands; ?></span></a></li>
+                                                        <li><a href="#"><i class="fa fa-hand-rock-o"></i> Total Events<span class="pull-right"><?php echo $num_events; ?></span></a></li>
+                                                        <li><a href="#"><i class="fa fa-bookmark"></i> Total Blogs<span class="pull-right"><?php echo $num_blogs; ?></span></a></li>
+                                                        <li><a href="#"><i class="fa fa-comments"></i> Total Comments<span class="pull-right"><?php echo $num_comments; ?></span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div> 
+                                            </div>                        
                                         </div>     
                                     </div>
+                                    </div>
+                                 <?php if($role == 1) { ?> 
+                                    
+                                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="col-lg-6 col-sm-6 col-xs-12">
+                                            <div class="home-blog-box-item">
+                                            <div class="small-blog-list-cat-name">
+                                                <div class="ico-img panel-title text-center">
+                                                    <span>
+                                                        <i class="fa fa-calendar fa-spin-hover" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                 <h2 class="panel-tp">Events</h2>
+                                            </div>    
+                                                <div class="row well well-sm scroller" style="max-height: 284px;overflow-y: scroll;overflow-x: hidden;">
+                                                <?php if (isset($events) && count($events) > 0){ ?>                      
+                                                <?php foreach ($events as $event) {?>
+                                                    <div class="col-xs-12 col-md-4 text-center">
+                                                        <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
+                                                            class="img-circle img-responsive" />
+                                                    </div>
+                                                    <div class="col-xs-12 col-md-8 section-box">
+                                                        <h4>
+                                                            <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
+                                                        </h4>
+                                                        <p>
+                                                            <?php  custom_echo_html($event['event_desc'], 400); ?></p>
+                                                        </div>
+                                                        
+                                                        <hr/>
+                                                         <?php } }?>
+                                                    </div>     
+                                            </div> 
+
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6 col-xs-12">
+                                            <div class="home-blog-box-item">
+                                            <div class="small-blog-list-cat-name">
+                                                <div class="ico-img panel-title text-center">
+                                                    <span>
+                                                        <i class="fa fa-calendar fa-spin-hover" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                 <h2 class="panel-tp">Fans</h2>
+                                            </div>    
+                                                <div class="row well well-sm scroller" style="max-height: 284px;overflow-y: scroll;overflow-x: hidden;">
+                                               <?php if (isset($fans) && count($fans) > 0) { ?>                       
+                           <?php $i = 0; foreach ($fans as $fan) { 
+                            if($fan['role'] == 1)
+                            {
+                              $avata = $this->M_user->get_avata($fan['fan_id']);
+                            }else{
+                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
+                            }
+                            ?>
+                            <div class="col-xs-12 col-md-12" style="padding-bottom: 5px">
+                                
+                            
+                                <div class="col-xs-4 col-md-4 text-center">
+                                    <img src="<?php echo $avata?>" alt="Image"
+                                        class="img-rounded img-responsive" />
+                                </div>
+                                <div class="col-xs-8 col-md-8 section-box">
+                                    <h4>
+                                        <a href="<?php echo base_url().$fan['home_page']; ?>"><?php echo $this->M_user->get_name($fan['fan_id']); ?></a>
+                                    </h4>
+                                    
+                                </div>
+                                                        
+                                    <hr/>
+                                    </div>
+                                 <?php } }?>
+                        </div>     
+                                        </div> 
+                                        </div>
+                                            
+                                    </div>
+                                    <?php }    ?>
                                 </div>   
                             </div>
                        </div>
@@ -269,6 +351,7 @@
                                                 <table class="table">
                                                     <tr>
                                                         <td><a href="<?php echo base_url().'social_media'?>"><button  class="btn btn-default btn-sm com">Share</button></a></td>
+                                                        <?php if($role == 1) { ?>
                                                         <td><?php $home_page = $this->uri->segment(1);
                                 if($home_page == 'amp')
                                 {
@@ -287,7 +370,7 @@
                                 <?php
                                 }?></td>
 
-
+                                    <?php } ?>
                                     </tr>
                                     <?php
                                 if ($users[0]->id != $user_data['id']) {

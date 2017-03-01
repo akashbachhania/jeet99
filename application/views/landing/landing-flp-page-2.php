@@ -213,18 +213,25 @@
                                 <div class="col-md-12">
                                 <?php foreach ($videos as $video) {
                                             if ($video['type'] == 'file') { $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];}
-                                            else { $link_video = $video['link_video']; } ?>
+                     elseif($video['type'] == 'link') { $link_video = $video['link_video']; }
+                    elseif($video['type'] == 'link-vimeo') { 
+                    $video_vimeo=basename($video['link_video']);
+                    $get_link='http://vimeo.com/api/v2/video/'.$video_vimeo.'.php';
+                     
+                    $hash = unserialize(file_get_contents($get_link));
+                    $url_id=$hash[0]['id'];
+                    $link_video = 'https://player.vimeo.com/video/'.$url_id.'?title=0&byline=0&portrait=0'; } ?>
                                      <div class="col-md-6 brod">
                                         <div class="col-xs-12 col-md-5 vht text-center hvr-grow">
                                                     <img src="<?=$this->M_video->get_image_video($video['id'])?>" alt="bootsnipp"
                                                         class="img-rounded img-responsive" />
                                         </div>
                                         <div class="col-xs-12 col-md-7 section-box">
+                                           <?php if(($video['type'] == 'file') || ($video['type'] == 'link')) { ?>
                                             <h4><strong><a href="#videos" onclick="javascript:playvideo(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#videos"><?php echo $video['name_video']; ?></a></strong></h4>
-                                            <p> <i class="fa fa-calendar"></i> jan 16th, 2017</p>
-                                            <p>
-                                                 Design elements fhgjh dgfhgj xgdf
-                                            </p>
+                                            <?php } else { ?>
+                                            <h4><strong><a href="#videos" onclick="javascript:play_vimeo_video(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#vimeo_videos"><?php echo $video['name_video']; ?></a></strong></h4>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <?php } ?>
@@ -293,7 +300,7 @@
     <div class="modal-content">
       <form class="" action="<?php echo base_url().'amper/membercomment'?>" method="post">
         <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>" />
-        <input type="hidden" name="id_artist" value="<?=$id?>" />
+        <input type="hidden" name="id_flp" value="<?=$id?>" />
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <h4 class="tt">Add Comment</h4>
@@ -386,7 +393,13 @@
         <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
     </div>
 </div>
-
+<div class="modal fade" id="vimeo_videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <iframe id="vimeo_video"  width="640" height="337" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        
+        <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
+</div>
 <div class="modal fade" id="photos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog text-center" role="document">
         <img src="<?php echo base_url(); ?>assets/images/adaptable.jpg" width="500" height="400"/>
