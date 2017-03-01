@@ -148,38 +148,7 @@
                     </div>
                     
          
-                    <?php if (isset($events) && count($events) > 0) {
-    ?>
-                    <div class="remove_padding col-md-12 part_session photos_session box-bstye4">
-                        
-                        <h2 class="tt text_caplock titlecol_style4"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_blog.png" /> Events</h2>
-                        <span class="liner_landing"></span>
-                        <div class="col-md-12 remove_padding">
-                            <?php
-                            foreach ($events as $event) {
-                                ?>
-                            <div class="stats_cstyle4-list ListData">
-                                <a href="#" class="show_ev item" data-event="<?=$event['event_id']; ?>" style="font-size: 16px;text-decoration: none;" data-toggle="modal" data-target="#showEvent">
-                                    <figure class="effect-bubba" style="float: left; max-width: 150px;margin: 5px;">
-                                        <img width="100%" src="<?php if (!empty($event['event_banner'])) {
-    echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner'];
-} ?>" />
-                                    </figure>
-                                    <strong><?php echo ucfirst($event['event_title']); ?></strong>
-                                </a><br />
-                                <p>
-                                <?php  custom_echo_html($event['event_desc'], 400); ?> <br />
-                                </p>
-                            </div>
-                            <?php 
-                            } ?>
-                        </div>
-                        
-                      
-                    </div>
-                    <?php 
-}
-                    ?>
+                  
                     <?php if (isset($blogs) && count($blogs) > 0) {
     ?>
                     <div class="remove_padding col-md-12 part_session photos_session box-bstye4">
@@ -395,6 +364,116 @@
                    <div class="text-right" >
                         <a class="btn  clb4" data-toggle="modal" data-target="#addComment">comments</a>
                     </div>
+                 </div>
+              </div>
+                <div class="col-md-12 sc-ct-block remove_padding">
+                 <div class="col-md-4 background_landing padding_left remove_padding">
+                             <?php if (isset($events) && count($events) > 0) {
+    ?>
+                    <div class="remove_padding col-md-12 part_session photos_session box-bstye4">
+                        
+                        <h2 class="tt text_caplock titlecol_style4"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_git_event.png" /> Events</h2>
+                        <span class="liner_landing"></span>
+                        <div class="col-md-12 remove_padding" style="height:200px; max-height: 200px;overflow-y: scroll;overflow-x: hidden;">
+                            <?php
+                            foreach ($events as $event) {
+                                ?>
+                            <div class="stats_cstyle4-list ListData">
+                                <a href="#" class="show_ev item" data-event="<?=$event['event_id']; ?>" style="font-size: 16px;text-decoration: none;" data-toggle="modal" data-target="#showEvent">
+                                    <figure class="effect-bubba" style="float: left; max-width: 150px;margin: 5px;">
+                                        <img width="100%" src="<?php if (!empty($event['event_banner'])) {
+    echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner'];
+} ?>" />
+                                    </figure>
+                                    <strong><?php echo ucfirst($event['event_title']); ?></strong>
+                                </a><br />
+                                <p>
+                                <?php  custom_echo_html($event['event_desc'], 400); ?> <br />
+                                </p>
+                            </div>
+                            <?php 
+                            } ?>
+                        </div>
+                        
+                      
+                    </div>
+                    <?php 
+}
+                    ?>
+                 </div>
+                <div class="col-md-4 bg-lg-ct sc-full-w">
+  
+                    <div class="remove_padding col-md-12 part_session photos_session box-bstye4">
+                        
+                        <h2 class="tt text_caplock titlecol_style4"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/support.png" /> fan</h2>
+                        <span class="liner_landing"></span>
+                       <div class="col-md-12" style=" height:200px; max-height: 200px;overflow-y: scroll;overflow-x: hidden;">
+                                 <article>
+                                     <?php if (isset($fans) && count($fans) > 0) { ?>                       
+                           <?php $i = 0; foreach ($fans as $fan) { 
+                            if($fan['role'] == 1)
+                            {
+                              $avata = $this->M_user->get_avata($fan['fan_id']);
+                            }else{
+                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
+                            }
+                            ?>
+                            <div class="col-xs-12 col-md-12  stats_cstyle4-list ">
+                                
+                                
+                                    <div class="col-xs-4 col-md-4 ">
+                                        <img src="<?php echo $avata?>" alt="Image"
+                                            class="img-rounded img-responsive" />
+                                    </div>
+                                    <div class="col-xs-8 col-md-8 section-box">
+                                        <h4>
+                                            <a href="<?php echo base_url().$fan['home_page']; ?>"><?php echo $this->M_user->get_name($fan['fan_id']); ?></a>
+                                        </h4>
+                                        
+                                    </div>
+                                     <hr/>
+                                                     
+                                    </div>
+                                 <?php } }?>  
+                                  </article>
+                             </div>  
+                        
+                      
+                    </div>
+                 </div>
+                <div class="col-md-4 background_landing padding_left remove_padding">
+                          
+                    <div class="remove_padding col-md-12 part_session photos_session box-bstye4">
+                        
+                        <h2 class="tt text_caplock titlecol_style4"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/manager_member.png" /> member</h2>
+                        <span class="liner_landing"></span>
+                        <div class="col-md-12" style=" height:200px; max-height: 200px;overflow-y: scroll;overflow-x: hidden;">
+                                 <article>
+                                    <?php if (isset($members) && count($members) > 0) { ?>
+                      <?php foreach($members as $member){ 
+                            
+                            ?>
+                       <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <img src="<?php echo base_url(); ?>uploads/<?php echo $member['artist_id'];?>/image_member/<?php echo $member['member_image'];?>" class="img-circle img-responsive" alt="" />
+                            </div>
+                            <div class="col-xs-9 col-md-10">
+                                <div>
+                                    <a href="#"><?php echo $member['name_member']; ?></a>
+                                </div>
+                                <div class="comment-text">
+                                    <?php echo $member['contribution'];?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php } }else { ?>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
+                           <?php } ?>
+                                  </article>
+                             </div>  
+                    </div>
+                    
                  </div>
               </div>
             </div>

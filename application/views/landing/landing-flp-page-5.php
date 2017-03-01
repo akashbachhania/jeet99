@@ -86,6 +86,32 @@
                     
                 </div>
             </div>
+             <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
+                <div class="box_land5_heading">
+                    <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png" />Events</span></h2>
+                </div>
+                <span class="liner_landing"></span>
+                 <div class="col-md-12" style="height:282px; max-height:282px;overflow-y: scroll;overflow-x: hidden;">
+                            <article class="audio-box">
+                            <?php if (isset($events) && count($events) > 0){ ?>                      
+                            <?php foreach ($events as $event) {?>
+                                        <div class="col-xs-4 col-md-4 text-center">
+                                            <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
+                                             class="img-circle img-responsive" />
+                                        </div>
+                                        <div class="col-xs-8 col-md-8 section-box">
+                                             <h4>
+                                              <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
+                                                        </h4>
+                                                        <p>
+                                             <?php  custom_echo_html($event['event_desc'], 400); ?></p>
+                                        </div>
+                                                        
+                                         <hr/>
+                                                         <?php } }?>
+                            </article>    
+                            </div>
+                              </div>
         </div>
         <div class="col-md-5 box_land5_text">
             <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
@@ -251,6 +277,73 @@
                     </div>
      
                 </div>
+            </div><!--End comments section -->
+            <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
+                <div class="box_land5_heading">
+                      <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>fan</span></h2>
+                </div>
+                <span class="liner_landing"></span>
+                     <div class="col-md-12" style=" height:300px; max-height: 300px;overflow-y: scroll;overflow-x: hidden;">
+                                 <article>
+                                     <?php if (isset($fans) && count($fans) > 0) { ?>                       
+                           <?php $i = 0; foreach ($fans as $fan) { 
+                            if($fan['role'] == 1)
+                            {
+                              $avata = $this->M_user->get_avata($fan['fan_id']);
+                            }else{
+                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
+                            }
+                            ?>
+                            <div class="col-xs-12 col-md-12 fan-area ">
+                                
+                                
+                                    <div class="col-xs-4 col-md-4 text-center">
+                                        <img src="<?php echo $avata?>" alt="Image"
+                                            class="img-rounded img-responsive" />
+                                    </div>
+                                    <div class="col-xs-8 col-md-8 section-box">
+                                        <h4>
+                                            <a href="<?php echo base_url().$fan['home_page']; ?>"><?php echo $this->M_user->get_name($fan['fan_id']); ?></a>
+                                        </h4>
+                                        
+                                    </div>
+                                     <hr/>
+                                                     
+                                    </div>
+                                 <?php } }?>  
+                                  </article>
+                             </div>
+            </div><!--End comments section -->
+            <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
+                <div class="box_land5_heading">
+                      <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>member</span></h2>
+                </div>
+                <span class="liner_landing"></span>
+                    <div class="col-md-12" style=" height:300px; max-height: 300px;overflow-y: scroll;overflow-x: hidden;">
+                                 <article>
+                                    <?php if (isset($members) && count($members) > 0) { ?>
+                      <?php foreach($members as $member){ 
+                            
+                            ?>
+                       <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <img src="<?php echo base_url(); ?>uploads/<?php echo $member['artist_id'];?>/image_member/<?php echo $member['member_image'];?>" class="img-circle img-responsive" alt="" />
+                            </div>
+                            <div class="col-xs-9 col-md-10">
+                                <div>
+                                    <a href="#"><?php echo $member['name_member']; ?></a>
+                                </div>
+                                <div class="comment-text">
+                                    <?php echo $member['contribution'];?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php } }else { ?>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
+                           <?php } ?>
+                                  </article>
+                             </div>  
             </div><!--End comments section -->
         </div>
     </div> 
