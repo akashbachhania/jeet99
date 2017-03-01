@@ -187,7 +187,7 @@
                                     </div>
                                     </div>
                                     <div class="col-lg-12 col-sm-12 col-xs-12">
-                                        <div class="col-lg-8 col-sm-8 col-xs-12">
+                                        <div class="col-lg-12 col-sm-12 col-xs-12">
                                         <div class="home-blog-box-item">
                                             <div class="small-blog-list-cat-name">
                                                 <div class="ico-img panel-title text-center">
@@ -202,30 +202,7 @@
                                             </div>
                                         </div>
                                         </div>
-                                        <div class="col-lg-4 col-sm-4 col-xs-12">
-                                        <div class="home-blog-box-item">
-                                            <div class="small-blog-list-cat-name">
-                                                <div class="ico-img panel-title text-center">
-                                                    <span>
-                                                        <i class="fa fa-clock-o fa-spin-hover" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                 <h2 class="panel-tp">STATS</h2>
-                                                 <div class="panel-body well well-sm text-center">                        
-                                                <div class="Stats-area ">
-                                                    <ul>
-                                                        <li><a href="#"><i class="fa fa-music"></i> Song Plays<span class="pull-right"><?php echo $num_songs;?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-file-video-o"></i> Video Plays<span class="pull-right"><?php echo $num_videos;?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-users"></i> Total Fans<span class="pull-right"><?php echo $num_fands; ?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-hand-rock-o"></i> Total Events<span class="pull-right"><?php echo $num_events; ?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-bookmark"></i> Total Blogs<span class="pull-right"><?php echo $num_blogs; ?></span></a></li>
-                                                        <li><a href="#"><i class="fa fa-comments"></i> Total Comments<span class="pull-right"><?php echo $num_comments; ?></span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div> 
-                                            </div>                        
-                                        </div>     
-                                    </div>
+                                      
                                     </div>
                                  <?php if($role == 1) { ?> 
                                     
@@ -240,14 +217,14 @@
                                                 </div>
                                                  <h2 class="panel-tp">Events</h2>
                                             </div>    
-                                                <div class="row well well-sm scroller" style="max-height: 284px;overflow-y: scroll;overflow-x: hidden;">
+                                                <div class="row well well-sm scroller" style="height:284px; max-height: 284px;overflow-y: scroll;overflow-x: hidden;">
                                                 <?php if (isset($events) && count($events) > 0){ ?>                      
                                                 <?php foreach ($events as $event) {?>
-                                                    <div class="col-xs-12 col-md-4 text-center">
+                                                    <div class="col-xs-4 col-md-4 text-center">
                                                         <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
                                                             class="img-circle img-responsive" />
                                                     </div>
-                                                    <div class="col-xs-12 col-md-8 section-box">
+                                                    <div class="col-xs-8 col-md-8 section-box">
                                                         <h4>
                                                             <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
                                                         </h4>
@@ -271,7 +248,7 @@
                                                 </div>
                                                  <h2 class="panel-tp">Fans</h2>
                                             </div>    
-                                                <div class="row well well-sm scroller" style="max-height: 284px;overflow-y: scroll;overflow-x: hidden;">
+                                                <div class="row well well-sm scroller" style="height:284px; max-height: 284px;overflow-y: scroll;overflow-x: hidden;">
                                                <?php if (isset($fans) && count($fans) > 0) { ?>                       
                            <?php $i = 0; foreach ($fans as $fan) { 
                             if($fan['role'] == 1)
@@ -475,11 +452,68 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                        <div class="sidebar-right">
+                            <div class="widget-box">
+                                <div class="about-widget">
+                                     <div class="ico-img panel-title text-center">
+                                                        <span>
+                                                            <i class="fa fa-clock-o fa-spin-hover" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                     <h2 class="panel-tp">STATS</h2>
+                                                     <div class="panel-body well well-sm text-center">                        
+                                                    <div class="Stats-area ">
+                                                        <ul>
+                                                            <li><a href="#"><i class="fa fa-music"></i> Song Plays<span class="pull-right"><?php echo $num_songs;?></span></a></li>
+                                                            <li><a href="#"><i class="fa fa-file-video-o"></i> Video Plays<span class="pull-right"><?php echo $num_videos;?></span></a></li>
+                                                            <li><a href="#"><i class="fa fa-users"></i> Total Fans<span class="pull-right"><?php echo $num_fands; ?></span></a></li>
+                                                            <li><a href="#"><i class="fa fa-hand-rock-o"></i> Total Events<span class="pull-right"><?php echo $num_events; ?></span></a></li>
+                                                            <li><a href="#"><i class="fa fa-bookmark"></i> Total Blogs<span class="pull-right"><?php echo $num_blogs; ?></span></a></li>
+                                                            <li><a href="#"><i class="fa fa-comments"></i> Total Comments<span class="pull-right"><?php echo $num_comments; ?></span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div> 
+                                                </div>                        
+                                            </div>     
+                                        </div> 
+                                        <div class="sidebar-right">
+                            <div class="widget-box">
+                                <div class="about-widget">
+                                    <div class="ico-img panel-title text-center">
+                                        <span>
+                                         <i class="fa fa-users fa-spin-hover" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                    <h2 class="panel-tp">member</h2>    
+                                       <?php if (isset($members) && count($members) > 0) { ?>
+                      <?php foreach($members as $member){ 
+                            
+                            ?>
+                       <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <img src="<?php echo base_url(); ?>uploads/<?php echo $member['artist_id'];?>/image_member/<?php echo $member['member_image'];?>" class="img-circle img-responsive" alt="" />
+                            </div>
+                            <div class="col-xs-9 col-md-10">
+                                <div>
+                                    <a href="#"><?php echo $member['name_member']; ?></a>
+                                </div>
+                                <div class="comment-text">
+                                    <?php echo $member['contribution'];?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php } }else { ?>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
+                           <?php } ?>
+                                </div>
+                            </div>
+                        </div>             
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
 <!-- Modal showEvent -->
 <div class="modal fade new_modal_style" id="showEvent" tabindex="-1" role="dialog" aria-labelledby="myModalcomment" aria-hidden="true">

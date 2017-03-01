@@ -289,7 +289,87 @@
         </div>
     </div>
     </div><!--  row  -->
-
+        <div class="row comm-area">
+            <div class="col-md-4">
+               <div class="BoxTitle"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>"><h2 class="animated rubberBand"><i class="fa fa-calendar" aria-hidden="true"></i>Events</h2></a></div>
+                <div class="BoxGrid3 ScrollStyle5">
+                     <?php if (isset($events) && count($events) > 0){ ?>                      
+                            <?php foreach ($events as $event) {?>
+                                <div class="col-xs-12 col-md-4 text-center">
+                                    <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
+                                     class="img-circle img-responsive" />
+                                </div>
+                                                    <div class="col-xs-12 col-md-8 section-box">
+                                                        <h4>
+                                                            <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
+                                                        </h4>
+                                                        <p>
+                                                            <?php  custom_echo_html($event['event_desc'], 400); ?></p>
+                                                        </div>
+                                                        
+                                                        <hr/>
+                                                         <?php } }?>
+                 
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="BoxTitle"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>"><h2 class="animated rubberBand"><i class="fa fa-heart-o" aria-hidden="true"></i>fan</h2></a></div>
+                <div class="BoxGrid3 ScrollStyle5">
+                           <?php if (isset($fans) && count($fans) > 0) { ?>                       
+                           <?php $i = 0; foreach ($fans as $fan) { 
+                            if($fan['role'] == 1)
+                            {
+                              $avata = $this->M_user->get_avata($fan['fan_id']);
+                            }else{
+                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
+                            }
+                            ?>
+                            <div class="col-xs-12 col-md-12 fan-area ">
+                                
+                                
+                                    <div class="col-xs-4 col-md-4 text-center">
+                                        <img src="<?php echo $avata?>" alt="Image"
+                                            class="img-rounded img-responsive" />
+                                    </div>
+                                    <div class="col-xs-8 col-md-8 section-box">
+                                        <h4>
+                                            <a href="<?php echo base_url().$fan['home_page']; ?>"><?php echo $this->M_user->get_name($fan['fan_id']); ?></a>
+                                        </h4>
+                                        
+                                    </div>
+                                     <hr/>
+                                                     
+                                    </div>
+                                 <?php } }?>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="BoxTitle"><a href="<?php echo base_url('artist/allcomment').'/'.$id;?>"><h2 class="animated rubberBand"><i class="fa fa-users" aria-hidden="true"></i>member</h2></a></div>
+                <div class="BoxGrid3 ScrollStyle5">
+                    <?php if (isset($members) && count($members) > 0) { ?>
+                      <?php foreach($members as $member){ 
+                            
+                            ?>
+                       <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <img src="<?php echo base_url(); ?>uploads/<?php echo $member['artist_id'];?>/image_member/<?php echo $member['member_image'];?>" class="img-circle img-responsive" alt="" />
+                            </div>
+                            <div class="col-xs-9 col-md-10">
+                                <div>
+                                    <a href="#"><?php echo $member['name_member']; ?></a>
+                                </div>
+                                <div class="comment-text">
+                                    <?php echo $member['contribution'];?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php } }else { ?>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
+                           <?php } ?>
+               </div>
+            </div>
+        </div><!--  row  -->
 
       
 </div><!--  container  -->	
@@ -426,7 +506,7 @@
      (function($){
         $(window).load(function(){
             console.log('inside funtion');
-            $(".ScrollStyle1,.ScrollStyle2,.ScrollStyle3,.ScrollStyle4").mCustomScrollbar({theme:"minimal-dark"});
+            $(".ScrollStyle1,.ScrollStyle2,.ScrollStyle3,.ScrollStyle4,.ScrollStyle5").mCustomScrollbar({theme:"minimal-dark"});
         });
         })(jQuery);
 </script>
