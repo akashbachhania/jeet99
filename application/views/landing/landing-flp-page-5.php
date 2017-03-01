@@ -19,12 +19,12 @@
     
     <!--   profile Header   -->
     <div class="Myprof-style5">
-    	<?php if (!empty($users[0]->banner_image)) { ?>
-        	<img align="left" class="My-image-lg" src="<?php echo base_url(); ?>uploads/<?php echo $users[0]->id; ?>/photo/banner/<?php echo $users[0]->banner_image; ?>" alt="Profile image example"/>
-		<?php } ?>
-        <img align="left" class="My-image-profile thumbnail n5style" src="<?php echo $this->M_user->get_avata($users[0]->id)?>" alt="Profile image example"/>
+        <?php if (!empty($users[0]->banner_image)) { ?>
+            <img align="left" class="My-image-lg" src="<?php echo base_url(); ?>uploads/<?php echo $users[0]->id; ?>/photo/banner/<?php echo $users[0]->banner_image; ?>" alt="Profile image example"/>
+        <?php } ?>
+        <img align="left" class="My-image-profile thumbnail n5style" src="<?php echo $this->M_user->get_avata_flp($users[0]->id)?>" alt="Profile image example"/>
         <div class="My-profile-text">
-            <h1><?php echo $users[0]->firstname." ".$users[0]->lastname;?></h1>
+            <h1><?php echo ucfirst($name); ?></h1>
             <p></p>
             <div class="SocialIco">
             <a href="<?php echo $users[0]->facebook_username; ?>"><i class="fa fa-facebook" aria-hidden="true"></i></a>
@@ -49,7 +49,7 @@
             </div>
             <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
                 <div class="box_land5_heading">
-                    <h2><span class="bord_col"><a href="<?php echo base_url('artist/allblogs').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png" /> Recent Blogs</span></a></h2>
+                    <h2><span class="bord_col"><a href="<?php echo base_url('artist/allblogs').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png" /> RECENT BLOGS</span></a></h2>
                 </div>
                 <span class="liner_landing"></span>
                 <div class="col-md-12 rm_padding Scroll5Style3">
@@ -90,7 +90,7 @@
         <div class="col-md-5 box_land5_text">
             <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
                 <div class="box_land5_heading">
-                    <h2><span class="bord_col"><a href="<?php echo base_url('photos');?>"><img class="icon_part" style="min-height:50px;" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>photo</span></a></h2>
+                    <h2><span class="bord_col"><a href="<?php echo base_url('photos');?>"><img class="icon_part"  src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>PHOTOS</span></a></h2>
                 </div>
                 <span class="liner_landing"></span>
                 <div class="col-md-12 re_padding Scroll5Style1">
@@ -133,7 +133,7 @@
             </div>
             <div class="rm_padding col-md-12 part_session photos_session box_land5_style">
                 <div class="box_land5_heading">
-                    <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>stats</span></h2>
+                    <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>STATS</span></h2>
                 </div>
                 <span class="liner_landing"></span>
                 <div class="col-md-12 rm_padding">
@@ -152,7 +152,7 @@
             <!--strat video section -->
             <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
                 <div class="box_land5_heading">
-                    <h2><a href="<?php echo base_url('artist/allvideos').'/'.$id; ?>"><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>video</span></a>
+                    <h2><a href="<?php echo base_url('artist/allvideos').'/'.$id; ?>"><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>VIDEOS</span></a>
                     </h2>
                 </div>
                 <span class="liner_landing"></span>
@@ -185,7 +185,7 @@
             <!--End video section -->
                <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
                 <div class="box_land5_heading">
-                    <h2 ><span class="bord_cols"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>Quick Actions</span></h2>
+                    <h2 ><span class="bord_cols"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>QUICK ACTIONS</span></h2>
                 </div>
                 <span class="liner_landing"></span>
                 <div class="col-md-12 re_padding">
@@ -225,7 +225,7 @@
             <!--strat video section -->
             <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
                 <div class="box_land5_heading">
-                      <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>Comments</span></h2>
+                      <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png"/>COMMENTS</span></h2>
                 </div>
                 <span class="liner_landing"></span>
                 <div class="col-md-12 re_padding">
@@ -327,31 +327,31 @@
 </div>
 <!-- Modal Invite Contact -->
 <div class="modal fade" id="invite-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-			<h4 class="modal-title" id="myModalLabel">Invite Contact (<?=$this->M_user->get_name($users['0']->id)?>)</h4>
-			</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Invite Contact (<?=$this->M_user->get_name($users['0']->id)?>)</h4>
+            </div>
             <form class="form form-signup" action="<?php echo base_url()?>chat/invite_contact" method="post"  >
             <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
             <div class="modal-body">
-    		<div class="form-group">
-    		<label class="form-input col-md-3">Messages</label>
-    		<div class="input-group col-md-8">
+            <div class="form-group">
+            <label class="form-input col-md-3">Messages</label>
+            <div class="input-group col-md-8">
             <input type="hidden" name ="user_invite" value="<?php echo $user_data['id']?>" />
             <input type="hidden" name ="user_to" id="user_id2" value="<?php echo $users['0']->id?>" />
-    		<textarea class="form-control" rows="5" name="messages_invite">Hi <?=$this->M_user->get_name($users['0']->id)?>, I'd like to add you as a contact.</textarea>
-    		</div>
-    		</div>
-    		</div>
-    		<div class="modal-footer">
-    		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    		<button type="submit" class="btn btn-primary">Add to Contacts</button>
-    		</div>
+            <textarea class="form-control" rows="5" name="messages_invite">Hi <?=$this->M_user->get_name($users['0']->id)?>, I'd like to add you as a contact.</textarea>
+            </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add to Contacts</button>
+            </div>
             </form>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 <div class="modal fade" id="videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">

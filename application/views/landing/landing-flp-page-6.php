@@ -25,7 +25,7 @@
       <div style="height: 350px; width:100%;background-color: #848484;"></div>
       <?php 
 		}?>
-      <div class="mask"> <img class="UserPic" src="<?php echo $this->M_user->get_avata($users[0]->id)?>"/>
+      <div class="mask"> <img class="UserPic" src="<?php echo $avata;?>"/>
         <h1 class="view_style_text text-center fixnameuser"><?php echo ucfirst($name); ?></h1>
         <p class="view_style_text text-center"><?php if(isset($genres[0]['name'])) echo ucfirst($genres[0]['name']); ?> <?php echo ucfirst($city); if (!empty($country_code[0]['countrycode'])) {
      	echo ', '.ucfirst($country_code[0]['countrycode']);
@@ -40,27 +40,29 @@
               <?php echo $this->M_audio_song->get_shortcode_AMP($id)?>
             </div>
                   
-             <div class="row blog ">
+            <div class="row blog ">
+            <h4 class="sub-title">RECENT BLOGS</h4>
+               <hr/>
                 <div class="Scroll6Style3">
                  <?php foreach ($blogs as $row) {
                         ?>
                  <div class="col-md-2 blog-date clearfix">
-                    <div class="day">16</div>
-                    <div class="month"> janubary</div>
-                    <div class="year">2017</div>
+                    <div class="day"><?php echo date('d', $row['time'])?></div>
+                    <div class="month"> <?php echo date('F', $row['time'])?></div>
+                    <div class="year"><?php echo date('Y', $row['time'])?></div>
                  </div>
                  <div class="col-md-10 blog-title clearfix">
                      <a href="<?php echo base_url('artist/blogs').'/'.$user_data['id']?>"><h2><?php echo $row['title']?></h2></a>
                      <p>written by:<span><?php echo $this->M_user->get_name($row['user_id']);?></span></p>
                  </div>
                  <div class="col-md-12 blog-content">
-                    <img class="img-responsive" src="<?php echo base_url('uploads/'.$row['user_id'].'/photo/blogs/'.$row['image_rep']) ?>"  alt=""/>
+                    <img style="height: 245px;
+    width: 100%;" src="<?php echo base_url('uploads/'.$row['user_id'].'/photo/blogs/'.$row['image_rep']) ?>"  alt=""/>
                  
                     <p> <?php 
-                                        $text = strip_tags($row['introduction']);
-                                    $desLength = strlen($text);
-                                        //var_dump($desLength);exit;            
-                                        $stringMaxLength = 120;
+                            $text = strip_tags($row['introduction']);
+                            $desLength = strlen($text);           
+                            $stringMaxLength = 120;
                                 if ($desLength > $stringMaxLength) {
                                     $des = substr($text, 0, $stringMaxLength);
                                     $text = $des.'...';
@@ -74,95 +76,93 @@
                    <?php } ?>
                 </div>
              </div>
+             <div class="row blog">
+             <h4 class="sub-title">VIDEOS</h4>
+               <hr/>
+             <?php foreach ($videos as $video) {
+                     if ($video['type'] == 'file') { $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];}
+                 elseif($video['type'] == 'link') { $link_video = $video['link_video']; }
+                elseif($video['type'] == 'link-vimeo') { 
+                $video_vimeo=basename($video['link_video']);
+                $get_link='http://vimeo.com/api/v2/video/'.$video_vimeo.'.php';
+                 
+                $hash = unserialize(file_get_contents($get_link));
+                $url_id=$hash[0]['id'];
+                $link_video = 'https://player.vimeo.com/video/'.$url_id.'?title=0&byline=0&portrait=0'; }?>
+                 <div class="col-md-4">
+                     <img class="img-responsive" src="<?=$this->M_video->get_image_video($video['id'])?>" alt="">
+                      <div class="details">
+                          <h4> <?php echo $video['name_video']; ?></h4>
+                           <span class="actions">
+                                                        <?php if(($video['type'] == 'file') || ($video['type'] == 'link')) { ?>
+                                                         <button class="btn bnt-action" type="submit" href="#videos" onclick="javascript:playvideo(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#videos" >View </button>
+                                                           <?php } else { ?>
+                                                            <button class="btn bnt-action" type="submit" href="#vimeo_videos" onclick="javascript:play_vimeo_video(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#vimeo_videos" >View </button>
+                                                           <?php } ?>
+                                                    </span>
+                      </div>
+                 </div>
+                 <?php }?>
+                   
+             </div>
         </div>
         <div class="col-md-4 ">
-          <div class="photo-box">
-              <ul id = "myTab" class = "nav nav-tabs">
-               <li class = "active">
-                  <a class="sub-title" href = "#photo" data-toggle = "tab">
-                    PHOTO
-                  </a>
-               </li>
-               
-               <li><a class="sub-title" href = "#video" data-toggle = "tab"> VIDEOS</a></li>
-              
-            </ul>
-
-            <div id = "myTabContent" class = "tab-content phovodieo-box Scroll6Style1 ">
-
-               <div class = "tab-pane fade in active" id = "photo">
-                  <div class="row">
-                   <div class="col-xs-4">
-                       <img class="img-responsive" src="http://placehold.it/100x100" alt="">
-                   </div>
-                   <div class="col-xs-4">
-                       <img class="img-responsive" src="http://placehold.it/100x100" alt="">
-                   </div>
-                   <div class="col-xs-4">
-                       <img class="img-responsive" src="http://placehold.it/100x100" alt="">
-                   </div>
+          <div class="photo-box phovodieo-box">
+           <h4 class="sub-title">PHOTOS</h4>
+               <hr/>
+            <div id = "myTabContent" class = "Scroll6Style1 ">
+                <div class="row">
+                  <?php 
+                    $i = 0;
+                    foreach ($photos as $pt) {
+                        ?>
+                    <div class="col-xs-4">
+                       <img  width="100" height="100" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" alt="">
+                    </div>
+                        <?php ++$i;
+                        }
+                    ?>
                   </div> 
-               </div>
-               
-               <div class = "tab-pane fade" id = "video">
-                  <div class="row">
-                      <div class="col-xs-4">
-                           <img class="img-responsive" src="http://placehold.it/100x100" alt="">
-                      </div>
-                      <div class="col-xs-8 details">
-                          <h4> this is heading for video</h4>
-                            <p>this video section</p>
-                      </div>
-                  </div> 
-                  <div class="row">
-                      <div class="col-xs-4">
-                           <img class="img-responsive" src="http://placehold.it/100x100" alt="">
-                      </div>
-                      <div class="col-xs-8 details">
-                          <h3 style="color: #337ab7;"> this is heading for video</h3>
-                            <p>this video section</p>
-                      </div>
-                  </div> 
-               </div> 
             </div>
           </div>
           <div clss="landboxs">
             <div class="qui-action-box">
-           <h4 class="sub-titles">quick action</h4>
-                <div class="row text-center">
-                      <ul class="list-inline list-unstyled">
-                            <li>
-                                <a class="quickcl href="#"><i class="fa fa-share"></i>Share</a>
-                            </li>
-                            <li>
-                                <?php $home_page = $this->uri->segment(1);
-                                if($home_page == 'amp')
-                                {
-                                    $home_page = $this->uri->segment(2);
-                                }
-                                $results = $this->db->where('home_page', $home_page)->get('users')->result_array();
-                                foreach ($results as $result) { $user_i = $result['id']; }
-                                $isset = $this->db->where('user_id', $user_i)->where('fan_id', $user_id)->get('fans')->num_rows();
-                                ?>
-                                <a href="<?php if ($isset > 0) { echo '#'; } else { echo base_url().'artist/comefan/'.$user_id.'/'.$home_page; } ?>" class="quickcl" style="<?php if ($isset > 0) {
+           <h4 class="sub-titles">QUICK ACTIONS</h4>
+           <hr/>
+            <div class="row text-center">
+                <ul class="list-inline list-unstyled">
+                    <li>
+                        <a class="quickcl href="#"><i class="fa fa-share"></i>Share</a>
+                    </li>
+                    <li>
+                        <?php $home_page = $this->uri->segment(1);
+                        if($home_page == 'amp')
+                        {
+                            $home_page = $this->uri->segment(2);
+                        }
+                        $results = $this->db->where('home_page', $home_page)->get('users')->result_array();
+                        foreach ($results as $result) { $user_i = $result['id']; }
+                        $isset = $this->db->where('user_id', $user_i)->where('fan_id', $user_id)->get('fans')->num_rows();
+                        ?>
+                        <a href="<?php if ($isset > 0) { echo '#'; } else { echo base_url().'artist/comefan/'.$user_id.'/'.$home_page; } ?>" class="quickcl" style="<?php if ($isset > 0) {
                                     echo 'cursor: no-drop;';
                                 } ?>"><i class="fa fa-user"></i> Become A Fan</a>
-                                </li>
-                                </ul>
-                                <?php
-                                if ($users[0]->id != $user_data['id']) {
-                                    ?>
-                                    <div class="text-center" >
-                                        <a class="btn btn-info clb5" data-toggle="modal" data-target="#invite-contact" style="color:#fff;">Add Contact Chat</a>
-                                    </div>
-                                    
-                                    <?php
-                                }
-                                ?>  
-                            </div> 
+                    </li>
+                </ul>
+                        <?php
+                        if ($users[0]->id != $user_data['id']) {
+                            ?>
+                            <div class="text-center" >
+                                <a class="btn btn-info clb5" data-toggle="modal" data-target="#invite-contact" style="color:#fff;">Add Contact Chat</a>
+                            </div>
+                            
+                            <?php
+                        }
+                        ?>  
+                </div> 
                               
-                        </div>
-                      </div>
+            </div>
+        </div>
           <div clss="landboxs">
             <div class="stats-boxs">
               <h4 class="sub-titles">STATS</h4>
@@ -184,12 +184,12 @@
           
           <div clss="landboxs">
             <div class="comment-box">
-              <h4 class="sub-titles">comments</h4>
+              <h4 class="sub-titles">COMMENTS</h4>
+              <hr/>
               <div class="Scroll6Style2">
                <?php  foreach ($comments as $comment) { ?>
                                         <?php $role = $this->M_user->get_user_role($comment['client']);
                                         ?>
-               
                 <div class="row">
                    <div class="col-xs-4">
                        
@@ -198,12 +198,12 @@
                    <div class="col-xs-8 details">
                       <h4><a href="<?php echo $this->M_user->get_home_page($comment['client']);?>"><?php echo $this->M_user->get_name($comment['client']);?></a></h4>
                       <?php echo ucfirst($comment['comment']); ?>
-                      <p><i class="fa fa-clock-o"></i> 10 janubary,2017</p>
+                      <p><i class="fa fa-clock-o"></i><?php echo date('d F, Y',$comment['time']);?></p>
                    </div>
                 </div>
                  <?php } ?> 
                 <div class="text-right" >
-                        <a class="btn clb6" style="color:#fff;">comments</a>
+                    <a class="btn clb6" style="color:#fff;" data-toggle="modal" data-target="#addComment">Comment</a>
                 </div>
                 </div>  
             </div>
@@ -211,8 +211,34 @@
         </div>
       </div>
     </div>
-  
   </div>
+</div>
+<div class="modal fade new_modal_style" id="addComment" tabindex="-1" role="dialog" aria-labelledby="myModalcomment" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="" action="<?php echo base_url().'amper/membercomment'?>" method="post">
+                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>" />
+                <input type="hidden" name="id_flp" value="<?=$id?>" />
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="tt">Add Comment</h4>
+                    <span class="liner"></span>
+                </div>            
+                <div class="modal-body">
+                    <div class="form-group">     
+                        <label class="form-input col-md-2">Comment</label>
+                        <div class="input-group col-md-9">
+                        <textarea class="form-control" name="comment" rows="6" required="" ></textarea>
+                        </div>
+                    </div>
+                </div>
+                    <div class="modal-footer searchform">
+                    <button type="button" class="btn btn-default Dnew" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-default Dnew">Add</button>
+                </div> 
+            </form>      
+        </div>       
+    </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -309,10 +335,17 @@
 </div>
 <!--MODAL video-->
 <div class="modal fade" id="videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div id="video"></div>
-    <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
-  </div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div id="video"></div>
+        <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
+</div>
+<div class="modal fade" id="vimeo_videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <iframe id="vimeo_video"  width="640" height="337" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        
+        <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
 </div>
 <script type="text/javascript">
   var url = "<?php echo base_url(); ?>";

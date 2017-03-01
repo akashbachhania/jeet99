@@ -29,20 +29,20 @@
                   <div class="container sc-ct">
                       <div class="row">
                           <div class="ProfileGrid">
-                          		<div class="col-md-12">
-                                	<img class="ProfilePic center-block" src="<?php echo $this->M_user->get_avata($users[0]->id)?>"/>	
+                                <div class="col-md-12">
+                                    <img class="ProfilePic center-block" src="<?php echo $avata;?>"/>   
                                 </div>
                                 
                                 <div class="col-md-12">
-                                	<h1><?php echo ucfirst($name); ?></h1>
+                                    <h1><?php echo ucfirst($name); ?></h1>
                                     <p><?php if(isset($genres[0]['name'])) echo ucfirst($genres[0]['name']); ?>
                                     <span><?php echo ucfirst($city); if (!empty($country_code[0]['countrycode'])) {
                                          echo ', '.ucfirst($country_code[0]['countrycode']);
                                      }; ?></span>  
-                                     </p>                	
+                                     </p>                   
                                 </div>
                           </div>      
-                      </div><!--  row  -->		
+                      </div><!--  row  -->      
                   </div>
               </div>
         
@@ -70,7 +70,7 @@
                                      $i = 0;
                                      foreach ($photos as $pt) {
                                          ?>
-                                 <li class="col-md-2 col-xs-4 ttm">
+                                 <li class="col-md-4 col-xs-12 ttm">
                                     <div class="image_fix_value phtt" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
                                     <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive"/>
                                     
@@ -81,14 +81,14 @@
                                      $i = 0;
                                      foreach ($photos as $pt) {
                                          ?>
-                                 <li class="col-md-2 col-xs-4">
+                                 <li class="col-md-6 col-xs-12">
                                     <div class="image_fix_value phtt" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
                                     <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive"/>
                                    
                                 </li>
                             <?php ++$i;
                                      } ?>
-                                <li class="col-md-2 col-xs-4">
+                                <li class="col-md-6 col-xs-12">
                                     <div class="image_fix_value phtt" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>');"></div>
                                     <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>assets/images/default-img.gif" class="img-responsive"/>
                                     
@@ -97,7 +97,7 @@
                                  } elseif ($count == 1) {
                                      foreach ($photos as $pt) {
                                          ?>
-                                     <li class="col-md-2 col-xs-4">
+                                     <li class="col-md-4 col-xs-12">
                                         <div class="image_fix_value phtt" style="background: url('<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>'); padding-right:5px;"></div>
                                         <img width="1px" style="width: 1px !important;" data-original="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" class="img-responsive"/>
                                         
@@ -146,133 +146,7 @@
                             <?php echo $this->M_audio_song->get_shortcode_AMP($id)?>
                         </div>
                     </div>
-                    <?php if (isset($album_songs) && count($album_songs) > 0) {
-    ?>
-                    <div class="remove_padding col-md-12 part_session photos_session box-bstye4">
-                        
-                        <h2 class="tt text_caplock titlecol_style4"><a href="<?php echo base_url('artist/allsong').'/'.$id; ?>"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/icon_music.png" /> Songs</a></h2>
-                        <span class="liner_landing"></span>
-                        <div class="col-md-12 remove_padding">
-                        <div class="panel-group" id="accordion">
-                            <?php
-                            $i = 1;
-    foreach ($album_songs as $album_song) {
-        ?>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $i; ?>">
-                                        Album <?php echo $album_song['name']; ?>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse<?php echo $i; ?>" class="panel-collapse collapse <?php if ($i == 1) {
-    echo 'in';
-} ?>">
-                                    <div class="panel-body remove_padding">
-                                    <?php $video_by_albums = $this->M_audio_song->get_songs_by_album($album_song['id']); ?>
-                                
-                                        <script type="text/javascript">
-                                        $(document).ready(function(){
-                                        
-                                        	new jPlayerPlaylist({
-                                        		jPlayer: "#jquery_jplayer_<?php echo $album_song['id']; ?>",
-                                        		cssSelectorAncestor: "#jp_container_<?php echo $album_song['id']; ?>"
-                                        	}, [
-                                                <?php
-                                                foreach ($video_by_albums as $video_by_album) {
-                                                    $array_avai = explode(',', $video_by_album['availability']); ?>
-                                        		   {
-                                                        title:"<?php echo $video_by_album['song_name'] ?>",
-                                                        mp3:"<?php echo 'http://d2c1n1yejcka7l.cloudfront.net/uploads/'.$id.'/audio/'.$video_by_album['audio_file'] ?>",
-                                                        poster: "<?php echo base_url().'uploads/'.$id.'/img_playlist/'.$album_song['image_file']; ?>",
-                                                        <?php
-                                                        if (in_array('2', $array_avai)) {
-                                                            ?>
-                                                            link_download: "<?=base_url('artist/downloadsong/'.$video_by_album['id'])?>",
-                                                            download: true
-                                                            <?php
-
-                                                        } ?>
-                                                    },
-                                        		<?php 
-                                                } ?>
-                                        	], {
-                                        		swfPath: "<?php echo base_url('assets/playermusic/dist/jplayer') ?>",
-                                        		supplied: "webmv, ogv, m4v, oga, mp3",
-                                        		useStateClassSkin: true,
-                                        		autoBlur: false,
-                                        		smoothPlayBar: true,
-                                        		keyEnabled: true,
-                                        		audioFullScreen: true
-                                        	});
-                                        });
-                                        </script>
-                                        
-                                        
-                                                <div id="jp_container_<?php echo $album_song['id']; ?>" class="jp-video jp-video-270p" role="application" aria-label="media player">
-                                                	<div class="jp-type-playlist">
-                                                		<div id="jquery_jplayer_<?php echo $album_song['id']; ?>" class="jp-jplayer"></div>
-                                                		<div class="jp-gui">
-                                                			<div class="jp-video-play">
-                                                				<button class="jp-video-play-icon" role="button" tabindex="0">play</button>
-                                                			</div>
-                                                			<div class="jp-interface">
-                                                				<div class="jp-progress">
-                                                					<div class="jp-seek-bar">
-                                                						<div class="jp-play-bar"></div>
-                                                					</div>
-                                                				</div>
-                                                				<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-                                                				<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-                                                				<div class="jp-controls-holder">
-                                                					<div class="jp-controls">
-                                                						<button class="jp-previous" role="button" tabindex="0">previous</button>
-                                                						<button class="jp-play" role="button" tabindex="0">play</button>
-                                                						<button class="jp-next" role="button" tabindex="0">next</button>
-                                                						<button class="jp-stop" role="button" tabindex="0">stop</button>
-                                                					</div>
-                                                					<div class="jp-volume-controls">
-                                                						<button class="jp-mute" role="button" tabindex="0">mute</button>
-                                                						<button class="jp-volume-max" role="button" tabindex="0">max volume</button>
-                                                						<div class="jp-volume-bar">
-                                                							<div class="jp-volume-bar-value"></div>
-                                                						</div>
-                                                					</div>
-                                                					<div class="jp-toggles">
-                                                						<button class="jp-repeat" role="button" tabindex="0">repeat</button>
-                                                						<button class="jp-shuffle" role="button" tabindex="0">shuffle</button>
-                                                						<button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-                                                					</div>
-                                                				</div>
-                                                				<div class="jp-details">
-                                                					<div class="jp-title" aria-label="title">&nbsp;</div>
-                                                				</div>
-                                                			</div>
-                                                		</div>
-                                                		<div class="jp-playlist">
-                                                			<ul>
-                                                				<!-- The method Playlist.displayPlaylist() uses this unordered list -->
-                                                				<li>&nbsp;</li>
-                                                			</ul>
-                                                		</div>
-                                                		<div class="jp-no-solution">
-                                                			<span>Update Required</span>
-                                                			To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-                                                		</div>
-                                                	</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
-                                ++$i;
-    } ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php 
-} ?>
+                    
          
                     <?php if (isset($events) && count($events) > 0) {
     ?>
@@ -287,7 +161,7 @@
                             <div class="stats_cstyle4-list ListData">
                                 <a href="#" class="show_ev item" data-event="<?=$event['event_id']; ?>" style="font-size: 16px;text-decoration: none;" data-toggle="modal" data-target="#showEvent">
                                     <figure class="effect-bubba" style="float: left; max-width: 150px;margin: 5px;">
-            							<img width="100%" src="<?php if (!empty($event['event_banner'])) {
+                                        <img width="100%" src="<?php if (!empty($event['event_banner'])) {
     echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner'];
 } ?>" />
                                     </figure>
@@ -372,7 +246,7 @@
                                     } ?>
                                 </p>
                                 <p class="text-justify">
-                                	<div class="ProfileSocial">
+                                    <div class="ProfileSocial">
                                         <ul>
                                           <li><a href="<?php echo $users[0]->facebook_username; ?>" class="fa fb"><i class="fa fa-fw fa-facebook"></i></a></li>
                                           <li><a href="<?php echo $users[0]->twitter_username; ?>" class="fa tw"><i class="fa fa-fw fa-twitter"></i></a></li>
@@ -469,18 +343,22 @@
 
                                               <?php if (isset($videos) && count($videos) > 0) {?>
                                               <?php foreach ($videos as $video) {
-                                               
-                                                             if ($video['type'] == 'file') { $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];}
-                                     elseif($video['type'] == 'link') { $link_video = $video['link_video']; }
-                                    elseif($video['type'] == 'link-vimeo') { 
-                                    $video_vimeo=basename($video['link_video']);
-                                    $get_link='http://vimeo.com/api/v2/video/'.$video_vimeo.'.php';
-                                     
-                                    $hash = unserialize(file_get_contents($get_link));
-                                    $url_id=$hash[0]['id'];
-                                    $link_video = 'https://player.vimeo.com/video/'.$url_id.'?title=0&byline=0&portrait=0'; }?>              
+                                             if ($video['type'] == 'file') { $link_video = base_url().'uploads/'.$video['user_id'].'/video/'.$video['name_file'];}
+                     elseif($video['type'] == 'link') { $link_video = $video['link_video']; }
+                    elseif($video['type'] == 'link-vimeo') { 
+                    $video_vimeo=basename($video['link_video']);
+                    $get_link='http://vimeo.com/api/v2/video/'.$video_vimeo.'.php';
+                     
+                    $hash = unserialize(file_get_contents($get_link));
+                    $url_id=$hash[0]['id'];
+                    $link_video = 'https://player.vimeo.com/video/'.$url_id.'?title=0&byline=0&portrait=0'; }?>              
                                         <div class="media video-content">
-                                              <a class=" pull-left" href="#">
+                                          <?php if(($video['type'] == 'file') || ($video['type'] == 'link')) { ?>
+                                          <a class=" pull-left" href="#videos" onclick="javascript:playvideo(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#videos">
+                                           <?php } else { ?>
+                                           <a class=" pull-left" href="#vimeo_videos" onclick="javascript:play_vimeo_video(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#vimeo_videos">
+                                           <?php } ?>
+                                              
                                                     <img class="media-object" src="<?=$this->M_video->get_image_video($video['id'])?>" width="100" height="100" alt="">
                                                </a>
                                                 <div class="media-body video-body">
@@ -515,10 +393,10 @@
                        
                    </div>
                    <div class="text-right" >
-                        <a class="btn  clb4">comments</a>
+                        <a class="btn  clb4" data-toggle="modal" data-target="#addComment">comments</a>
                     </div>
-                   </div>
-                   </div>
+                 </div>
+              </div>
             </div>
         </div>
     </div>
@@ -561,13 +439,55 @@
         </div>
     </div>
 </div>
-<!-- Modal comment -->
+ 
+<!-- Modal Invite Contact -->
+<div class="modal fade" id="invite-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Invite Contact (<?=$this->M_user->get_name($users['0']->id)?>)</h4>
+            </div>
+            <form class="form form-signup" action="<?php echo base_url()?>chat/invite_contact" method="post"  >
+                <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-input col-md-3">Messages</label>
+                        <div class="input-group col-md-8">
+                            <input type="hidden" name ="user_invite" value="<?php echo $user_data['id']?>" />
+                            <input type="hidden" name ="user_to" id="user_id2" value="<?php echo $users['0']->id?>" />
+                            <textarea class="form-control" rows="5" name="messages_invite">Hi <?=$this->M_user->get_name($users['0']->id)?>, I'd like to add you as a contact.</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add to Contacts</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--MODAL video-->
+<div class="modal fade" id="videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div id="video"></div>
+        <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
+</div>
+<div class="modal fade" id="vimeo_videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <iframe id="vimeo_video"  width="640" height="337" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        
+        <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
+</div>
 <div class="modal fade new_modal_style" id="addComment" tabindex="-1" role="dialog" aria-labelledby="myModalcomment" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="" action="<?php echo base_url().'artist/membercomment'?>" method="post">
+            <form class="" action="<?php echo base_url().'amper/membercomment'?>" method="post">
                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>" />
-                <input type="hidden" name="id_artist" value="<?=$id?>" />
+                <input type="hidden" name="id_flp" value="<?=$id?>" />
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="tt">Add Comment</h4>
@@ -577,66 +497,30 @@
                     <div class="form-group">     
                         <label class="form-input col-md-2">Comment</label>
                         <div class="input-group col-md-9">
-                            <textarea class="form-control" name="comment" rows="6" required="" ></textarea>
+                        <textarea class="form-control" name="comment" rows="6" required="" ></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer searchform">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-default">Add</button>
+                    <div class="modal-footer searchform">
+                    <button type="button" class="btn btn-default Dnew" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-default Dnew">Add</button>
                 </div> 
             </form>      
         </div>       
     </div>
-</div>
-<!-- Modal Invite Contact -->
-<div class="modal fade" id="invite-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">Invite Contact (<?=$this->M_user->get_name($users['0']->id)?>)</h4>
-			</div>
-            <form class="form form-signup" action="<?php echo base_url()?>chat/invite_contact" method="post"  >
-            	<input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" />
-                <div class="modal-body">
-    				<div class="form-group">
-    					<label class="form-input col-md-3">Messages</label>
-    					<div class="input-group col-md-8">
-                            <input type="hidden" name ="user_invite" value="<?php echo $user_data['id']?>" />
-                            <input type="hidden" name ="user_to" id="user_id2" value="<?php echo $users['0']->id?>" />
-    						<textarea class="form-control" rows="5" name="messages_invite">Hi <?=$this->M_user->get_name($users['0']->id)?>, I'd like to add you as a contact.</textarea>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="modal-footer">
-    				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    				<button type="submit" class="btn btn-primary">Add to Contacts</button>
-    			</div>
-            </form>
-		</div>
-	</div>
-</div>
-<!--MODAL video-->
-    <div class="modal fade" id="videos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div id="video"></div>
-            <div class="close-pop"><a href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a></div>      
-        </div>
-    </div>
-    
+</div>    
     <div class="modal fade" id="photos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog text-center" role="document">
             <img src="<?php echo base_url(); ?>assets/images/adaptable.jpg" width="500" height="400"/>
         </div> 
     </div>
 </div>    
+<script src="<?php echo base_url()?>assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script type="text/javascript">
     var url = "<?php echo base_url(); ?>";
    
      (function($){
         $(window).load(function(){
-            console.log('inside funtion');
             $(".ScrollStyle1,.ScrollStyle2").mCustomScrollbar({theme:"minimal-dark"});
         });
         })(jQuery);
