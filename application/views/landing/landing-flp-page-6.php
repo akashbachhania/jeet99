@@ -89,10 +89,11 @@
                 $hash = unserialize(file_get_contents($get_link));
                 $url_id=$hash[0]['id'];
                 $link_video = 'https://player.vimeo.com/video/'.$url_id.'?title=0&byline=0&portrait=0'; }?>
-                 <div class="col-md-4">
-                     <img class="img-responsive" src="<?=$this->M_video->get_image_video($video['id'])?>" alt="">
+                 <div class="col-md-3" style="margin-bottom:10px;">
+                     <img   style="padding:4px; height:120px;" class="img-responsive" src="<?=$this->M_video->get_image_video($video['id'])?>" alt="">
                       <div class="details">
-                          <h4> <?php echo $video['name_video']; ?></h4>
+                          <h4 style="padding-left:6px;"> <?php echo $video['name_video']; ?>
+                          </h4>
                            <span class="actions">
                                                         <?php if(($video['type'] == 'file') || ($video['type'] == 'link')) { ?>
                                                          <button class="btn bnt-action" type="submit" href="#videos" onclick="javascript:playvideo(<?php echo "'".$link_video."'"; ?>,$(this))" data-toggle="modal" data-target="#videos" >View </button>
@@ -105,6 +106,30 @@
                  <?php }?>
                    
              </div>
+             <div class="row blog">
+             <h4 class="sub-title">Events</h4>
+               <div class="blog" style=" height:300px; max-height: 300px;overflow-y: scroll;overflow-x: hidden;">
+            <?php if (isset($events) && count($events) > 0){ ?>                      
+                            <?php foreach ($events as $event) {?>
+                            <div class="col-xs-12 col-md-12" style="padding:16px 0 4px 0;">
+                                <div class="col-xs-4 col-md-4 text-center">
+                                    <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
+                                     class=" img-responsive" />
+                                </div>
+                                                    <div class="col-xs-8 col-md-8 section-box">
+                                                        <h4>
+                                                            <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
+                                                        </h4>
+                                                        <p>
+                                                            <?php  custom_echo_html($event['event_desc'], 400); ?></p>
+                                                        </div>
+                                                        <hr/>
+                                                       </div> 
+                                                       
+                                                         <?php } }?>
+                   </div>
+             </div>
+
         </div>
         <div class="col-md-4 ">
           <div class="photo-box phovodieo-box">
@@ -206,6 +231,66 @@
                     <a class="btn clb6" style="color:#fff;" data-toggle="modal" data-target="#addComment">Comment</a>
                 </div>
                 </div>  
+            </div>
+          </div>
+           <div clss="landboxs">
+            <div class=" col-md-12 comment-box">
+              <h4 class="sub-titles">fan</h4>
+              <hr/> 
+              <article style=" height:162px; max-height: 162px;overflow-y: scroll;overflow-x: hidden;">
+                   <?php if (isset($fans) && count($fans) > 0) { ?>                       
+                        <?php $i = 0; foreach ($fans as $fan) { 
+                            if($fan['role'] == 1)
+                            {
+                              $avata = $this->M_user->get_avata($fan['fan_id']);
+                            }else{
+                                $avata = $this->M_user->get_avata_flp($fan['fan_id']);
+                            }
+                            ?>
+                     <div class="col-xs-12 col-md-12 fan-area ">
+                          <div class="col-xs-4 col-md-4 text-center">
+                             <img src="<?php echo $avata?>" alt="Image"
+                                            class="img-rounded img-responsive" />
+                           </div>
+                                    <div class="col-xs-8 col-md-8 section-box">
+                                        <h4>
+                                            <a href="<?php echo base_url().$fan['home_page']; ?>"><?php echo $this->M_user->get_name($fan['fan_id']); ?></a>
+                                        </h4>
+                                        
+                                    </div>
+                                     <hr/>                 
+                                    </div>
+                         <?php } }?>  
+                </article>      
+            </div>
+          </div>
+            <div clss="landboxs">
+            <div class=" col-md-12 comment-box">
+              <h4 class="sub-titles">member</h4>
+              <hr/> 
+              <article style=" height:162px; max-height:162px;overflow-y: scroll;overflow-x: hidden;">
+                   <?php if (isset($members) && count($members) > 0) { ?>
+                      <?php foreach($members as $member){ 
+                            
+                            ?>
+                       <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <img src="<?php echo base_url(); ?>uploads/<?php echo $member['artist_id'];?>/image_member/<?php echo $member['member_image'];?>" class="img-circle img-responsive" alt="" />
+                            </div>
+                            <div class="col-xs-9 col-md-10">
+                                <div>
+                                    <a href="#"><?php echo $member['name_member']; ?></a>
+                                </div>
+                                <div class="comment-text">
+                                    <?php echo $member['contribution'];?>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <?php } }else { ?>
+                           <span class="testimonials-name">No content have been added in this section yet.</span>
+                           <?php } ?>
+                                  </article>      
             </div>
           </div>
         </div>

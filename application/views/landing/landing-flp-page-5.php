@@ -91,27 +91,28 @@
                     <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png" />Events</span></h2>
                 </div>
                 <span class="liner_landing"></span>
-                 <div class="col-md-12" style="height:282px; max-height:282px;overflow-y: scroll;overflow-x: hidden;">
-                            <article class="audio-box">
+                 <div  style="height:282px; max-height:282px;overflow-y: scroll;overflow-x: hidden;">
+                            <article class="col-md-12 audio-box">
                             <?php if (isset($events) && count($events) > 0){ ?>                      
                             <?php foreach ($events as $event) {?>
-                                        <div class="col-xs-4 col-md-4 text-center">
-                                            <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
-                                             class="img-circle img-responsive" />
-                                        </div>
-                                        <div class="col-xs-8 col-md-8 section-box">
-                                             <h4>
-                                              <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
+                                        <div class="col-xs-12 col-md-12" style="padding:16px 0 4px 0;">
+                                <div class="col-xs-4 col-md-4 text-center">
+                                    <img src="<?php if (!empty($event['event_banner'])) { echo base_url().'uploads/'.$event['user_id'].'/photo/banner_events/'.$event['event_banner']; } ?>"  alt="Image"
+                                     class=" img-responsive" />
+                                </div>
+                                                    <div class="col-xs-8 col-md-8 section-box">
+                                                        <h4>
+                                                            <a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a>
                                                         </h4>
                                                         <p>
-                                             <?php  custom_echo_html($event['event_desc'], 400); ?></p>
-                                        </div>
-                                                        
-                                         <hr/>
-                                                         <?php } }?>
-                            </article>    
-                            </div>
-                              </div>
+                                                            <?php  custom_echo_html($event['event_desc'], 400); ?></p>
+                                                        </div>
+                                                        <hr/>
+                                                       </div> 
+                                                             <?php } }?>
+                                </article>    
+                                </div>
+                                  </div>
         </div>
         <div class="col-md-5 box_land5_text">
             <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
