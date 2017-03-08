@@ -122,21 +122,24 @@
 }
 .Scroll5Style1
 {
-    height: 124px;
+    height: 140px;
     max-height: 300px;
+    min-height: 140px;
     overflow-y: scroll;
     overflow-x: hidden;
     padding-top: 25px;
 }
 .Scroll5Style2
 {
-    max-height: 376px;
+    max-height: 300px;
+    min-height: 300px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 .Scroll5Style3
 {
-    max-height: 815px;
+    max-height: 700px;
+    min-height: 700px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -150,8 +153,8 @@
 	font-size: 40px;
     opacity: 0.6;
     position: absolute;
-    right: 22%;
-    top: 12%;
+    right: 38%;
+    top: 35%;
     text-shadow: 0 1px 3px rgba(0,0,0,.5);
     transition:all 500ms ease-in-out;  
 }
@@ -160,6 +163,10 @@
 	opacity:1;
 	text-shadow:0 1px 3px rgba(0,0,0,.8);
 }
+.st-area{
+	margin: 22px 18px;
+    max-width: 96%;
+}
 
 @media (min-width:320px) and (max-width: 480px) { 
 	.video-list-thumbs .glyphicon-play-circle{
@@ -167,3 +174,63 @@
     right: 36%;
     top: 27%;
 	}
+	.st-area{
+ 		 width: 90%;
+ 	}
+}
+@media (min-width:300px) and (max-width:1024px) {
+
+ 	.st-area{
+ 		 width:95%;
+ 	}
+ }
+@media (min-width:320px) and (max-width: 981px) { 
+ .box_land5_text{
+    padding:0 14px 0 14px;
+    }
+    .st-area{
+	margin: 22px 23px;
+    width: 95%;
+}
+ }
+ @media (min-width:320px) and (max-width:800px) {
+
+ 	.st-area{
+ 		 width: 94%;
+ 	}
+ }
+  @media (min-width:320px) and (max-width:768px) {
+
+ 	.st-area{
+ 		 width: 94%;
+ 	}
+ }
+ @media (min-width:320px) and (max-width:640px) {
+
+ 	.st-area{
+ 		 width: 92%;
+ 	}
+ 	 @media (min-width:320px) and (max-width:600px) {
+
+ 	.st-area{
+ 		 width: 91%;
+ 	}
+ }
+  @media (min-width:320px) and (max-width:480px) {
+
+ 	.st-area{
+ 		 width: 89%;
+ 	}
+ }
+  @media (min-width:320px) and (max-width:360px) {
+
+ 	.st-area{
+ 		 width:88%;
+ 	}
+ }
+ @media (min-width:300px) and (max-width:320px) {
+
+ 	.st-area{
+ 		 width:85%;
+ 	}
+ }

@@ -205,8 +205,8 @@
             </div>
             <!--  end Profile Header  -->
             <div class="col-md-12">
-                <div class=" col-md-10 col-md-offset-1 col-xs-12  rm_padding mb_area">
-                    <div class="col-md-7 hp-detail-p">
+                <div class=" col-md-10 col-md-offset-1 col-xs-12 col-xs-offset-0  rm_padding mb_area">
+                    <div class="col-md-7 c hp-detail-p">
                         <div class="rm_padding col-md-12 part_session photos_session box_land5_style ">
                             <div class="box_land5_heading">
                                 <h2><span class="bord_col"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png" /> AMP</span></h2>
@@ -495,7 +495,7 @@ if ($users[0]->id != $user_data['id']) {
                     </div><!--End comments section -->
 
                 </div>
-                <div class=" col-md-12 part_session photos_session box_land5_style ">
+                <div class=" col-md-12 part_session photos_session box_land5_style st-area ">
                     <div class="box_land5_heading">
                         <h2><span class="bord_col text-uppercase"><img class="icon_part" src="<?php echo base_url(); ?>assets/images/icon/music_note.png" />Events</span></h2>
                     </div>
