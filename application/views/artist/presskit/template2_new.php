@@ -21,6 +21,7 @@
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
     <!-- Fonts -->
     <link href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/jquery.mCustomScrollbar.css">
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>/assets/epk/template2_new/template_epk_2.css" rel="stylesheet">
@@ -32,6 +33,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-2.0.2.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <style type="text/css">
         .modal {
@@ -132,6 +134,48 @@
     <!-- Full Page Image Background Carousel Header -->
     
     <div id="Wrapper">
+     <!-- Footer -->
+        <footer >
+    <div class="container">
+            <div class="row text-center">
+                <div class="col-md-6 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-12 col-xs-offset-0 mdarea  ">
+                    <h5>Download Media: </h5> 
+                    <?php if ($data_json->dw_photo == 'on') {
+    ?>
+                    <a href="#" class="icon picture download" id="download_media" data-toggle="modal" data-target="#photo"><i class="fa fa-picture-o"></i> Photos </a>
+                    <?php 
+}
+                     if ($data_json->dw_song == 'on') {
+                         ?>
+                    <a href="#" class="icon music download" id="download_audio" data-toggle="modal" data-target="#songsdownload"><i class="fa fa-music"></i> Music </a>
+                    <?php 
+                     }
+                     if ($data_json->dw_bios == 'on') {
+                         ?>
+                    <a href="<?php echo base_url('artist/dashboard_epk/download/bio').'/'.$res_data_artist['id']?>" id="download_bio" ><i class="fa fa-user"></i> Bio </a>
+                    <?php 
+                     }
+                     if ($data_json->dw_video == 'on') {
+                     ?>
+                     <a href="#" class="icon picture download"  data-toggle="modal" data-target="#video_modal" id="download_video"><i class="fa fa-video-camera"></i> Videos </a>
+                    <?php 
+                     }
+                     if ($data_json->dw_pdf == 'on') {
+                     ?>
+                     <a href="<?php echo base_url('epk').'/'.$res_data_artist['home_page'].'?action=pdf'?>" id="download_pdf" ><i class="fa fa-file-pdf-o"></i> .pdf </a>
+                    <?php 
+                     }
+                     ?>
+                </div>
+                <div class="col-md-4 col-md-offset-2 col-sm-5 col-sm-offset-1 col-xs-12 mdarea1 ">
+
+                   <a href="#"  class="btn btn-primary" data-toggle="modal" data-target="#contact">Contact Artist</a>
+                   <a href="<?php echo base_url().$res_data_artist['home_page']?>" class="btn btn-default" target="_blank">View Profile</a>
+                </div>
+            </div>
+        </div>
+</footer>
+       
         <!-- info code -->
         <section id="info" class="welcome-tp">
             <div class="container">
@@ -179,6 +223,7 @@
                                 <h5>Fans Counts</h5>
                                  <?php }?>
                             </div>
+                            
                             <div class="clearfix"></div>
                             <?php
                             }
@@ -186,7 +231,7 @@
                         </div>
                         
                         <div class="col-md-3 wel-grid">
-                            <img src="<?php echo $this->M_user->get_avata($res_data_artist['id'])?>"  class="img-responsive" alt="" />
+                            <img src="<?php echo $this->M_user->get_avata($res_data_artist['id'])?>" width="400" height="200" alt="" />
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -209,9 +254,9 @@
                         if (!empty($photos)) {
                         for ($i = 0; $i < count($photos);$i++) {
                     ?>
-                    <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
                         <div class="thumbnail catbox">
-                            <img src="<?php echo base_url(); ?>uploads/<?php echo $photos[$i]['user_id']; ?>/photo/<?php echo $photos[$i]['filename'];?>" alt="<?php echo $photos[$i]['caption']; ?>">
+                            <img src="<?php echo base_url(); ?>uploads/<?php echo $photos[$i]['user_id']; ?>/photo/<?php echo $photos[$i]['filename'];?>" class="img-responsive" style="height: 200px;"  alt="<?php echo $photos[$i]['caption']; ?>">
                         </div>
                     </div>
                     <?php }
@@ -383,10 +428,10 @@
                     <hr class="primary">
                 </div>
                 <div class="biography-grids">
-                    <div class="col-md-6 biography-grid">
-                        <img src="<?php echo $this->M_user->get_avata($res_data_artist['id'])?>" class="img-responsive" alt="" />
+                    <div class="col-md-4 col-sm-6 col-xs-12 biography-grid">
+                        <img  style="height:250px;" src="<?php echo $this->M_user->get_avata($res_data_artist['id'])?>" class="img-responsive" alt="" />
                     </div>
-                    <div class="col-md-6 biography-grid">
+                    <div class="col-md-8 col-sm-6 col-xs-12  biography-grid">
                         <h4>Who are we?</h4>
                         <p><?=$epk_bio?></p>
                         
@@ -507,12 +552,12 @@
                     
                     ?>
                         <div class="row ">
-                            <div class="col-xs-12 col-sm-3 col-md-3">
+                            <div class="col-xs-12 col-sm-6 col-md-3">
                                 <a href="#">
                                     <img src="<?php echo base_url('uploads/'.$blog['user_id'].'/photo/blogs/'.$blog['image_rep']) ?>" class="img-responsive img-box img-thumbnail">
                                 </a>
                             </div>
-                            <div class="col-xs-12 col-sm-9 col-md-9">
+                            <div class="col-xs-12 col-sm-6 col-md-9">
                                 <div class="list-group">
                                     <div class="list-group-item">
                                         <div class="row-picture">
@@ -555,7 +600,7 @@
         </section>
         
         <!-- Footer -->
-        <footer >
+     <!--    <footer >
     <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-0 col-sm-6 col-sm-offset-0 col-xs-12 col-xs-offset-0 mdarea  ">
@@ -593,13 +638,13 @@
                 </div>
             </div>
         </div>
-</footer>
+</footer> -->
         </div>
         <!-- /.container -->
     </div>
     <!-- jQuery -->
     <!-- Bootstrap Core JavaScript -->
-     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+     
     <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <!-- script for play-list -->
     
