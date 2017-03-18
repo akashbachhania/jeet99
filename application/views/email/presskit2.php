@@ -10,6 +10,8 @@
 <?php 
     $data_json = json_decode($customize['data_customize']);
 ?>
+
+
 <table style="border-collapse: collapse;background-color:#F0F0F0;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding:0 5px;" width="670px" cellspacing="0" cellpadding="0" border="0" align="center">
 <table width="100%" style="font-family: Arial, 'Trebuchet MS', Verdana, sans-serif;">
 <tr>
@@ -141,12 +143,12 @@
                             <?php 
 } ?>
 						</td>
-					</tr>
+					</tr> 
 					<tr style="font-weight: normal;color: #5F6263;">
 						<td>
 					<p style="font-weight: 900;color: #5F6263"><?php echo $user_data['artist_name'] ?></p>
-					<p><b>From :</b> <?php echo $user_data['city'].', '.$country_code['country'];?> </p>
-					<p><b>Genre :</b><?php echo $genres['name'];?></p>
+					<p><b>From :</b> <?php echo $user_data['city'].', ';?> </p>
+					<p><b>Genre :</b><?php echo $genre['name'];?></p>
 					<p><b>Members : </b>
 					<?php
                        foreach ($groups_member as $member) {
@@ -189,21 +191,45 @@
 
 	
 	<table width="670px" style="background: #fffafa;border-bottom:1px solid #CBD0D6;padding-bottom:10px; text-decoration:none;">
-		<tr>
-			<?php
-            foreach ($photos as $pt) {
-                $i = 0;
-                if ($i < 4) {
-                    ?>
-            <td width="162">
-            <img width="162" height="162" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" />
-            </td> 
-             <?php 
+		
+			<?php  
+                if (!empty($photos)) {
+            ?>
+            <?php 
+            $tdCounter = 1;
+            $count = count($photos);
+            
+            foreach ($photos as $key => $pt) 
+            {
+                if($tdCounter%3==1)
+                {
+                    echo "<tr>";
                 }
-                ++$i;
-            } ?> 
+             ?>
+            <td width="162">
+            	<img width="162" height="162" src="<?php echo base_url(); ?>uploads/<?php echo $pt['user_id']; ?>/photo/<?php echo $pt['filename']; ?>" />
+            </td> 
+              <?php
+                                        if($tdCounter%3==0 || $tdCounter==$count)
+                                        {
+                                            echo "</tr>";
+                                        }
+                                        
+                                        $tdCounter++;
 
-		</tr>
+                                    }
+                                    ?>
+		
+		<?php 
+                            } else { ?>
+                            <table width="670">
+                                <tr>
+                                
+                                    <td width="220">No content Avaliable</td>
+                                    
+                                </tr>
+                            </table>
+        <?php } ?>                    
 	</table>
 	<!--END PHOTOS-->
 	<?php 
@@ -225,61 +251,17 @@
 	</tr>
 	</table>
 	<table width="670px" style="background: #fffafa;font-size:18px">
+
 		<tr>
-		<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; padding-right:5px; ">
-				<table align="center">
-					<tr>
-						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/envelope.png"/></td>
-					</tr>
-					<tr>
-						<td  align="center">10</td>
-					</tr>
-
-					<tr>
-						<td>Send Mail</td>
-					</tr>
-					
-				</table>
-			</td>
-			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; ">
-				<table align="center">
-					<tr>
-						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/twitter.png"/></td>
-					</tr>
-					<tr>
-						<td  align="center">16</td>
-					</tr>
-
-					<tr>
-						<td>Share Twitter</td>
-					</tr>
-					
-				</table>
-			</td>
-			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px;">
-				<table align="center">
-					<tr>
-						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/facebook.png"/></td>
-					</tr>
-					<tr>
-						<td  align="center">24</td>
-					</tr>
-
-					<tr>
-						<td>Share facebook</td>
-					</tr>
-					
-				</table>
-			</td>
-		</tr>
-		<tr>
+		<?php if($epk_display_info->song_counts)
+                                            { ?> 
 		<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; padding-right:5px; ">
 				<table align="center">
 					<tr>
 						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/music.png"/></td>
 					</tr>
 					<tr>
-						<td  align="center">6</td>
+						<td  align="center"><?=$num_songs?></td>
 					</tr>
 
 					<tr>
@@ -288,13 +270,14 @@
 					
 				</table>
 			</td>
+			<?php } if($epk_display_info->blog_counts) {?>
 			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; ">
 				<table align="center">
 					<tr>
 						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/rss.png"/></td>
 					</tr>
 					<tr>
-						<td  align="center">16</td>
+						<td  align="center"><?=$num_blogs?></td>
 					</tr>
 
 					<tr>
@@ -303,13 +286,14 @@
 					
 				</table>
 			</td>
+			<?php } if($epk_display_info->video_counts) {?>
 			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px;">
 				<table align="center">
 					<tr>
 					<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/video-camera.png"/></td>
 						
 					<tr>
-						<td  align="center">14</td>
+						<td  align="center"><?=$num_video?></td>
 					</tr>
 
 					<tr>
@@ -318,15 +302,17 @@
 					
 				</table>
 			</td>
+			<?php } ?>
 		</tr>
 		<tr>
+		<?php  if($epk_display_info->fan_counts) {?>
 		<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; padding-right:5px; ">
 				<table align="center">
 					<tr>
 						<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/users.png"/></td>
 						</tr>
 					<tr>
-						<td  align="center">10</td>
+						<td  align="center"><?=$num_fans?></td>
 					</tr>
 
 					<tr>
@@ -335,6 +321,7 @@
 					
 				</table>
 			</td>
+			<?php } if($epk_display_info->comments_counts) {?>
 			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px; ">
 				<table align="center">
 					<tr>
@@ -342,7 +329,7 @@
 						
 					</tr>
 					<tr>
-						<td  align="center">6</td>
+						<td  align="center"><?=$num_comments?></td>
 					</tr>
 
 					<tr>
@@ -351,13 +338,14 @@
 					
 				</table>
 			</td>
+			<?php } if($epk_display_info->show_counts) {?>
 			<td width="100" style="background-color:#15a7ad; color:#fff; border-radius:10px;">
 				<table align="center">
 					<tr>
 					<td  align="center"><img width="40" height="40" src="<?php echo base_url(); ?>assets\premail-image/calendar.png"/></td>
 					</tr>
 					<tr>
-						<td  align="center">24</td>
+						<td  align="center"><?=$num_events?></td>
 					</tr>
 
 					<tr>
@@ -366,6 +354,7 @@
 					
 				</table>
 			</td>
+			<?php } ?>
 		</tr>
 		<tr>
 			<td height="20"></td>
@@ -398,7 +387,19 @@
 	</table> -->
 
 <table width="670px" cellspacing="0" cellpadding="0" style="background:#fffafa;">
-    <tr>
+    <?php $i = 1;
+                $count=count($videos);
+                    foreach ($videos as $row) {
+                
+        if($i%3 == 1)
+        {
+            // echo "$i";
+            // echo ($i%3);
+            echo "<tr>";
+            // echo "tr";
+        }
+
+    ?>
         <td align="center" valign="top" style="">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
@@ -406,75 +407,31 @@
                         <table width="180" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td style="border-collapse: collapse;">
-                                  <a href="#" border="0"><img src="avatar2.png" width="180" style="border:4px solid #ADABAB;"></a>
+                                  <a href="#" border="0"><img src="<?php echo $row['imageSrc'];?>" width="180" style="border:4px solid #ADABAB;"></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td style="font-weight: 900;color: #5F6263; line-height: 16px;   padding-top: 15px; ">
-                                    TITLE VIDEO
+                                    <?php echo $row['name_video'];?>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="three-col-description" style="color: #5F6263; font-size: 14px; line-height: 16px;  padding-top: 15px;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. 
-                                </td>
-                            </tr>
+                            
                             <tr>
                                 <td class="three-col-cta" style="font-size: 14px; font-weight: normal; line-height: 16px; padding-bottom: 20px; padding-left: 0px; padding-top: 15px;">
-                                    <a href="#" style="color: #1fa2ea; text-decoration:none;">View Video</a>
+                                    <a href="<?php echo base_url().'epk/'.$res_data_artist['home_page'];?>" style="color: #1fa2ea; text-decoration:none;">View Video</a>
                                 </td>
                             </tr>
                       </table>
                     </td>
-                    <td align="center" valign="top" style="padding-bottom: 0px; padding-left: 0px; padding-right: 10px; padding-top: 0px;">
-                        <table width="180" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td style="border-collapse: collapse;">
-                                  <a href="#" border="0"><img src="avatar3.png" width="180" style="border:4px solid #ADABAB;"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 900;color: #5F6263; line-height: 16px;   padding-top: 15px; ">
-                                    TITLE VIDEO
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="three-col-description" style="color: #5F6263; font-size: 14px; line-height: 16px;  padding-top: 15px;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="three-col-cta" style="font-size: 14px; font-weight: normal; line-height: 16px; padding-bottom: 20px; padding-left: 0px; padding-top: 15px;">
-                                    <a href="#" style="color: #1fa2ea; text-decoration:none;">View Video</a>
-                                </td>
-                            </tr>
-                      </table>
-                    </td>
-                    <td align="center" valign="top" style="padding-bottom: 0px; padding-left: 0px; padding-right: 10px; padding-top: 0px;">
-                        <table width="180" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td style="border-collapse: collapse;">
-                                  <a href="#" border="0"><img src="avatar.png" width="180" style="border:4px solid #ADABAB;"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 900;color: #5F6263; line-height: 16px;   padding-top: 15px; ">
-                                    TITLE VIDEO
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="three-col-description" style="color: #5F6263; font-size: 14px; line-height: 16px;  padding-top: 15px;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="three-col-cta" style="font-size: 14px; font-weight: normal; line-height: 16px; padding-bottom: 20px; padding-left: 0px; padding-top: 15px;">
-                                    <a href="#" style="color: #1fa2ea; text-decoration:none;">View Video</a>
-                                </td>
-                            </tr>
-                      </table>
-                    </td>
-                </tr>
+                    <?php
+                        if(($i%3 == 0) || $i==$count)
+                        {
+                            echo "</tr>";
+                        }
+                        
+                        $i++;
+                    }  ?> 
+                    
           </table>
         </td>
     </tr>
@@ -545,40 +502,28 @@
 				<table align="center" border="0" style="border-collapse: collapse;line-height:25px;">
 					<tr style="background:#15a7ad; color:#fff; font-size:20px;line-height:28px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
 						<th align="left" style="padding-left:10px;" width="350">SONG</th>
-						<th width="100">VIEWS</th>
+						<th width="100">Price</th>
 					</tr>
+					<?php 
+                        foreach ($songs as $row) {
 
+                    ?>
 					<tr align="center" style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-						<td align="left" style="padding-left:10px">MAOKAI</td>
-						<td>5555</td>
+						<td align="left" style="padding-left:10px"><?=$row['song_name']?></td>
+						<td><?=$row['price']?></td>
 					</tr>
-
-					<tr align="center" style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-						<td align="left" style="padding-left:10px">FIORA</td>
-						<td>444</td>
-					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-						<td align="left" style="padding-left:10px">You Belong With Me</td>
-						<td>333</td>
-					</tr>
-					<tr align="center" style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-						<td align="left" style="padding-left:10px">My Love</td>
-						<td>222</td>
-					</tr>
-					<tr align="center" style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-						<td align="left" style="padding-left:10px">Stay With Me</td>
-						<td>111</td>
-					</tr>
+					<?php } ?> 
+					
 
 			</table>
 			</td>
 			<td width="150" height="150px">
 				<table align="center" style="background:#15a7ad; color:#fff ; border-radius: 50%;padding: 21px 16px 29px;background-color: #15a7ad;font-size: 16px;border-bottom: 4px solid #069196;text-transform: uppercase;color: #ffffff;">
 					<tr>
-						<td>150 SONGS</td>
+						<td><?php echo count($songs);?> SONGS</td>
 					</tr>
 					<tr>
-						<td>250,000 VIEWS</td>
+						<td><?php echo count($view_tats);?> VIEWS</td>
 					</tr>
 					<!-- <td width="330">
 				<a href="<?php echo base_url('epk/'.$res_data_artist['home_page'])?>" style="float:right;text-decoration: none;border-radius: 3px;padding: 10px 22px 9px;background-color: #15a7ad;font-size: 16px;border-bottom: 4px solid #069196;text-transform: uppercase;color: #ffffff;" >150 SONGS</a>
@@ -609,10 +554,10 @@
 		<tr>
 			<td>
 				<table  width="666px" align="center" style="border:2px solid #15a7ad;line-height:25px;">
-					<td width="190" style="background-color:#15a7ad;"><img src="<?php echo base_url('uploads/'.$blog['user_id'].'/photo/blogs/'.$blog['image_rep']) ?>" width="170" height="170" style="border-radius: 50%;"></td>
+					<td width="190" style="background-color:#15a7ad;"><img src="<?php echo  base_url('uploads/'.$blog['user_id'].'/photo/blogs/'.$blog['image_rep']) ?>" width="170" height="170" style="border-radius: 50%;"></td>
 					<td style="padding-left:14px;font-weight:normal;color: #5F6263;"><span>
 						<img width="15" height="15" src="<?php echo base_url('uploads/'.$blog['user_id'].'/photo/blogs/'.$blog['image_rep']) ?>"/>
-						<a href="#" style="color: #5F6263; text-decoration:none;font-weight: 900;">user name</a>
+						<a href="<?php echo base_url('artist/allblogs').'/'.$blog['user_id'].'/'.$blog['id']?>" style="color: #5F6263; text-decoration:none;font-weight: 900;"><?=$blog['title'] ?></a>
 						</span><br/>
 						<img width="15" height="15" src="<?php echo base_url(); ?>assets\premail-image/calendar1.png"/>
 						<a href="#" style="color:#5F6263; text-decoration:none;font-weight: 900;">1/24/2017</a>
@@ -658,68 +603,34 @@
 	</tr>
 	</table>
 	<table width="670px" style="background: #fffafa;padding-bottom:15px">
-		<tr>
-			<td>
-			<table border-collapse: collapse; style="border:2px solid #15a7ad">
-			<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
-									<th>News heading</th>	
-								</tr>
-				<tr>
-					<td><p style="color:#5F6263";>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></td>
-				</tr>
-				<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
-									
-									<td style="float:right;"><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/user.png"/>
-						<a href="#" style="color: #fff;font-size:18px; text-decoration:none;">article</a>
-						</span><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/calendar.png"/>
-						<a href="#" style="color:#fff;font-size:18px;text-decoration:none;">1/24/2017</a>
+	 <?php
+            if($press) {
+            foreach ($press as $row) {
+                ?>
+		<tr >
+			<td >
+				<table border-collapse: collapse; style="border:2px solid #15a7ad;width: 650px" s>
+					<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
+						<th><?php echo $row['name']; ?></th>	
+					</tr>
+					<tr>
+						<td><p style="color:#5F6263";><?php echo $row['quote']?></p></td>
+					</tr>
+					<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
+										
+						<td style="float:right;"><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/user.png"/>
+							<a href="#" style="color: #fff;font-size:18px; text-decoration:none;">By ~ <?php echo $row['author']?></a>
 						</td>	
-				</tr>
-				<tr>
-			</table>
+					</tr>
+				</table>
 			</td>
 		</tr>
-		<tr>
-			<td>
-			<table border-collapse: collapse; style="border:2px solid #15a7ad">
-			<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
-									<th>News heading</th>	
-								</tr>
-				<tr>
-					<td><p style="color:#5F6263;font-family: Arial, Helvetica, sans-serif;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></td>
-				</tr>
-				<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;">		
-									
-									<td style="float:right;"><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/user.png"/>
-						<a href="#" style="color: #fff;font-size:18px; text-decoration:none;">article</a>
-						</span><img width="24" height="24" style="vertical-align:middle" src="<?php echo base_url(); ?>assets\premail-image/calendar.png"/>
-						<a href="#" style="color:#fff;font-size:18px;text-decoration:none;">1/24/2017</a>
-						</td>	
-				</tr>
-				<tr>
-			</table>
-			</td>
-		</tr>
+		<?php
+                                    } 
+                                } ?>
+	
 	</table>
-	<!-- <table width="670px" style="background: #fffafa;padding-bottom:15px">
-		<tr align="center">
-			<td style="color: #888889;font-weight:normal">
-				<?php foreach ($press as $row) {
-    ?>
-					<?php echo $row['quote']?>
-					<p> <?php echo $row['author']?> 
-	                <?php if (!empty($row['link'])) {
-    ?><a href="<?php echo $row['link']?>" target="_blank"><?php
-
-} ?> <span class="publication">~ <?php echo $row['name']; ?></span>
-	                <?php if (!empty($row['link'])) {
-    ?></a><?php
-
-} ?> </p>
-				<?php 
-} ?>
-		</tr>
-	</table> -->
+	
 	<!--END PRESS-->
         <?php 
         }
@@ -751,68 +662,33 @@
 			<td>
 				<table>
 					<tr>
-						<th style="font-size:22px;color:#337AB7;">UPCOMING SHOWS</th>
-						
+						<th style="font-size:22px;color:#337AB7;">SHOWS</th>
 					</tr>
 					<tr>
 						<td>
 							<table border="0" style="border-collapse:collapse;line-height:25px">
+
 								<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0;">
 									<th width="110">Date</th>
 									<th width="345">Event</th>
 									<th width="205">Venue</th>
 								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-									<td>Mo, 04/11/16</td>
-									<td align="center">ROCK TOURNAMENT</td>
-									<td >ABC ZS, Toronto, ON</td>
+								<?php $i = 0;
+                                 foreach ($events as $event) {
+                                    ?>
+								<tr style="<?php if($i % 2 == 0) { echo "border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;"; }else{
+			                                                            echo "background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;"; } ?>;padding: 5px;">
+									<td><?php echo date('D, d/m/y',strtotime($event['event_start_date']));?></td>
+									<td align="center"><a href="<?=base_url('gigs_events/read/'.strtolower(str_replace(' ', '-', $event['event_title'])).'-'.$event['event_id'])?>"><?php echo ucfirst($event['event_title']); ?></a></td>
+									<td ><?php custom_echo_html($event['location'], 400);?></td>
 								</tr>
-								<tr style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;"> 
-									<td>Tu, 04/12/16</td>
-									<td align="center">DANCE TOURNAMENT</td>
-									<td>lio, Los Angles, CL</td>
-								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-									<td>We, 04/13/16</td>
-									<td align="center">Marathon AKIZ</td>
-									<td>lio, Los Angles, CL</td>
-								</tr>
+								<?php 
+			                                                        $i++;
+			                            } ?>
+								
 							</table>
 						</td>
 						<td></td>
-					</tr>
-				</table>
-
-				<table style="margin:15px 0">
-					<tr>
-						<th style="font-size:22px;color:#337AB7;" align="center">PAST SHOWS</th>
-						
-					</tr>
-					<tr>
-						<td>
-							<table border="0" style="border-collapse:collapse;line-height:25px">
-								<tr style="background:#15a7ad; color:#fff;font-size:20px;line-height:30px;border-top:1px solid #DEDEDE;border-bottom:1px solid #D0D0D0">
-									<th width="110">Date</th>
-									<th width="345">Event</th>
-									<th width="205">Venue</th>
-								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-									<td>Mo2, 04/11/16</td>
-									<td align="center">ROCK TOURNAMENT</td>
-									<td>ABC ZS, Toronto, ON</td>
-								</tr>
-								<tr style="background:#EFEFEF;border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;"> 
-									<td>Tu, 04/12/16</td>
-									<td align="center">DANCE TOURNAMENT</td>
-									<td>lio, Los Angles, CL</td>
-								</tr>
-								<tr style="border-bottom:1px solid #D0D0D0;font-weight: normal;color: #5F6263;">
-									<td>We, 04/13/16</td>
-									<td align="center">Marathon AKIZ</td>
-									<td>lio, Los Angles, CL</td>
-								</tr>
-							</table>
-						</td>
 					</tr>
 				</table>
 
