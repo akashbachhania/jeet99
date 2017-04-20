@@ -29,17 +29,17 @@ class Audio extends CI_Controller
         }
     }
         public function curPageURL() {
- $pageURL = 'http';
- if ( isset( $_SERVER["HTTPS"] ) && strtolower( $_SERVER["HTTPS"] ) == "on" ) {
-    $pageURL .= "s";
-}
- $pageURL .= "://";
- if ($_SERVER["SERVER_PORT"] != "80") {
-  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
- } else {
-  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
- }
- return $pageURL;
+             $pageURL = 'http';
+             if ( isset( $_SERVER["HTTPS"] ) && strtolower( $_SERVER["HTTPS"] ) == "on" ) {
+                $pageURL .= "s";
+            }
+             $pageURL .= "://";
+             if ($_SERVER["SERVER_PORT"] != "80") {
+              $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+             } else {
+              $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+             }
+             return $pageURL;
  
 }
     /**
@@ -52,8 +52,12 @@ class Audio extends CI_Controller
         $user_id = $this->session->userdata('loged_in');
         $data['user_data'] = $this->session->userdata('user_data');
         $data['playlist_id'] = $playlist_id;
+        $where=array('user_id'=>$user_id,'attribute'=>'1');
+        $data['get_all_playlist']=$this->db->where($where)->get('album_song')->result_array();
+        
         $data_playlist=$this->db->where('id='.$playlist_id)->get('album_song')->row_array();
         $data['attribute']=$data_playlist['attribute'];
+        $data['album_name']=$data_playlist['name'];
         $this->load->view('includes/header', $data);
         $this->load->view('includes/navbar', $data);
         $this->load->view('artist/new_song', $data);
@@ -70,10 +74,10 @@ class Audio extends CI_Controller
         $amount=$this->input->post('amount');
         $to=$this->input->post('to');
         $from=$this->input->post('from');
-    $url  = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
-    $data = file_get_contents($url);
+        $url  = "https://www.google.com/finance/converter?a=$amount&from=$from&to=$to";
+        $data = file_get_contents($url);
   
- preg_match("/<span class=bld>(.*)<\/span>/",$data, $converted);
+        preg_match("/<span class=bld>(.*)<\/span>/",$data, $converted);
  
  //echo json_encode($output);
     $converted1 = preg_replace("/[^0-9.]/", "", $converted[0]);
@@ -100,6 +104,9 @@ class Audio extends CI_Controller
             $data['duration'] = explode(',', $data['data_song']->time_duration);
             $data_playlist=$this->db->where('id='.$playlist_id)->get('album_song')->row_array();
         $data['attribute']=$data_playlist['attribute'];
+        $data['album_name']=$data_playlist['name'];
+        $where=array('user_id'=>$user_id,'attribute'=>'1');
+         $data['get_all_playlist']=$this->db->where($where)->get('album_song')->result_array();
             $this->load->view('includes/header', $data);
             $this->load->view('includes/navbar', $data);
             $this->load->view('artist/edit_song', $data);
@@ -143,7 +150,7 @@ class Audio extends CI_Controller
     public function manager()
     {
         $user_id = $this->session->userdata('loged_in');
-        $data['genres'] = $this->db->get('genres')->result_array();
+        $data['genres'] = $this->db->order_by('TRIM(name)', 'ASC')->get('genres')->result_array();
         $data['user_data'] = $this->session->userdata('user_data');
         // pagintion config
         $config['per_page'] = 12;
@@ -179,8 +186,12 @@ class Audio extends CI_Controller
     {
         $user_id = $this->session->userdata('loged_in');
         $playlist = $this->M_album_song->get_data_album($playlist_id);
+        
         if (!empty($playlist) && $playlist['user_id'] == $user_id) {
             $data = array();
+            $data['playlist_id']=$playlist_id;
+            $where=array('user_id'=>$user_id);
+        $data['get_all_playlist']=$this->db->where($where)->get('album_song')->result_array();
             $data['listsong'] = $this->M_audio_song->get_data_songs($playlist_id);
             $data['cloudfront_url']='https://d1oc632jh12ao7.cloudfront.net/';
             $data['user_data'] = $this->session->userdata('user_data');
@@ -600,7 +611,6 @@ class Audio extends CI_Controller
             $time_total_audio = exec_ffmeg("-i $tmp_path_audio 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
             $response['audio'] = $song_old->time_total;
         }
-     
         //video 
         $video_ext = $this->input->post('video_ext');
         $video_path = $this->input->post('video_path');
@@ -615,7 +625,7 @@ class Audio extends CI_Controller
         } else {
             $response['video'] = 0;
         }
-       if (!check_live_server()) {
+        if (!check_live_server()) {
             $response['video'] = 1000;
             $response['audio'] = 400;
            
@@ -632,7 +642,7 @@ class Audio extends CI_Controller
     {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('name_song', 'name_song', 'trim|required');
-        $this->form_validation->set_rules('availability[]', 'availability', 'required');
+       // $this->form_validation->set_rules('availability', 'availability', 'required');
         $this->form_validation->set_rules('id_paylist', 'id_paylist', 'required');
         if ($this->form_validation->run() != false) {
             $user_id = $this->session->userdata('loged_in');
@@ -915,9 +925,10 @@ if($_POST['availability']=="6"){
                  $id_playlist=$data_attr['id'];
                     
                 }
-                else {
+                else  {
                    
-                   $id_playlist=$_POST['id_paylist'];  
+                   $id_playlist=$this->input->post('playlist'); 
+                  
                 }
                 //store database 
                 $insertArr = array(
@@ -960,7 +971,7 @@ if($_POST['availability']=="6"){
                 $this->db->update('album_song', $updateArr, 'id ='.$id_playlist);
               
                      
-                $this->session->set_flashdata('message_msg', ' Upload Song completed');
+                $this->session->set_flashdata('message_msg', 'Song Uploaded');
                  
                 echo json_encode($insertArr); 
                 die;
@@ -982,7 +993,7 @@ if($_POST['availability']=="6"){
     public function finish_edit_song()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('name_song', 'name_song', 'trim|required');
+        //$this->form_validation->set_rules('name_song', 'name_song', 'trim|required');
         $this->form_validation->set_rules('availability[]', 'availability', 'required');
         $this->form_validation->set_rules('id_paylist', 'id_paylist', 'required');
         //$this->form_validation->set_rules('audio_path', 'audio_path', 'required');
@@ -1098,7 +1109,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_audio1.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_audio1 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                     exec_ffmeg($cmd);
-                    
+                    $time_total_sec = time_to_seconds($time_total);
                     } 
                     
                    
@@ -1113,7 +1124,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_audio2.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_audio2 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                     exec_ffmeg($cmd);
-                    
+                    $time_total_sec = time_to_seconds($time_total);
                    } 
                   
                      else  if (!empty($_POST['file_audio_ext3'])) {
@@ -1127,7 +1138,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_audio2.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_audio2 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                     exec_ffmeg($cmd);
-                    
+                    $time_total_sec = time_to_seconds($time_total);
                    } 
                     
                    else  if (!empty($_POST['file_audio_ext4'])) {
@@ -1141,7 +1152,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_audio4.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_audio4 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                     exec_ffmeg($cmd);
-                    
+                    $time_total_sec = time_to_seconds($time_total);
             } 
                     
                  
@@ -1159,7 +1170,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_audio5.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_audio5 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                     exec_ffmeg($cmd);
-                    
+                    $time_total_sec = time_to_seconds($time_total);
                   } 
                     
                  
@@ -1175,7 +1186,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_audio6.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_audio6 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                        exec_ffmeg($cmd);  
-                    
+                    $time_total_sec = time_to_seconds($time_total);
                   } 
                   else {
                       $name_file_demo=$song_old->filename;
@@ -1191,6 +1202,7 @@ if($_POST['availability']=="6"){
                 } else {
                     //video demo
                     if (!empty($_POST['file_video_ext1'])) {
+                        print "video_ext1";
                         $name_file_demo = $_POST['name_song']."-".$artist_name.$_POST['file_video_ext1'];
                         $path_demo = FCPATH.'uploads/tmp/demo_'.$name_file_demo;
                     $key_demo = 'uploads/'.$user_id.'/audio/'.$name_file_demo;
@@ -1200,7 +1212,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_video1.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_video1 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                     exec_ffmeg($cmd);
-                    
+                    $time_total_sec = time_to_seconds($time_total);
                     }  
                    else if (!empty($_POST['file_video_ext2'])) {
                         $name_file_demo = $_POST['name_song']."-".$artist_name.$_POST['file_video_ext2'];
@@ -1212,7 +1224,7 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_video2.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_video2 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                    exec_ffmeg($cmd);
-                    
+                    $time_total_sec = time_to_seconds($time_total);
                     } 
                     
                   else  if (!empty($_POST['file_video_ext3'])) {
@@ -1225,15 +1237,14 @@ if($_POST['availability']=="6"){
                     $cmd = '-ss '.gmdate('H:i:s', $start).'  -i "'.$tmp_path_video3.'" -t '.gmdate('H:i:s', $duration_end).' "'.$path_demo.'"';
                     $time_total = exec_ffmeg("-i $tmp_path_video3 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
                     exec_ffmeg($cmd);
+                      $time_total_sec = time_to_seconds($time_total);
                       
-                    
                   }
                   else {
                       $name_file_demo=$song_old->filename;
                       $start=$song_old->time_start;
                       $duration_end=$song_old->time_duration;
                       $time_total_sec=$song_old->time_total;
-                   
                   }
                      
                 }
@@ -1408,32 +1419,44 @@ if($_POST['availability']=="6"){
                     echo json_encode(array($e->getMessage()));
                     die;
                 }
-                if (!check_live_server()) {
-                    $time_total_sec = 100;
-                } else {
-                    $time_total_sec = time_to_seconds($time_total);
-                }
+                
                 if(isset($_POST['lyric']) && !empty($_POST['lyric'])){
     $date_add_lyrics = date('d-m-Y H:i:s');
 }
 else {
     $date_add_lyrics = "";
 }
+         $current_availability = $song_old->availability;
 
 if($_POST['availability']=="6"){
                      $data_attr=$this->db->where(array('attribute'=>'0','user_id'=>$user_id))->get('album_song')->row_array();
                  $id_playlist=$data_attr['id'];
+                  $playlist_name=$data_attr['name'];
+                }  /*else if($_POST['availability']=="4" && $current_availability !=$_POST['availability']){ 
                  
-                }
-                else {
+               $data_attr=$this->db->where(array('attribute'=>'1','user_id'=>$user_id))
+                       ->order_by("id", "asc")
+                       ->limit(1)
+                       ->get('album_song')
+                       ->row_array();
+           $id_playlist=$data_attr['id'];
+           $playlist_name=$data_attr['name'];
+               
+           } */
+                else  {
                    
-                   $id_playlist=$_POST['id_paylist'];  
+                   $id_playlist=$this->input->post('playlist');
+                   $data_attr=$this->db->where(array('id'=>$id_playlist))->get('album_song')->row_array();
                   
+                  $playlist_name=$data_attr['name'];
                 }
+           
                 //store database 
                 $updateArr = array(
                     'song_name' => strip_tags($_POST['name_song']),
                     'song_name_auth'=>$_POST['name_song_auth'],
+                    'video_name'=>strip_tags($_POST['name_video']),
+                    'video_name_auth'=>$_POST['name_video_auth'],
                     'filename' => $name_file_demo,
                     'user_id' => $user_id,
                     'availability' => $_POST['availability'],
@@ -1449,7 +1472,12 @@ if($_POST['availability']=="6"){
                     
                 );
                 $this->db->where('id', $_POST['song_id'])->update('audio_song', $updateArr);
-                $this->session->set_flashdata('message_msg', ' Edit Song completed');
+         if($_POST['availability']=="4" ){  
+                       $this->session->set_flashdata('message_msg', 'Your song moved to ' .' '.$playlist_name);
+                       
+                   } else {
+                     $this->session->set_flashdata('message_msg', ' Your song moved to Hidden');
+                   }
                 echo json_encode($updateArr);
                 die;
             } else {
@@ -1806,6 +1834,8 @@ if($_POST['availability']=="6"){
                     unlink($upload_path.$filename);
                     $this->db->update('album_song', $updateArr, 'id ='.$id);
                     $this->db->update('playlist_amp', $playlistArray, 'album_root ='.$id);
+                   $this->session->set_flashdata('message_msg', 'Playlist Updated'); 
+
                     //delete image playlsit amp old
                     /*$playlist_amp = $this->db->where('album_root', $id)->get('playlist_amp')->result_array();
                     foreach ($playlist_amp as $playlist) {
@@ -1845,11 +1875,11 @@ if($_POST['availability']=="6"){
         );
             $this->db->update('album_song', $updateArr, 'id ='.$id);
              $this->db->update('playlist_amp', $playlistArray, 'album_root ='.$id);
-            echo  '<div class="alert alert-big alert-success alert-dismissable fade in">';
+           /* echo  '<div class="alert alert-big alert-success alert-dismissable fade in">';
             echo  '<h4><strong>Success!</strong></h4>';
             echo  '<p> Update playlist completed</p>';
-            echo  '</div>';
-            $this->session->set_flashdata('message_msg', 'Update playlist completed');
+            echo  '</div>';*/
+            $this->session->set_flashdata('message_msg', 'Playlist Updated');
         }
         }
     }
@@ -1942,49 +1972,47 @@ if($_POST['availability']=="6"){
 
 	 /* update song id in user table  */
 	 
-	        public function update_primary_song_user($albumid)
-		   {
+	public function update_primary_song_user($albumid)
+    {
 		      
-			   $user_id = $this->session->userdata('loged_in');
+        $user_id = $this->session->userdata('loged_in');
         $this->db->select('id');
         $this->db->from("playlist_amp");
         $this->db->where("album_root", $albumid);
         $query = $this->db->get();
-			   
+         
         $playlist_id = $query->row_array();
         if(empty($playlist_id)) {
             $this->M_audio_song->add_new_option_playlist($user_id, $albumid);
         }else{
             $data['song'] = $this->M_audio_song->update_song_id($playlist_id['id'], $user_id);
-			  
-			    $userid=$user_id;
-					 
+
+            $userid=$user_id;
+           
             $playlist_id=$playlist_id['id'];
-				    
-$options ='{"scheme_name":"Style Custome","background_color":"rgba(31,30,30,0.35)","color_time_loaded":"#000000","color_track_front":"#000000","color_font":"#ffffff","affiliatetext":"To Become An Affiliate",
-"ordertext":"CLICK HERE TO ORDER","playlistAlbumIds":"'.$playlist_id.'"}';
-					 $Update_array = array(
+                    
+            $options ='{"scheme_name":"Style Custome","background_color":"rgba(31,30,30,0.35)","color_time_loaded":"#000000","color_track_front":"#000000","color_font":"#ffffff","affiliatetext":"To Become An Affiliate",
+            "ordertext":"CLICK HERE TO ORDER","playlistAlbumIds":"'.$playlist_id.'"}';
+            $Update_array = array(
                 'option_widget' => $options
             );
-					
-					  $this->M_audio_song->update_json($userid,$Update_array);
+                        
+            $this->M_audio_song->update_json($userid,$Update_array);
         }
-			   
-	       }
+        
+    }
 		   
                
-               public function change_option_type(){
-                   $id=$this->input->post('id');
-                   $option_type=$this->input->post('option_type');
-                   $updateArr=array('option_type'=>$option_type);
-                    $this->db->update('audio_song', $updateArr, 'id ='.$id);
-                    
-               }
-		   public function get_playlist()
+    public function change_option_type(){
+        $id=$this->input->post('id');
+        $option_type=$this->input->post('option_type');
+        $updateArr=array('option_type'=>$option_type);
+        $this->db->update('audio_song', $updateArr, 'id ='.$id);
+
+    }
+    public function get_playlist()
     {
         $id=$this->input->post('id');
-        
-        
         $data_album = $this->db->where('id', $id)->get('album_song')->result_array();
 
         echo json_encode($data_album);
@@ -2022,6 +2050,7 @@ else {
 }
 else {
     echo json_encode(http_response_code(403));
+    echo $rows;
 }
     }
 }
@@ -2029,8 +2058,12 @@ else {
 
 public function checkVideoName(){
     $song_id=$this->input->post('song_id');
+     $songname=$this->input->post('video_name');
     if(!empty($song_id)){
-        $songname=$this->input->post('video_name');
+       
+     if(empty($songname)) {
+         $songname="";
+     }
         $data=$this->db->where(array('id'=>$song_id,'video_name'=>$songname))->get('audio_song')->num_rows();
         if($data==1){ 
             
@@ -2056,10 +2089,367 @@ else {
         echo json_encode(http_response_code(200));
     
 }
+    
 else {
     echo json_encode(http_response_code(403));
 }
     }
 }
+
+
+public function save_first_step_song(){
+     $user_id = $this->session->userdata('loged_in');
+    $name_song=$this->input->post('song_name');
+     $song_name_auth=$this->input->post('song_name_auth');
+      $availability=$this->input->post('availability');
+       $price=$this->input->post('price');
+        $lyric=$this->input->post('lyric');
+         $currency=$this->input->post('currency');
+         $song_id=$this->input->post('song_id');
+         $song_data=$this->db->where('id',$song_id)->get('audio_song')->row_array();
+         $current_availability=$song_data['availability'];
+         if($availability=="6"){
+                     $data_attr=$this->db->where(array('attribute'=>'0','user_id'=>$user_id))->get('album_song')->row_array();
+                 $id_playlist=$data_attr['id'];
+                 
+                }  /*else if($availability=="4" && $current_availability !=$availability){ 
+               
+               $data_attr=$this->db->where(array('attribute'=>'1','user_id'=>$user_id))
+                       ->order_by("id", "asc")
+                       ->limit(1)
+                       ->get('album_song')
+                       ->row_array();
+           $id_playlist=$data_attr['id'];
+           $playlist_name=$data_attr['name'];
+               
+           } */
+                else  {
+                   
+                   $id_playlist=$this->input->post('id_paylist'); 
+                   $data=$this->db->where(array('id'=>$id_playlist))
+                  
+                       ->get('album_song')
+                       ->row_array();
+         $playlist_name=$data['name'];
+                }
+           
+         
+          $songname=$this->input->post('song_name');
+             if(isset($lyric) && !empty($lyric)){
+    $date_add_lyrics = date('d-m-Y H:i:s');
+}
+else {
+    $date_add_lyrics = "";
+}
+        $data=$this->db->where(array('id'=>$song_id,'song_name'=>$songname))->get('audio_song')->num_rows();
+        if($data<=1){ 
+            
+           $where=array('id'=>$song_id);
+        $data=array('song_name'=>$name_song,
+                     'song_name_auth'=>$song_name_auth,
+                      'availability'=>$availability,
+                       'price'=>$price,
+                       'lyrics'=>$lyric,
+            'currency'=>$currency,
+             'date_lyrics_add'=>$date_add_lyrics,
+            'album_id'=>$id_playlist);
+         
+                  $this->db->where($where);
+                   $this->db->update('audio_song',$data);
+                   if($id_playlist!=$this->input->post('old_playlist') ){  
+                       $this->session->set_flashdata('message_msg', 'Your song moved to ' .' '.$playlist_name);
+                       
+                   } else {
+                     $this->session->set_flashdata('message_msg', 'Song Edited');
+                   }
+          echo json_encode("success");
+          
+            
+        } else {
+         echo json_encode("error");
+         } 
+
+        
+}
+
+public function save_second_step_song(){
+                
+                require FCPATH.'vendor/autoload.php';
+                require FCPATH.'vendor/aws/aws-sdk-php/src/Aws/app/start.php';
+      
+            $user_id = $this->session->userdata('loged_in');
+            $song_old = $this->db->where('id', $_POST['song_id'])->get('audio_song')->row();
+            
+           
+            $artist_name=$this->M_user->get_name($user_id);
+    //Audio 1
+                if (!empty($_POST['file_audio_ext1'])) {
+                    $audio_name1 = $_POST['name_song']."-".$artist_name.$_POST['file_audio_ext1'];
+                     $tmp_path_audio1 = 'uploads/'.$user_id.'/tmp_audio1'.$_POST['file_audio_ext1'];
+                     $key_audio1 = 'uploads/'.$user_id.'/audio/'.$audio_name1;
+                } else {
+                    $tmp_path_audio1 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['audio_path1'];
+               
+                    }
+                    
+                   //Audio 2 
+                   if (!empty($_POST['file_audio_ext2'])) {
+                    $audio_name2 = $_POST['name_song']."-".$artist_name.$_POST['file_audio_ext2'];
+                     $tmp_path_audio2 = 'uploads/'.$user_id.'/tmp_audio2'.$_POST['file_audio_ext2'];
+                     $key_audio2 = 'uploads/'.$user_id.'/audio/'.$audio_name2;
+                } else {
+                    $tmp_path_audio2 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['audio_path2'];
+               
+                    } 
+                    
+                    //Audio 3 
+                   if (!empty($_POST['file_audio_ext3'])) {
+                    $audio_name3 = $_POST['name_song']."-".$artist_name.$_POST['file_audio_ext3'];
+                     $tmp_path_audio3 = 'uploads/'.$user_id.'/tmp_audio3'.$_POST['file_audio_ext3'];
+                     $key_audio3 = 'uploads/'.$user_id.'/audio/'.$audio_name3;
+                } else {
+                    $tmp_path_audio3 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['audio_path3'];
+               
+                    } 
+                    
+                    
+                    //Audio 4 
+                   if (!empty($_POST['file_audio_ext4'])) {
+                    $audio_name4 = $_POST['name_song']."-".$artist_name.$_POST['file_audio_ext4'];
+                     $tmp_path_audio4 = 'uploads/'.$user_id.'/tmp_audio4'.$_POST['file_audio_ext4'];
+                     $key_audio4 = 'uploads/'.$user_id.'/audio/'.$audio_name4;
+                } else {
+                    $tmp_path_audio4 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['audio_path4'];
+               
+                    } 
+                    
+                    //Audio 5 
+                   if (!empty($_POST['file_audio_ext5'])) {
+                    $audio_name5 = $_POST['name_song']."-".$artist_name.$_POST['file_audio_ext5'];
+                     $tmp_path_audio5 = 'uploads/'.$user_id.'/tmp_audio5'.$_POST['file_audio_ext5'];
+                     $key_audio5 = 'uploads/'.$user_id.'/audio/'.$audio_name5;
+                } else {
+                    $tmp_path_audio5 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['audio_path5'];
+               
+                    } 
+                    
+                    
+                    //Audio 6 
+                   if (!empty($_POST['file_audio_ext6'])) {
+                    $audio_name6 = $_POST['name_song']."-".$artist_name.$_POST['file_audio_ext6'];
+                     $tmp_path_audio6 = 'uploads/'.$user_id.'/tmp_audio6'.$_POST['file_audio_ext6'];
+                     $key_audio6 = 'uploads/'.$user_id.'/audio/'.$audio_name6;
+                } else {
+                    $tmp_path_audio6 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['audio_path6'];
+               
+                    } 
+                    
+                  if (!empty($_POST['file_audio_ext1'])) {
+                        if(!empty($song_old->audio_file1)){
+                        $s3->deleteObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => 'uploads/'.$user_id.'/audio/'.$song_old->audio_file1,
+                        ));
+                        }
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_audio1,
+                            'Body' => fopen(FCPATH.$tmp_path_audio1, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('audio_file1' => $audio_name1), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_audio1);
+                    }
+                    
+                         if (!empty($_POST['file_audio_ext2'])) {
+                        if(!empty($song_old->audio_file2)){
+                        $s3->deleteObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => 'uploads/'.$user_id.'/audio/'.$song_old->audio_file2,
+                        ));
+                        }
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_audio2,
+                            'Body' => fopen(FCPATH.$tmp_path_audio2, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('audio_file2' => $audio_name2), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_audio2);
+                    }
+                    
+                       if (!empty($_POST['file_audio_ext3'])) {
+                        if(!empty($song_old->audio_file3)){
+                        $s3->deleteObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => 'uploads/'.$user_id.'/audio/'.$song_old->audio_file3,
+                        ));
+                        }
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_audio3,
+                            'Body' => fopen(FCPATH.$tmp_path_audio3, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('audio_file2' => $audio_name3), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_audio3);
+                    }
+                    
+                    if (!empty($_POST['file_audio_ext4'])) {
+                        if(!empty($song_old->audio_file4)){
+                        $s3->deleteObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => 'uploads/'.$user_id.'/audio/'.$song_old->audio_file4,
+                        ));
+                        }
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_audio4,
+                            'Body' => fopen(FCPATH.$tmp_path_audio4, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('audio_file4' => $audio_name4), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_audio4);
+                    }
+                    
+                    if (!empty($_POST['file_audio_ext5'])) {
+                        if(!empty($song_old->audio_file5)){
+                        $s3->deleteObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => 'uploads/'.$user_id.'/audio/'.$song_old->audio_file5,
+                        ));
+                        }
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_audio5,
+                            'Body' => fopen(FCPATH.$tmp_path_audio5, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('audio_file5' => $audio_name5), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_audio5);
+                    }
+                    
+                    if (!empty($_POST['file_audio_ext6'])) {
+                        if(!empty($song_old->audio_file6)){
+                        $s3->deleteObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => 'uploads/'.$user_id.'/audio/'.$song_old->audio_file6,
+                        ));
+                        }
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_audio6,
+                            'Body' => fopen(FCPATH.$tmp_path_audio6, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('audio_file6' => $audio_name6), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_audio6);
+                    }
+                   
+                       $this->session->set_flashdata('message_msg', ' Edit Song completed');
+                echo json_encode("success");
+       
+}
+
+public function save_third_step_song(){ 
+     
+    
+    require FCPATH.'vendor/autoload.php';
+                require FCPATH.'vendor/aws/aws-sdk-php/src/Aws/app/start.php';
+                
+                
+      $name_song=$this->input->post('name_video');
+       if(!empty($name_song)) {
+       
+        $data=$this->db->where(array('id'=>$_POST['song_id'],'video_name'=>$name_song))->get('audio_song')->num_rows();
+        if($data <= 1){ 
+            $user_id = $this->session->userdata('loged_in');
+            $song_old = $this->db->where('id', $_POST['song_id'])->get('audio_song')->row();
+            $artist_name=$this->M_user->get_name($user_id);
+            
+             //upload s3 video
+                if (!empty($_POST['file_video_ext1'])) {
+                    $video_name1 = $_POST['name_video']."-".$artist_name.$_POST['file_video_ext1'];
+                    $tmp_path_video1 = 'uploads/'.$user_id.'/tmp_video1'.$_POST['file_video_ext1'];
+                    $key_video1 = 'uploads/'.$user_id.'/audio/'.$video_name1;
+                } elseif (!empty($_POST['video_path1'])) {
+                    $tmp_path_video1 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['video_path1'];
+                }
+               
+                 if (!empty($_POST['file_video_ext2'])) {
+                    $video_name2 = $_POST['name_video']."-".$artist_name.$_POST['file_video_ext2'];
+                    $tmp_path_video2 = 'uploads/'.$user_id.'/tmp_video2'.$_POST['file_video_ext2'];
+                    $key_video2 = 'uploads/'.$user_id.'/audio/'.$video_name2;
+                } elseif (!empty($_POST['video_path2'])) {
+                    $tmp_path_video2 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['video_path2'];
+                }
+                
+                 if (!empty($_POST['file_video_ext3'])) {
+                    $video_name3 = $_POST['name_video']."-".$artist_name.$_POST['file_video_ext3'];
+                    $tmp_path_video3 = 'uploads/'.$user_id.'/tmp_video3'.$_POST['file_video_ext3'];
+                    $key_video3 = 'uploads/'.$user_id.'/audio/'.$video_name3;
+                } elseif (!empty($_POST['video_path3'])) {
+                    $tmp_path_video3 = $config['cloudfront']['url'].'uploads/'.$user_id.'/audio/'.$_POST['video_path3'];
+                }
+                try {
+                     if (!empty($_POST['file_video_ext1'])) {
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_video1,
+                            'Body' => fopen(FCPATH.$tmp_path_video1, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('video_file1' => $video_name1), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_video1);
+                    }
+                    
+                    if (!empty($_POST['file_video_ext2'])) {
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_video2,
+                            'Body' => fopen(FCPATH.$tmp_path_video2, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('video_file2' => $video_name2), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_video2);
+                    }
+                    if (!empty($_POST['file_video_ext3'])) {
+                        $s3->putObject(array(
+                            'Bucket' => $config['s3']['bucket'],
+                            'Key' => $key_video3,
+                            'Body' => fopen(FCPATH.$tmp_path_video3, 'rb'),
+                            'ACL' => 'public-read',
+                        ));
+                        $this->db->update('audio_song', array('video_file3' => $video_name3), 'id='.$_POST['song_id']);
+                        unlink($tmp_path_video3);
+                    }
+                    }
+                    catch (S3Exception $e) {
+                    echo json_encode(array($e->getMessage()));
+                    die;
+                }
+                 
+                    $this->db->where('id',$_POST['song_id']);
+                    $this->db->update('audio_song',array('video_name'=>$_POST['name_video'],'video_name_auth'=>$_POST['name_video_auth']));
+                 $this->session->set_flashdata('message_msg', ' Edit Song completed');
+               echo json_encode("success");
+               
+                 } else {
+            echo json_encode("error");
+        }
+       } else {
+           echo json_encode("validation_error");
+       }
+}
+ public function change_playlist(){
+                   $id=$this->input->post('id');
+                   $playlist=$this->input->post('transfer_to');
+                   $updateArr=array('album_id'=>$playlist);
+                   $album=$this->db->where(array('id'=>$playlist))->get('album_song')->row_array();
+
+                    $this->db->update('audio_song', $updateArr, 'id ='.$id);
+                    $this->session->set_flashdata('message_msg', 'Song Moved to'.' '. $album["name"] );
+                    echo json_encode($album["name"]);
+               }
 }//final
 

@@ -121,6 +121,8 @@ class Affiliate extends CI_Controller
                 'id_affiliate' => $U_map['affiliate_id'],
             );
             $commission_affiliate = $this->db->where('id_artist', $id)->get('commission_affiliate')->row_array();
+            $settings_global = $this->db->get('settings_global')->row_array();
+         
             if (!empty($commission_affiliate)) {
                 $this->db->update('commission_affiliate', $ArrUpdate, 'id_artist='.$id);
                 $this->session->set_flashdata('message_msg', '<b>Success</b>! Updated  Commission Affiliates');
@@ -141,15 +143,62 @@ class Affiliate extends CI_Controller
         $id = $this->session->userdata('loged_in');
         $U_map = $this->U_map;
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('limit_aff1', 'Limit Affiliate 1', 'required|numeric');
-        $this->form_validation->set_rules('limit_aff2', 'Limit Affiliate 2', 'required|numeric');
-        $this->form_validation->set_rules('limit_aff4', 'Limit Affiliate 4', 'required|numeric');
-        $this->form_validation->set_rules('limit_aff3', 'Limit Affiliate 3', 'required|numeric');
+        if($this->input->post('aff_unlimited_1')==""){
+        $this->form_validation->set_rules('limit_aff1', 'Limit Affiliate 1', 'required');
+        } else {
+            $this->form_validation->set_rules('aff_unlimited_1', 'Limit Affiliate 1', 'required');
+        }
+        if($this->input->post('aff_unlimited_2')==""){
+        $this->form_validation->set_rules('limit_aff2', 'Limit Affiliate 2', 'required');
+        }
+         else {
+            $this->form_validation->set_rules('aff_unlimited_2', 'Limit Affiliate 2', 'required');
+        }
+          if($this->input->post('aff_unlimited_4')==""){
+        $this->form_validation->set_rules('limit_aff4', 'Limit Affiliate 4', 'required');
+          }
+          else {
+            $this->form_validation->set_rules('aff_unlimited_4', 'Limit Affiliate 4', 'required');
+        }
+        
+        if($this->input->post('aff_unlimited_3')==""){
+        $this->form_validation->set_rules('limit_aff3', 'Limit Affiliate 3', 'required');
+        }
+        else {
+            $this->form_validation->set_rules('aff_unlimited_3', 'Limit Affiliate 3', 'required');
+        }
         if ($this->form_validation->run() != false) {
+            $aff_unlimited_1=$this->input->post('aff_unlimited_1');
+             $aff_unlimited_2=$this->input->post('aff_unlimited_2');
+              $aff_unlimited_3=$this->input->post('aff_unlimited_3');
+               $aff_unlimited_4=$this->input->post('aff_unlimited_4');
+               if(!empty($aff_unlimited_1)){ 
+                    $level1 = $aff_unlimited_1;
+                   
+               } else {
             $level1 = $this->input->post('limit_aff1');
+               }
+                if(!empty($aff_unlimited_2)){ 
+                   $level2 = $aff_unlimited_2;
+               } else {
             $level2 = $this->input->post('limit_aff2');
+               }
+                if(!empty($aff_unlimited_3)){ 
+                    $level3 = $aff_unlimited_3; 
+                    
+                }
+                else {
             $level3 = $this->input->post('limit_aff3');
+                }
+                   if(!empty($aff_unlimited_4)){ 
+                       
+                       $level4 = $aff_unlimited_4; 
+                       
+                   }
+                         else {
             $level4 = $this->input->post('limit_aff4');
+                         }
+            
             $ArrUpdate = array(
                 'level_1' => $level1,
                 'level_2' => $level2,
@@ -160,13 +209,14 @@ class Affiliate extends CI_Controller
             $limit_affiliate = $this->db->where('user_id', $id)->get('limit_affiliates')->row_array();
             if (!empty($limit_affiliate)) {
                 $this->db->update('limit_affiliates', $ArrUpdate, 'user_id='.$id);
-                $this->session->set_flashdata('message_msg', '<b>Success</b>! Updated  limit Affiliates');
+                $this->session->set_flashdata('message_msg', ' Updated Affiliates Limit ');
             } else {
                 $this->db->insert('limit_affiliates', $ArrUpdate);
-                $this->session->set_flashdata('message_msg', '<b>Success</b>! Set  limit Affiliates');
+                $this->session->set_flashdata('message_msg', ' Set Affiliates Limit');
             }
             redirect('amper/dashboard_affiliates');
         } else {
+             $this->session->set_flashdata('message_error', 'Error! ');
             $this->dashboard_affiliates();
         }
     }
@@ -205,7 +255,9 @@ class Affiliate extends CI_Controller
             $id_sub_affilaite = $this->M_affiliate->get_id_user($dataLevel->affiliate_id);
             $check_notifi = $this->M_user->check_onoff_request($id_sub_affilaite);
             if ($check_notifi) {
-                $this->M_notify->addnotify($id_sub_affilaite, $this->M_user->get_name($id).' not allow you become affilaite', 'amper_not_allow');
+
+                $message = '“'.$this->M_user->get_name($id).'” refused “'.$this->M_user->get_name($id_sub_affilaite).'” to become an affiliate.';
+                $this->M_notify->addnotify($id_sub_affilaite, $message, 'amper_not_allow');
             }
             $this->db->where('id', $Id_Level)->delete('affiliate_level');
             $this->db
@@ -278,7 +330,14 @@ class Affiliate extends CI_Controller
             $id_sub_affilaite = $this->M_affiliate->get_id_user($dataLevel->affiliate_id);
             $check_notifi = $this->M_user->check_onoff_request($id_sub_affilaite);
             if ($check_notifi) {
-                $this->M_notify->addnotify($id_sub_affilaite, $this->M_user->get_name($id).' locked affiliate', 'amper_locked');
+                if($this->M_user->get_user_role($id) == 1)
+                {
+                    $message = '“'.$this->M_user->get_name($id).'” <a href="'.base_url('amper/dashboard_affiliates').'"  >lock </a>“'.$this->M_user->get_name($id_sub_affilaite).'”.';
+                }
+                else{
+                    $message = '“'.$this->M_user->get_name($id).'” lock “'.$this->M_user->get_name($id_sub_affilaite).'”.';
+                }
+                $this->M_notify->addnotify($id_sub_affilaite, $message, 'amper_locked');
             }
             $this->db->update('affiliate_level', array('status' => 2), 'id ='.$Id_Level);
             $this->session->set_flashdata('message_msg', '<b>Success</b>! locked affiliate');
@@ -300,7 +359,15 @@ class Affiliate extends CI_Controller
             $id_sub_affilaite = $this->M_affiliate->get_id_user($dataLevel->affiliate_id);
             $check_notifi = $this->M_user->check_onoff_request($id_sub_affilaite);
             if ($check_notifi) {
-                $this->M_notify->addnotify($id_sub_affilaite, $this->M_user->get_name($id).' unlocked affiliate', 'amper_unlocked');
+                
+                if($this->M_user->get_user_role($id) == 1)
+                {
+                    $message = '“'.$this->M_user->get_name($id).'” <a href="'.base_url('amper/dashboard_affiliates').'"  >unlocked </a>“'.$this->M_user->get_name($id_sub_affilaite).'”.';
+                }
+                else{
+                    $message = '“'.$this->M_user->get_name($id).'” unlocked “'.$this->M_user->get_name($id_sub_affilaite).'”.';
+                }
+                $this->M_notify->addnotify($id_sub_affilaite, $message, 'amper_unlocked');
             }
             $this->db->update('affiliate_level', array('status' => 1), 'id ='.$Id_Level);
             $this->session->set_flashdata('message_msg', '<b>Success</b>! unlocked affiliate');

@@ -94,7 +94,7 @@ class Template extends CI_Controller
             $data['song'] = $this->M_audio_song->list_songs_epk($user_id, 5);
             $data['user_data'] = $user;
             $data['country'] = $this->db->where('id', $user['countries'])->get('countries')->row_array();
-            $data['genre'] = $this->db->where('id', $user['genre'])->get('genres')->row_array();
+            $data['genre'] = ucfirst( $this->M_user->get_genre_name($user['genre']));;
             $data['U_map'] = $this->db->where('id', $this->U_map['id'])->get('affiliates')->row_array();
             $data['groups_member'] = $this->db->where('artist_id', $user_id)->order_by('id', 'DESC')->get('groups_member')->result_array();
             $data['customize'] = $this->M_customize_epk->get_customize_user_data($user_id);
@@ -200,8 +200,11 @@ class Template extends CI_Controller
                 
                
           }
-          // $this->load->view('html_template/pdf', $data);
-          $this->load->view('email/presskit2', $data);
+          $data['reciver_email'] = "sonishrasti@gmail.com";
+            
+              
+          // $data['message'] =$this->load->view('email/presskit1', $data, true);
+          $this->load->view('email/presskit6', $data);
       }
 
       public function pdf_old(){
@@ -242,6 +245,8 @@ class Template extends CI_Controller
 
     public function downloadpdf($pdf_type)
     {
+      var_dump($pdf_type);
+      die();
       if($pdf_type == 'abuse')
       {
         $filename = base_url()."pdfs/Abuse Form.pdf";
@@ -260,5 +265,48 @@ class Template extends CI_Controller
       $this->load->helper('download');
       force_download($nme, $pth);     
     }
+    public function video($name = ""){
+      $results = $this->Member_model->getUserByName('users', array('home_page' => $name));
+        foreach ($results as $result) {
+            $user_id = $result->id;
+            $id_ctry = $result->countries;
+            $id_genre = $result->genre;
+            $style = $result->template_landing;
+            $city = $result->city;
+            $role = $result->role;
+        }
+        $data['user_data'] = $this->session->userdata('user_data');
+           $data['id'] = $user_id;  
+        $data['videos'] = $this->M_video->list_videos_alp($user_id, 10);
+       $this->load->view('includes/header', $data);
+        $this->load->view('includes/navbar', $data);
+         $this->load->view('html_template/team');
+        $this->load->view('includes/footer', $data);
+    }
+    public function get_email_veiw_forget(){
+      $data['email'] = "akashbachhania@gmail.com";
+      $data['user_id'] = "205";
+      $data['encrypted_string'] = "jdhsiyi";
+      $data['message'] = "sender email / "."from input"." have contacted you onto 99sound.com, their message is the following: "."message from contact.";
+      $this->load->view('email/contact_artist', $data);
+      // $this->load->view('email/forgot_pass', $data);
+    }
 
-   }
+    public function get_email_view_band(){
+      $data['message'] = "akashbachhania@gmail.com";
+      $data['link'] = "205";
+      $data['email'] = "akashbachhania@gmail.com";
+      $data['user_id'] = "205";
+      $data['encrypted_string'] = "jdhsiyi";
+      $this->load->view('email/band_member_invite', $data);
+    }
+
+    public function get_new_home_page()
+    {
+      $this->load->view('newstag1/index');
+    }
+    public function get_new_feature_page()
+    {
+      $this->load->view('newstag1/featurefan.php');
+    }
+   } 

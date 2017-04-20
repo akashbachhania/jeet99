@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css?family=Exo|Lily+Script+One|Lobster+Two|Pacifico|Righteous');
+@import 'https://fonts.googleapis.com/css?family=Fjalla+One|Shadows+Into+Light';
+@import 'https://fonts.googleapis.com/css?family=Play';
+@font-face{font-family:avenir;src:url(../dist/fonts/avenir-lt-95-black-oblique.ttf)}
+@font-face{font-family:avenir-light;src:url(../dist/fonts/avenir-lt-std-35-light.otf)}
+.navbar-nav li>a {
+  color:white;
+    font-family: 'Exo', sans-serif;
+}
+.navbar-nav li>a:hover,.nav .open>a:hover { 
+    background-color: rgba(000,000,000,0.5);
+    color:white;
+}
+.nav .open>a, .nav .open>a:focus {
+   background-color: rgba(000,000,000,0.3); 
+   
+}
+.dropdown-menu>li>a,.dropdown-menu{
+background-color: rgba(000,000,000,0.3);
+}
+/*header color*/
+.hd_Cl{
+	background-color:rgba(000,000,000,0.8);
+}
+/*fonts color*/
+.fn_white{
+color:white;
+}
+/*margins*/
+.mrgn_tp_0{
+	margin-top: 0%;
+}
+.mrgn_tp_min{
+    margin-top: -2%;
+}
+.mrgn_tp_2{
+	margin-top: 2%;
+}
+.mrgn_tp_5{
+	margin-top: 5%;
+}
+.mrgn_bm_5{
+    margin-bottom: 5%;
+}
+.mrgn_tp_20{
+    margin-top: 20%;
+}
+/*zindex*/
+.zindex{
+	z-index: 1;
+}
+/*background color*/
+.bg_grey{
+    background-color: grey;
+}
+.bg_blk a{
+   color:#D5DBDB  ; 
+}
+.bg_black{
+	background-color:#413b3b;
+}
+.bg_white{
+    background-color: #fff;
+}
+.bg_cream{
+    background-color: rgb(185, 188, 69);
+}
+.bg_blk{
+    background-color:black;
+}
+.bg_tr{
+    background-color:transparent;
+}
+/*width*/
+.max_wd_50{
+	max-width: 50%;
+}
+.max_wd_35{
+	max-width: 35%;
+}
+/*font over image*/
+.text-over{
+	position:absolute;
+    top:50%;
+    left: 40%;
+    color: aqua;
+    z-index: 3000;
+}
+
+.box {
+    
+    position:relative;    
+}
+.box-text {
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 20% 30% 10% 40%;
+    color: white;
+}
+.box-text_ms{
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 5% 50% 10% 2%;
+    color: white;
+}
+.box_text_sp {
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 20% 5% 10% 40%;
+    color: white;
+}
+.box-text_lt {
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 5% 50% 10% 10%;
+    color: white;
+}
+.box-text_rt {
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 5% 5% 5% 52%;
+    color: white;
+}
+.vd-box-text{
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 20% 10% 10% 31%;
+    color: white;
+}
+.videoTest > video {
+    display: inline-block;
+    margin:0;
+    padding:0;    
+}
+
+.videoTest {
+    font-size: 0;
+}
+.arrow_div{
+    position:absolute;
+    top:0;
+    left:0;    
+    margin: 30% 42% 8% 50%;
+    color: white;
+}
+
+.glyphicon-extra{
+
+    font-size: 48px;
+    z-index: 3000;    
+
+}
+@media only screen and (max-width: 500px) {
+    .glyphicon-extra{
+
+    font-size: 32px;
+    z-index: 3000;    
+
+    }
+}
+
+.zindexplus{
+    z-index: 99999;
+}
+
+.zindexminus{
+    z-index: -99999;
+}
+.boxshaow{
+    box-shadow: -1px -1px 11px #888888;
+    margin-bottom: 8%; 
+}
+.bottom_br{
+    border-bottom: 1px solid grey;
+}
+.ht_wt_36{
+    height: 36px;
+    width: 36px
+}
+.img .img-responsive{
+    left: 0;
+    top:0;
+    min-height: 100%;
+    min-width: 100%;
+}
+p{
+    font-family:Exo;
+    font-size: 16px; 
+}
+@media only screen and (max-width: 500px) {
+    p{
+        font-family:Exo;
+        font-size: 12px; 
+    }
+    h3{
+        font-size: 16px;
+    }
+}
+/*feature fan page*/
+/*.parallax { 
+    height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+   background-size: cover;
+}*/
+
+
+.ft p,
+.ft p a{
+font-family:avenir-light;
+  margin:0px 0px 10px 0px;
+  font-size:14px;
+  font-weight:400;
+  color:grey;
+  text-align:left;
+}
+.ft h3{
+  font-family:avenir-light;
+  margin:0px 0px 10px 0px;
+  font-size:20px;
+  font-weight:400;
+  color:#fff;
+  text-align:left;
+}
+
+.underline {
+    border-bottom: 2px solid white;
+    display: inline-block;
+    line-height: 1.0;
+    padding: 0px 0px 9px 0px;
+}
+
+/*#logo-holder 
+{
+    position:relative;
+}
+#logo-holder .image,*/
+.logo-holder .texxt
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color:rgba(0,0,0,.3);
+}
+.logo-holder:hover .image {
+    opacity:0;
+}
+.logo-holder:hover .texxt {
+    opacity:1;
+    background-color: rgba(0,0,0,0.8);
+    color:white;
+    z-index: 9999999;
+    font-size: 30px;
+    
+}
+/*3d-courasal*/
+
+ div#carousel { 
+  perspective: 1200px; 
+  background: black; 
+  padding-top: 10%; 
+  font-size:0; 
+  /*margin-bottom: 3rem;*/ 
+  overflow: hidden; 
+}
+figure#spinner { 
+  transform-style: preserve-3d; 
+  height: 450px; 
+  transform-origin: 50% 50% -500px; 
+  transition: 1s; 
+} 
+figure#spinner .logo-holder  { 
+  width: 40%; max-width: 425px; 
+  position: absolute; left: 30%;
+  transform-origin: 50% 50% -500px;
+  outline:1px solid transparent; 
+}
+figure#spinner .logo-holder:nth-child(1) { transform:rotateY(0deg); 
+}
+figure#spinner .logo-holder:nth-child(2) { transform: rotateY(-60deg); }
+figure#spinner .logo-holder:nth-child(3) { transform: rotateY(-120deg); }
+figure#spinner .logo-holder:nth-child(4) { transform: rotateY(-180deg); }
+figure#spinner .logo-holder:nth-child(5){ transform: rotateY(-240deg); }
+figure#spinner .logo-holder:nth-child(6){ transform: rotateY(-300deg); }
+
+div#carousel ~ span { 
+  color: #fff; 
+  margin: 2%; 
+  display: inline-block; 
+  text-decoration: none; 
+  font-size: 2rem; 
+  transition: 0.6s color; 
+  position: relative; 
+  margin-top: -6rem; 
+  border-bottom: none; 
+  line-height: 0; }
+div#carousel ~ span:hover { color: #888; cursor: pointer; }
+
+
+.ht_500{
+ height: 500px;
+}
+.grad_blck {
+    
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0.5), rgba(0,0,0,1)); / For Safari 5.1 to 6.0 /
+    background: -o-linear-gradient(right, rgba,0,0,0.5), rgba(0,0,0,1)); / For Opera 11.1 to 12.0 /
+    background: -moz-linear-gradient(right, rgba(0,0,0,0.5), rgba(0,0,0,1)); / For Firefox 3.6 to 15 /
+    background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,1)); / Standard syntax (must be last) /
+}
+@media screen and (max-width: 767px) {
+  
+    .row {
+            height:auto;
+        }
+    
+}

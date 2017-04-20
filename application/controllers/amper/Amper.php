@@ -15,13 +15,16 @@ class Amper extends CI_Controller
         $this->load->model('M_transaction');
         $this->load->model('M_notify');
         $this->load->model('M_channel');
-
         $this->load->model('M_fan');
         $this->load->model('Events_model');
         $this->load->model('M_fan');
         $this->load->model('M_video');
         $this->load->model('M_blog');
         $this->load->helper('string');
+        $this->load->model('M_groups_member');
+        if ($this->session->userdata('loged_in') == false) {
+            redirect('account/login');
+        }
         $ac = $this->session->userdata('access');
       
          $data['redirect_url']=$this->curPageURL();
@@ -58,7 +61,7 @@ class Amper extends CI_Controller
         //$results = $this->db->get_where('users',array('home_page' => $name))->row();
 
         $user_id = $results[0]->id;
-        $style = $results[0]->template_landing;
+        $style = $results[0]->template_landing_flp;
         if (!empty($results)) {
         //     if ($this->M_affiliate->get_switch_stats($user_id)) {
         //         $CounterHits = $this->session->userdata('CounterHits_flp');
@@ -100,6 +103,13 @@ class Amper extends CI_Controller
             {
                 $data['avata'] = $this->M_user->get_avata($user_id);
                 $data['role']  = 1;
+                $channels = $this->M_channel->get_artist_band($user_id);
+                $members = array();
+                foreach ($channels as $key => $value) {
+                    $members[$key]['type'] = $value['name'];
+                    $members[$key]['data'] = $this->M_groups_member->list_band_member($user_id,$value['id']);
+                }
+                $data['members']=$members;
             }else{
                  $data['avata'] = $this->M_user->get_avata_flp($user_id);
                   $data['role']  = 2;
@@ -359,14 +369,21 @@ class Amper extends CI_Controller
         
         if (isset($affiliate) && !empty($affiliate)) {
             $check_limit = $this->M_affiliate->check_limit_affiliate($AffiliateRootId);
+            
             if (!$check_limit) {
-                echo 'Can\'t register affiliate <br/> limit register';
-                die;
+                $data['limit_message'] ='The artist Affiliate Limit is reached for this level, you cannot be the affiliate of this user.';
+              
+               
+              
             }
             $U_map = $this->U_map;
             if ($U_map['affiliate_id'] == $AffiliateRootId) {
-                echo 'Can\'t register affiliate <br/> ';
-                die;
+                 $data['user_data'] = $this->session->userdata('user_data');
+               $data['limit_message']='You cannot be affiliate of ourself';
+               $this->load->view('includes/header', $data);
+                $this->load->view('includes/navbar', $data);
+                $this->load->view('amper/become_affiliate', $data);
+                $this->load->view('includes/footer', $data);
             } else {
              
                 $ListArtist = explode('-', $affiliate['list_artist']);
@@ -400,6 +417,7 @@ foreach($list_network as $network) {
         $DataParrent = $this->db->where_in('id',$network)
             ->get('affiliate_level')->result_array();
         $U_map = $this->U_map;
+   
         foreach ($DataParrent as $Parrent) {
             if ($Parrent['level'] == 0) {
                 //save relative 2 amper
@@ -512,14 +530,14 @@ foreach($list_network as $network) {
             //add notifycation
             $check_notifi = $this->M_user->check_onoff_request($Parrent['artist_id']);
             if ($check_notifi) {
-                $this->M_notify->addnotify($Parrent['artist_id'], 'New Request to become an <a href="'.base_url("amper/dashboard_affiliates").'">Affiliate</a> ', 'amper_register');
+                $this->M_notify->addnotify($Parrent['artist_id'], 'You have a request to become an  <a href="'.base_url("amper/dashboard_affiliates").'">affiliate</a> ', 'amper_register');
             }
             //update list artist
             $this->M_affiliate->update_list_artist($U_map['id'], $Parrent['artist_id']);
         }
 }
-        redirect('amper/selectalbums/affiliate/'.$AffiliateRootId);
-        //redirect('amper/dashboard');
+      //redirect('amper/selectalbums/affiliate/'.$AffiliateRootId);
+        redirect('amper/dashboard');
     }
     /**
      * Edit prfile affilate
@@ -565,6 +583,7 @@ foreach($list_network as $network) {
                 'youtube_username' => $this->input->post('youtube_url'),
                 'twitter_username' => $this->input->post('twitter_url'),
                 'instagram_username' => $this->input->post('instagram_url'),
+                'google_username' => $this->input->post('google_url'),
             );
             $this->db->update('users', $updateArr, 'id='.$data['U_map']['user_id']);
             $this->db->update('affiliates', array('paypal' => $this->input->post('email_paypal')), 'id='.$data['U_map']['id']);
@@ -712,14 +731,14 @@ foreach($list_network as $network) {
                 ->get('videos')->result_array();
             $data['user_data'] = $results;
 			//echo "<pre>";print_r($user);echo "</pre>";exit;
-			if($user['role'] == 1)
-			{
-				$data['landings'] = $this->db->where('type', 'landing')->where('active', 1)->order_by('position', 'ASC')->get('template_lands')->result_array();
-			}
-			else if($user['role'] == 2)
-			{
+			// if($user['role'] == 1)
+			// {
+			// 	$data['landings'] = $this->db->where('type', 'landing')->where('active', 1)->order_by('position', 'ASC')->get('template_lands')->result_array();
+			// }
+			// else if($user['role'] == 2)
+			// {
 				$data['landings'] = $this->db->where('type', 'landing_flp')->where('active', 1)->order_by('position', 'ASC')->get('template_lands')->result_array();
-			}
+			// }
             $data['langing_select'] = $this->db->where('type', 'landing')->where('active', 1)->where('position', $results['template_landing'])->get('template_lands')->row_array();
 
             $data['link_content'] = 'dashboard_home.php';
@@ -773,7 +792,7 @@ foreach($list_network as $network) {
     {
         $this->is_login();
         $data['U_map'] = $this->U_map;
-        $data['genres'] = $this->db->get('genres')->result_array();
+        $data['genres'] = $this->db->order_by('TRIM(name)', 'ASC')->get('genres')->result_array();
         $data['list_artist'] = $this->db
             ->where('role', 1)->where('lock', 0)
             ->limit(12, 0)
@@ -847,7 +866,6 @@ foreach($list_network as $network) {
         if ($this->form_validation->run() != false) {
             $post_link = $this->input->post('link_video');
             $parse = parse_url($post_link);
-               
             if ($parse['host'] == 'www.youtube.com') {
                 $updateArr = array(
                     'name_video' => $this->input->post('name_video'),
@@ -985,7 +1003,7 @@ foreach($list_network as $network) {
         $type = $this->input->post('template_landing');
 
         if (isset($type)) {
-            $updateArr = array('template_landing' => $type);
+            $updateArr = array('template_landing_flp' => $type);
             $this->db->update('users', $updateArr, 'id='.$user_id); ?>
             <div class="alert alert-success alert-dismissable" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

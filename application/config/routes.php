@@ -1,5 +1,7 @@
-<?php
+ 
+<?php 
 defined('BASEPATH') or exit('No direct script access allowed');
+
 $route['default_controller'] = 'home/index';
 $route['404_override'] = 'myerror/error_404';
 $route['translate_uri_dashes'] = true;
@@ -20,7 +22,7 @@ $route['account/forgot_pass'] = 'auth/forgotPass';
 $route['auth/reset_password/(:any)/(:any)'] = 'auth/resetPassword/$1/$2';
 $route['account/post_reset_password'] = 'auth/postResetPassword';
 //$route['account/check_login/fb'] = 'auth/check_login_facebook';
-
+ 
 //Route for varification link
 $route['account/verification/(:any)'] = 'auth/verification/$1';
 
@@ -104,6 +106,8 @@ $route['admin/locations/page']                            = 'admin/locations/ind
 $route['admin/locations/page/(:num)']                     = 'admin/locations/index/$1';
 $route['admin/locations/search']                          = 'admin/locations/index';
 $route['admin/locations/create']                          = 'admin/locations/creater_lat_lng';
+$route['admin/email-subscriptions']                       = 'admin/email_subscription/index';
+
 $route['cronjob']                                         = 'cronjob/index';
 
 $route['gigs_events']                                     = 'gigs_events/view_event';
@@ -151,6 +155,9 @@ $route['social_media'] = 'social_media/index';
 $route['social_media/insert_db'] = 'social_media/insert_db';
 $route['social_media/fbPost_video'] = 'social_media/fbPost_video';
 $route['social_media/fbpost_photo'] = 'social_media/fbpost_photo';
+$route['social_media/callback'] = 'social_media/callback';
+
+
 $route['mds'] = 'mds/index';
 $route['make_money'] = 'make_money/index';
 $route['world_wide_featured'] = 'world_wide_featured/index';
@@ -203,7 +210,6 @@ $route['artist/upload_file_video'] = 'artist/audio/upload_file_video';
 $route['artist/delete_file_video'] = 'artist/audio/delete_file_video';
 $route['artist/load_duration'] = 'artist/audio/load_duration';
 $route['artist/finish_upload_song'] = 'artist/audio/finish_upload_song';
-
 $route['artist/edit_song/(:num)/(:num)'] = 'artist/audio/view_edit_song/$1/$2';
 /*Lyrics*/
 $route['artist/edit_lyric/(:num)/(:num)'] = 'artist/audio/view_edit_lyric/$1/$2';
@@ -224,7 +230,6 @@ $route['artist/editplaylist'] = 'artist/audio/editplaylist';
 $route['artist/deleteplaylist'] = 'artist/audio/deleteplaylist';
 $route['artist/playlist/(:num)'] = 'artist/audio/manager_song/$1';
 
-
 $route['artist/uploadvideo'] = 'artist/videos/uploadvideo';
 $route['artist/managervideo'] = 'artist/videos/manager';
 $route['artist/editvideo'] = 'artist/videos/editvideo';
@@ -235,6 +240,8 @@ $route['artist/allvideos/(:num)'] = 'artist/videos/allvideos/$1';
 
 $route['artist/change_avatar']  = 'artist/cropavatar';
 $route['artist/crop_banner']  = 'artist/cropbanner';
+$route['artist/crop_epk_banner']  = 'artist/crop_epk_banner';
+
 $route['artist/newphoto'] = 'artist/photos/newphoto';
 $route['artist/uploadphoto'] = 'artist/photos/uploadphoto';
 $route['artist/managerphoto'] = 'artist/photos/manager';
@@ -249,13 +256,19 @@ $route['artist/deleteblogs'] = 'artist/blogs/deleteblogs';
 $route['artist/addnewblogs'] = 'artist/blogs/addnewblogs';
 $route['artist/allblogs/(:num)'] = 'artist/blogs/allblogs/$1';
 $route['artist/allblogs/(:num)/(:num)'] = 'artist/blogs/allblogs/$1/$2';
-
 $route['artist/blogs/comment-blog'] = 'artist/blogs/comment';
 
-$route['(:any)'] = 'artist/member/index/$1';
+$route['artist/bandmanager'] = 'artist/band/manager';
+$route['artist/bandmembers/(:num)'] = 'artist/band/allmembers/$1';
+$route['artist/addband'] = 'artist/band/addband';
+$route['artist/editband'] = 'artist/band/editband';
+$route['artist/deleteband'] = 'artist/band/deleteband';
+$route['artist/deletebandmember'] = 'artist/Managermember/deletemember';
+
+$route['(:any)'] = 'artist/member/index/$1'; 
 $route['(:any)/photos'] = 'artist/member/allphoto/$1';
 $route['(:any)/songs'] = 'artist/member/allsong/$1';
-$route['artist/comefan/(:num)/(:any)'] = 'artist/member/becomefan/$1/$2';
+$route['artist/comefan/(:num)/(:any)/(:any)'] = 'artist/member/becomefan/$1/$2/$3';
 $route['artist/membercomment'] = 'artist/member/membercomment';
 $route['artist/profile'] = 'artist/admin_profile/index';
 $route['artist/allsong/(:num)'] = 'artist/admin_profile/allsong/$1';
@@ -334,7 +347,7 @@ $route['chat/dashboard'] = 'chat/dashboard/index';
 $route['chat/search'] = 'chat/dashboard/search';
 $route['chat/addfriend'] = 'chat/dashboard/addfriend';
 $route['chat/invite_contact'] = 'chat/dashboard/invite_contact';
-$route['chat/deleteinvite'] = 'chat/dashboard/deleteinvite';
+$route['chat/deleteinvite'] = 'chat/dashboard/deleteinvite'; 
 $route['chat/load_recent_chat'] = 'chat/dashboard/load_recent_chat';
 
 $route['chat/addgroup'] = 'chat/dashboard/addgroup';
@@ -388,7 +401,7 @@ $route['map/cancel_buy'] = 'artist/map/cancel';
 $route['map/payment_paypal'] = 'artist/map/payment_paypal';
 
 $route['map/MakePayment/(:any)/(:num)']='artist/map/MakePayment/$1/$2';
-$route['amper/become_affiliate/(:any)'] =  'amper/amper/become_affiliate/$1';
+$route['amper/become_affiliate/(:any)'] =  'amper/amper/become_affiliate/$1'; 
 $route['amper/confirm_amper'] =  'amper/amper/confirm_register';
 $route['amper/register_post'] =  'amper/amper/register_post';
 $route['amper/profile'] =  'amper/amper/profile';
@@ -475,6 +488,11 @@ $route['footer/refun'] = 'home/refun';
 $route['footer/privacy-policy'] = 'home/privacy_policy';
 $route['footer/abuse-policy'] = 'home/abuse_policy';
 $route['footer/terms'] = 'home/terms';
+$route['footer/terms-general'] = 'home/terms-general';
+$route['footer/terms-epk'] = 'home/terms-epk';
+$route['footer/terms-mds'] = 'home/terms-mds';
+$route['footer/terms-ttt'] = 'home/terms-ttt';
+$route['footer/terms-amp'] = 'home/terms-amp';
 $route['footer/our_team'] = 'home/our_team';
 $route['footer/amp_form']='auth/amp_form';
 $route['amp/(:any)'] =  'amper/amper/index/$1';
@@ -545,7 +563,16 @@ $route['the_total_tour/bookashow_update']               = 'More_ttt/book_update'
 $route['the_total_tour/bookashow_delete']               = 'More_ttt/bookashow_delete';
 //$route['the_total_tour/share/(:num)/(:num)']               = 'social_ttt/shareEv/$1/$2';
 
+$route['Template/template1'] = 'Template/template1';
+$route['html_template2'] = 'Template/template2';
+
+$route['epk/email1'] = 'Template/emailepk/$1';
+$route['chat/public-channels'] = 'chat/dashboard/get_all_public_channels';
+$route['chat/tour-channels/(:any)'] = 'chat/dashboard/get_all_tours/$id';
+$route['downloadpdf/(:any)'] = 'Template/downloadpdf/$id';
 
 
+//routes for email unscubcribe
+$route['emailunsubscribe/(:any)/(:any)'] = 'Email_subscriptions/epkEmailUnsubscrition/$id/$type';
 
 

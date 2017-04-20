@@ -77,8 +77,9 @@ class Admin_profile extends CI_Controller
         $data['num_blogs'] = $this->M_blog->num_blogs_artist($user_id);
         $data['num_comments'] = $this->M_comment->num_comments_alp($user_id);
         $data['num_fands'] = $this->M_fan->num_fans($user_id);
-
+        $data['genre_id']=$id_genre;
         $data['genre'] = $this->M_genre->get_genre($id_genre);
+        $data['genres']=$this->db->order_by('TRIM(name)', 'ASC')->get('genres')->result_array();
         $data['user_data'] = $user;
         $data['songs'] = $this->M_audio_song->list_songs_alp($user_id, 5);
         $data['videos'] = $this->M_video->list_videos_alp($user_id, 1);
@@ -149,7 +150,7 @@ class Admin_profile extends CI_Controller
         }
         $user_id = $this->session->userdata('loged_in');
         $data = array();
-        $data['genres'] = $this->db->get('genres')->result_array();
+        $data['genres'] = $this->db->order_by('TRIM(name)', 'ASC')->get('genres')->result_array();
         $data['countries'] = $this->db->get('countries')->result_array();
         $data['listsong'] = $this->db->where('user_id', $user_id)->get('audio_song')->result_array();
         $data['user_data'] = $this->session->userdata('user_data');
@@ -165,7 +166,9 @@ class Admin_profile extends CI_Controller
             'facebook_username' => $this->input->post('facebook'),
             'twitter_username'  => $this->input->post('twitter'),
             'instagram_username'=> $this->input->post('instagram'),
-            'youtube_username'  => $this->input->post('youtube')
+            'youtube_username'  => $this->input->post('youtube'),
+            'google_username'  => $this->input->post('google'),
+            
         );
         $this->db->update('users', $updateArr, 'id='.$user_id);
         //reset session user data
@@ -274,6 +277,21 @@ class Admin_profile extends CI_Controller
         $this->form_validation->set_rules('record_label', 'record_label', 'max_length[100]');
 
         if ($this->form_validation->run() != false) {
+             //Code to update entry in epk table
+            $cutomise = $this->db->where('user_id', $user_id)->get('customize_epk')->row_array();
+            if(!empty($cutomise))
+            {
+              
+                $updateEpk = array(
+                    'email_artist'  => $this->input->post('artist_email')  ,
+                    'email_booking' => $this->input->post('booking_info_email'),
+                    'email_manager' => $this->input->post('management_email') ,
+                ); 
+
+                $this->db->update('customize_epk', $updateEpk, 'user_id='.$user_id);
+            }
+            
+
             $birthday = $this->input->post('birthday');
             $updateArr = array(
                 'countries' => $this->input->post('countries'),

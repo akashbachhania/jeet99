@@ -18,10 +18,11 @@ class Amp extends CI_Controller
         $data['id_affiliate'] = $id_affiliate;
         $this->load->view('artist/amp/AMP_embed.php', $data);
     }
-    public function song_embed($id_affiliate,$songId)
+    public function song_embed($id_affiliate,$songId, $albumid)
     {
         $data['id_affiliate'] = $id_affiliate;
         $data['song_id'] = $songId;
+        $data['albumid'] = $albumid;
         $this->load->view('artist/amp/song_embed.php', $data);
     }
 }

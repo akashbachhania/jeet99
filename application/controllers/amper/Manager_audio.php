@@ -61,16 +61,14 @@ class Manager_audio extends CI_Controller
     public function index()
     {
         $data['U_map'] = $this->U_map;
+      
         $data['user_data'] = $this->db->get_where('users', array('id' => $this->U_map['user_id']))->row_array();
         $data['list_artists'] = $this->db->where('affiliate_id', $data['U_map']['affiliate_id'])
+                ->where('status','1')
             ->get('affiliate_level')->result_array();
-        $Data_AMPER = $this->db->where('affiliate_id', $data['U_map']['affiliate_id'])
-            ->get('affiliates')->row();
-        if (!empty($Data_AMPER)) {
-            $data['tree_artist'] = array_unique(explode('-', $Data_AMPER->list_artist));
-        } else {
-            $data['tree_artist'] = array();
-        }
+
+        
+        
         //$data['my_playlist'] = $this->db->where('user_id', $data['U_map']['user_id'])->get('playlist_amp')->result();
 
         $config['base_url'] = base_url().'amper/manager_audios';
@@ -94,6 +92,109 @@ class Manager_audio extends CI_Controller
             $this->load->view('includes/footer', $data);
         }
     }
+    
+    
+    public function remove_song($id)
+    {
+        $user_id = $this->session->userdata('loged_in');
+        if (isset($user_id)) {
+            require FCPATH.'vendor/autoload.php';
+            require FCPATH.'vendor/aws/aws-sdk-php/src/Aws/app/start.php';
+            $data = $this->db->where('id=', $id)->get('audio_song')->row_array();
+            $path_publish = 'uploads/'.$user_id.'/audio/'.$data['filename'];
+           
+           //Delete Published Files
+            
+            $s3->deleteObject(array(
+                'Bucket' => $config['s3']['bucket'],
+                'Key' => $path_publish,
+            ));
+            
+            if(!empty($data['audio_file1'])){
+            $path_audio1 = 'uploads/'.$user_id.'/audio/'.$data['audio_file1'];
+            $s3->deleteObject(array(
+                'Bucket' => $config['s3']['bucket'],
+                'Key' => $path_audio1,
+            ));
+            }
+            if(!empty($data['audio_file2'])){
+            $path_audio2 = 'uploads/'.$user_id.'/audio/'.$data['audio_file2'];
+             $s3->deleteObject(array(
+                'Bucket' => $config['s3']['bucket'],
+                'Key' => $path_audio2,
+            ));
+            }
+            if(!empty($data['audio_file3'])){
+            $path_audio3 = 'uploads/'.$user_id.'/audio/'.$data['audio_file3'];
+             $s3->deleteObject(array(
+                'Bucket' => $config['s3']['bucket'],
+                'Key' => $path_audio3,
+            ));
+            }
+            if(!empty($data['audio_file4'])){
+            $path_audio4 = 'uploads/'.$user_id.'/audio/'.$data['audio_file4'];
+             $s3->deleteObject(array(
+                'Bucket' => $config['s3']['bucket'],
+                'Key' => $path_audio4,
+            ));
+            }
+            if(!empty($data['audio_file5'])){
+            $path_audio5 = 'uploads/'.$user_id.'/audio/'.$data['audio_file5'];
+             $s3->deleteObject(array(
+                'Bucket' => $config['s3']['bucket'],
+                'Key' => $path_audio5,
+            ));
+            }
+            if(!empty($data['audio_file6'])){
+            $path_audio6 = 'uploads/'.$user_id.'/audio/'.$data['audio_file6'];
+             $s3->deleteObject(array(
+                'Bucket' => $config['s3']['bucket'],
+                'Key' => $path_audio6,
+            ));
+            }
+
+            
+           
+            if (!empty($data['video_file1'])) {
+                $s3->deleteObject(array(
+                    'Bucket' => $config['s3']['bucket'],
+                    'Key' => 'uploads/'.$user_id.'/audio/'.$data['video_file1'],
+                ));
+            }
+             if (!empty($data['video_file2'])) {
+                $s3->deleteObject(array(
+                    'Bucket' => $config['s3']['bucket'],
+                    'Key' => 'uploads/'.$user_id.'/audio/'.$data['video_file2'],
+                ));
+            }
+            if (!empty($data['video_file3'])) {
+                $s3->deleteObject(array(
+                    'Bucket' => $config['s3']['bucket'],
+                    'Key' => 'uploads/'.$user_id.'/audio/'.$data['video_file3'],
+                ));
+            }
+            if(isset($id)){
+            $album_song = $this->db->where('id', $id)->get('album_song')->row_array();
+            
+            $updateArr = array(
+                'num_song' => $album_song['num_song'] - 1,
+            );
+            $this->db->delete('audio_song', array('id' => $id));
+            //delete data amp
+            $this->db->delete('audio_amp', array('audio_song_id' => $id));
+            
+            //delete album
+            $this->db->delete('album_song', array('id'=>$id));
+            $this->session->set_flashdata('message_msg', ' Playlist Deleted');
+            echo json_encode($updateArr);
+            }
+            else {
+                $this->session->set_flashdata('message_error', 'Can not delete playlist!');
+            }
+        } else {
+            return false;
+        }
+    }
     /**
      * Delete my playlist.
      **/
@@ -101,9 +202,15 @@ class Manager_audio extends CI_Controller
     {
         $user_id = $this->U_map['user_id'];
         $data_playlist = $this->db->where('user_id', $user_id)->where('id', $playlist_id)->get('playlist_amp')->row();
+        
         if (!empty($data_playlist)) {
             //delete songs
             $this->db->where('playlist_amp_id', $playlist_id)->delete('audio_amp');
+            if($data_playlist->album_root!=0){ 
+                $this->remove_song($data_playlist->album_root);
+            }
+            
+            
             //delete playlist image
             $upload_path = './uploads/'.$user_id.'/img_playlist/';
             unlink($upload_path.$data_playlist->image_file);

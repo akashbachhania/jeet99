@@ -76,7 +76,7 @@ class Comments extends CI_Controller
                     'time' => time(),
                 );
                 $this->db->insert('comments', $insertArr);
-                $this->session->set_flashdata('message_msg', 'comment success');
+                $this->session->set_flashdata('message_msg', 'Your comment posted successfully');
                 //add notifycation
                 if ($id_flp != $user_id) {
                     $this->M_notify->addnotify($id_flp, 'You have comment on FLP', 'flp_comment');
@@ -111,7 +111,7 @@ class Comments extends CI_Controller
                     'type' => 'FLP',
                 );
                 $this->db->insert('comments', $insertArr);
-                $this->session->set_flashdata('message_msg', 'comment success');
+                $this->session->set_flashdata('message_msg', 'Your comment posted successfully');
                 //add notifycation
                 if ($id_flp != $user_id) {
                     $this->M_notify->addnotify($id_artist, 'You have comment on FLP', 'flp_comment');

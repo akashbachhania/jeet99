@@ -19,6 +19,6 @@ $autoload['helper'] = array(
     'my_helper',
     'thumb_helper'
 );
-$autoload['config'] = array();
+$autoload['config'] = array('facebook');
 $autoload['language'] = array();
 $autoload['model'] = array('M_user','M_setting','M_notify');
